@@ -24,15 +24,15 @@ const HeroSection = () => {
         </div>
 
         {/* Main headline */}
-        <h1 className="text-5xl sm:text-6xl lg:text-7xl font-extrabold text-gradient mb-6 animate-fade-in" style={{ animationDelay: "0.1s" }}>
-          Transforme Seu WhatsApp em Uma Equipe de{" "}
-          <span className="relative inline-block">
-            Agentes de IA
-            <svg className="absolute -bottom-2 left-0 w-full" height="12" viewBox="0 0 300 12" fill="none">
+        <h1 className="text-5xl sm:text-6xl lg:text-7xl font-extrabold mb-6 animate-fade-in" style={{ animationDelay: "0.1s" }}>
+          <span className="text-gradient">Transforme Seu WhatsApp em Uma Equipe de{" "}</span>
+          <span className="relative inline-block pb-2">
+            <span className="relative z-10 text-gradient">Agentes de IA</span>
+            <svg className="absolute -bottom-2 left-0 w-full z-0" height="12" viewBox="0 0 300 12" fill="none">
               <path d="M2 10C100 3 200 3 298 10" stroke="currentColor" strokeWidth="3" strokeLinecap="round" className="text-brand-900/30" />
             </svg>
-          </span>{" "}
-          Trabalhando 24/7
+          </span>
+          <span className="text-gradient">{" "}Trabalhando 24/7</span>
         </h1>
 
         {/* Subheadline */}
@@ -45,6 +45,7 @@ const HeroSection = () => {
           <Button 
             size="lg" 
             className="group relative overflow-hidden bg-gradient-to-r from-brand-900 to-brand-700 hover:from-brand-800 hover:to-brand-600 text-white shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105"
+            onClick={() => window.open("https://app.meuagente.api.br", "_blank")}
           >
             Começar Gratuitamente
             <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />

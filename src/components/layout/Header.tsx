@@ -43,10 +43,10 @@ const Header = () => {
 
           {/* CTA buttons */}
           <div className="hidden md:flex items-center gap-4">
-            <Button variant="ghost" size="sm">
+            <Button variant="ghost" size="sm" onClick={() => window.open("https://app.meuagente.api.br", "_blank")}>
               Entrar
             </Button>
-            <Button size="sm" className="bg-gradient-to-r from-brand-900 to-brand-700 hover:from-brand-800 hover:to-brand-600 text-white">
+            <Button size="sm" className="bg-gradient-to-r from-brand-900 to-brand-700 hover:from-brand-800 hover:to-brand-600 text-white" onClick={() => window.open("https://app.meuagente.api.br", "_blank")}>
               Começar Grátis
             </Button>
           </div>
@@ -73,10 +73,10 @@ const Header = () => {
               </a>
             ))}
             <div className="px-4 pt-4 space-y-2">
-              <Button variant="outline" size="sm" className="w-full">
+              <Button variant="outline" size="sm" className="w-full" onClick={() => window.open("https://app.meuagente.api.br", "_blank")}>
                 Entrar
               </Button>
-              <Button size="sm" className="w-full bg-gradient-to-r from-brand-900 to-brand-700 text-white">
+              <Button size="sm" className="w-full bg-gradient-to-r from-brand-900 to-brand-700 text-white" onClick={() => window.open("https://app.meuagente.api.br", "_blank")}>
                 Começar Grátis
               </Button>
             </div>

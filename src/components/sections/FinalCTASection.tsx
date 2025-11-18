@@ -27,6 +27,7 @@ const FinalCTASection = () => {
           <Button 
             size="lg" 
             className="group relative overflow-hidden bg-white text-brand-900 hover:bg-white/90 shadow-2xl hover:shadow-white/20 transition-all duration-300 hover:scale-105 text-lg px-8 py-6"
+            onClick={() => window.open("https://app.meuagente.api.br", "_blank")}
           >
             Criar Conta Gratuita
             <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
