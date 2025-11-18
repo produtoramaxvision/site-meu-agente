@@ -129,7 +129,7 @@ const Planos = () => {
         {/* Hero section */}
         <section className="py-20 bg-gradient-to-br from-surface via-background to-surface">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h1 className="text-5xl sm:text-6xl font-extrabold text-gradient mb-6">
+          <h1 className="text-5xl sm:text-6xl font-extrabold text-gradient mb-6 pb-4 leading-normal">
             Planos e Preços
           </h1>
           <p className="text-xl text-text-muted max-w-2xl mx-auto">
@@ -215,11 +215,11 @@ const Planos = () => {
       {/* Pricing table */}
       <section className="py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid gap-8 lg:grid-cols-4">
+          <div className="grid gap-8 lg:grid-cols-4 items-stretch">
             {plans.map((plan, index) => (
               <Card
                 key={index}
-                className={`relative p-8 bg-background border-border/50 transition-all duration-300 ${
+                className={`relative flex flex-col h-full p-8 bg-background border-border/50 transition-all duration-300 ${
                   plan.popular
                     ? "ring-2 ring-brand-900 shadow-2xl scale-105 lg:-mt-4 lg:mb-4"
                     : "hover:border-brand-900/30 hover:shadow-xl"
@@ -258,7 +258,7 @@ const Planos = () => {
                 </ul>
 
                 <Button
-                  className={`w-full group relative overflow-hidden ${
+                  className={`mt-auto w-full group relative overflow-hidden ${
                     plan.popular
                       ? "bg-gradient-to-r from-brand-900 to-brand-700 hover:from-brand-800 hover:to-brand-600 text-white shadow-lg"
                       : ""
@@ -457,7 +457,7 @@ const Planos = () => {
       {/* FAQ Section */}
       <section className="py-16">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl font-bold text-text text-center mb-12">
+          <h2 className="text-3xl font-bold text-text text-center mb-12 pb-2 leading-normal">
             Perguntas Frequentes sobre Planos
           </h2>
           

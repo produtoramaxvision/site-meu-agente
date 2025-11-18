@@ -98,7 +98,7 @@ export const createOrganizationSchema = () => ({
   "logo": "https://meuagente.com/meuagente_logo_transparente-preto.png",
   "contactPoint": {
     "@type": "ContactPoint",
-    "telephone": "+55-11-99999-9999",
+  "telephone": "+55-11-95118-2561",
     "contactType": "customer service",
     "areaServed": "BR",
     "availableLanguage": ["pt-BR"],

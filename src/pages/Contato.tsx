@@ -58,7 +58,7 @@ const Contato = () => {
     {
       icon: Phone,
       title: "Telefone / WhatsApp",
-      details: ["(11) 99999-9999"],
+      details: ["(11) 95118-2561"],
     },
     {
       icon: Clock,
@@ -77,7 +77,7 @@ const Contato = () => {
       {/* Hero section */}
       <section className="py-20 bg-gradient-to-br from-surface via-background to-surface">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h1 className="text-5xl sm:text-6xl font-extrabold text-gradient mb-6">
+          <h1 className="text-5xl sm:text-6xl font-extrabold text-gradient mb-6 pb-4 leading-normal">
             Entre em Contato
           </h1>
           <p className="text-xl text-text-muted max-w-2xl mx-auto">
@@ -139,7 +139,7 @@ const Contato = () => {
                         id="phone"
                         type="tel"
                         {...register("phone")}
-                        placeholder="(11) 99999-9999"
+                        placeholder="(11) 95118-2561"
                         className="w-full"
                       />
                     </div>
@@ -233,7 +233,7 @@ const Contato = () => {
                   </p>
                   <Button 
                     className="w-full bg-success hover:bg-success/90 text-white"
-                    onClick={() => window.open("https://wa.me/5511999999999", "_blank")}
+                    onClick={() => window.open("https://wa.me/5511951182561", "_blank")}
                   >
                     <MessageSquare className="mr-2 h-5 w-5" />
                     Abrir WhatsApp

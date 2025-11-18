@@ -39,7 +39,7 @@ const Blog = () => {
       {/* Hero section */}
       <section className="py-20 bg-gradient-to-br from-surface via-background to-surface">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h1 className="text-5xl sm:text-6xl font-extrabold text-gradient mb-6">
+          <h1 className="text-5xl sm:text-6xl font-extrabold text-gradient mb-6 pb-4 leading-normal">
             Blog Meu Agente
           </h1>
           <p className="text-xl text-text-muted max-w-2xl mx-auto mb-8">

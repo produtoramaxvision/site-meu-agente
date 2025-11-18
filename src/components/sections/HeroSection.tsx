@@ -24,7 +24,7 @@ const HeroSection = () => {
         </div>
 
         {/* Main headline */}
-        <h1 className="text-5xl sm:text-6xl lg:text-7xl font-extrabold mb-6 animate-fade-in" style={{ animationDelay: "0.1s" }}>
+        <h1 className="text-5xl sm:text-6xl lg:text-7xl font-extrabold mb-6 pb-4 leading-normal animate-fade-in" style={{ animationDelay: "0.1s" }}>
           <span className="text-gradient">Transforme Seu WhatsApp em Uma Equipe de{" "}</span>
           <span className="relative inline-block pb-2">
             <span className="relative z-10 text-gradient">Agentes de IA</span>

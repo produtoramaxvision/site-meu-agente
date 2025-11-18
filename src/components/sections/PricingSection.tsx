@@ -90,7 +90,7 @@ const PricingSection = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section header */}
         <div className="text-center mb-16">
-          <h2 className="text-4xl sm:text-5xl font-extrabold text-gradient mb-4">
+          <h2 className="text-4xl sm:text-5xl font-extrabold text-gradient mb-4 pb-2 leading-normal">
             Planos e Preços
           </h2>
           <p className="text-xl text-text-muted max-w-2xl mx-auto">
@@ -99,11 +99,11 @@ const PricingSection = () => {
         </div>
 
         {/* Pricing cards */}
-        <div className="grid gap-8 lg:grid-cols-4">
+        <div className="grid gap-8 lg:grid-cols-4 items-stretch">
           {plans.map((plan, index) => (
             <Card
               key={index}
-              className={`relative p-8 bg-background border-border/50 transition-all duration-300 ${
+            className={`relative flex flex-col h-full p-8 bg-background border-border/50 transition-all duration-300 ${
                 plan.popular
                   ? "ring-2 ring-brand-900 shadow-2xl scale-105 lg:-mt-4 lg:mb-4"
                   : "hover:border-brand-900/30 hover:shadow-xl"
@@ -146,7 +146,7 @@ const PricingSection = () => {
 
               {/* CTA */}
               <Button
-                className={`w-full group relative overflow-hidden ${
+                className={`mt-auto w-full group relative overflow-hidden ${
                   plan.popular
                     ? "bg-gradient-to-r from-brand-900 to-brand-700 hover:from-brand-800 hover:to-brand-600 text-white shadow-lg"
                     : ""

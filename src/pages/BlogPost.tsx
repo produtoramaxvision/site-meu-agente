@@ -119,7 +119,7 @@ const BlogPost = () => {
               )}
             </div>
             
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-gradient mb-6 leading-tight">
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-gradient mb-6 pb-4 leading-normal">
               {post.title}
             </h1>
 
@@ -271,7 +271,6 @@ const BlogPost = () => {
         </div>
       </section>
 
-      {/* Related posts */}
       {relatedPosts.length > 0 && (
         <section className="py-16 bg-surface/30">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -311,10 +310,11 @@ const BlogPost = () => {
         </section>
       )}
 
+      {/* Related posts */}
       {/* Final CTA */}
       <section className="py-16 bg-gradient-to-br from-brand-900 to-brand-700">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-4xl font-bold text-white mb-4">
+          <h2 className="text-4xl font-bold text-white mb-4 pb-2 leading-normal">
             Pronto para Implementar Agentes de IA?
           </h2>
           <p className="text-lg text-white/90 mb-8">

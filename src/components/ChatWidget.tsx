@@ -7,7 +7,7 @@ const ChatWidget = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   const handleWhatsAppClick = () => {
-    window.open("https://wa.me/5511999999999?text=Olá! Gostaria de saber mais sobre o Meu Agente.", "_blank");
+    window.open("https://wa.me/5511951182561?text=Olá! Gostaria de saber mais sobre o Meu Agente.", "_blank");
     setIsOpen(false);
   };
 

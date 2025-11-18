@@ -12,8 +12,8 @@ const FinalCTASection = () => {
       <div className="absolute bottom-10 left-10 w-80 h-80 bg-white/5 rounded-full blur-3xl animate-float" style={{ animationDelay: "1s" }}></div>
 
       <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-        {/* Main headline */}
-        <h2 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-white mb-6">
+      {/* Main headline */}
+      <h2 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-white mb-6 pb-2 leading-normal">
           Pronto para Revolucionar Sua Operação?
         </h2>
 

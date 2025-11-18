@@ -77,9 +77,9 @@ const Footer = () => {
                 <Mail className="w-4 h-4" />
                 contato@meuagente.com
               </a>
-              <a href="tel:+5511999999999" className="flex items-center gap-2 text-sm text-text-muted hover:text-text transition-colors">
+              <a href="tel:+5511951182561" className="flex items-center gap-2 text-sm text-text-muted hover:text-text transition-colors">
                 <Phone className="w-4 h-4" />
-                (11) 99999-9999
+                (11) 95118-2561
               </a>
             </div>
 

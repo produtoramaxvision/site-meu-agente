@@ -115,7 +115,7 @@ O fluxo completo do SDR inclui: recepção do lead → qualificação (fit alto/
 
 Com o SDR, sua equipe de vendas foca apenas em fechar negócios, enquanto o agente cuida de toda a qualificação e agendamento inicial.`,
       examples: [
-        '"Qualifique este lead: Ana, 11 99999-9999, interessada em demo — me diga o fit e o próximo passo."',
+        '"Qualifique este lead: Ana, 11 95118-2561, interessada em demo — me diga o fit e o próximo passo."',
         '"Ofereça dois horários (qui 10:30 ou sex 14:00) e, se ela aceitar, marque a reunião e envie confirmação."',
         '"Com base na conversa, monte um orçamento enxuto e me envie para revisão."'
       ],
@@ -318,7 +318,7 @@ No plano Premium, você tem cota maior de minutos de geração, permitindo escal
           <Badge variant="outline" className="mb-4 px-4 py-1">
             Como Funciona
           </Badge>
-          <h1 className="text-5xl sm:text-6xl font-extrabold text-gradient mb-6">
+          <h1 className="text-5xl sm:text-6xl font-extrabold text-gradient mb-6 pb-4 leading-normal">
             Conheça Seus Agentes de IA
           </h1>
           <p className="text-xl text-text-muted max-w-3xl mx-auto">
@@ -407,7 +407,7 @@ No plano Premium, você tem cota maior de minutos de geração, permitindo escal
       <section className="py-16 bg-surface/30">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h2 className="text-4xl font-bold text-gradient mb-4">
+          <h2 className="text-4xl font-bold text-gradient mb-4 pb-2 leading-normal">
               Fluxo Completo do Agente SDR
             </h2>
             <p className="text-lg text-text-muted max-w-2xl mx-auto">
@@ -445,7 +445,7 @@ No plano Premium, você tem cota maior de minutos de geração, permitindo escal
       <section className="py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h2 className="text-4xl font-bold text-gradient mb-4">
+            <h2 className="text-4xl font-bold text-gradient mb-4 pb-2 leading-normal">
               Recursos Completos do App Web
             </h2>
             <p className="text-lg text-text-muted max-w-2xl mx-auto">
@@ -476,7 +476,7 @@ No plano Premium, você tem cota maior de minutos de geração, permitindo escal
       {/* Final CTA */}
       <section className="py-16 bg-gradient-to-br from-brand-900 to-brand-700">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-4xl font-bold text-white mb-6">
+          <h2 className="text-4xl font-bold text-white mb-6 pb-2 leading-normal">
             Pronto para Começar?
           </h2>
           <p className="text-xl text-white/90 mb-8">

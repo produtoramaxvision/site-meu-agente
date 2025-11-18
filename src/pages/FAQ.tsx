@@ -148,8 +148,8 @@ const FAQ = () => {
       <div className="min-h-screen bg-background">
         {/* Hero section */}
       <section className="py-20 bg-gradient-to-br from-surface via-background to-surface">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h1 className="text-5xl sm:text-6xl font-extrabold text-gradient mb-6">
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <h1 className="text-5xl sm:text-6xl font-extrabold text-gradient mb-6 pb-4 leading-normal">
             Perguntas Frequentes
           </h1>
           <p className="text-xl text-text-muted max-w-2xl mx-auto">

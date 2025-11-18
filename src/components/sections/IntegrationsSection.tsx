@@ -43,7 +43,7 @@ const IntegrationsSection = () => {
             <Zap className="w-3 h-3 mr-1 inline" />
             Business/Premium
           </Badge>
-          <h2 className="text-4xl sm:text-5xl font-extrabold text-gradient mb-4">
+          <h2 className="text-4xl sm:text-5xl font-extrabold text-gradient mb-4 pb-2 leading-normal">
             Integrações Poderosas
           </h2>
           <p className="text-xl text-text-muted max-w-2xl mx-auto">
