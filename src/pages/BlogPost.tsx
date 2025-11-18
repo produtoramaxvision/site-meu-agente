@@ -82,13 +82,13 @@ const BlogPost = () => {
         ogType="article"
         canonicalUrl={`/blog/${post.slug}`}
         structuredData={createArticleSchema({
-          title: post.title,
-          description: post.description,
-          author: post.author,
-          datePublished: post.date,
-          dateModified: post.date,
-          image: `https://meuagente.com${post.coverImage}`,
-          url: `https://meuagente.com/blog/${post.slug}`,
+        title: post.title,
+        description: post.description,
+        author: post.author,
+        datePublished: post.date,
+        dateModified: post.date,
+        image: `https://site.meuagente.api.br${post.coverImage}`,
+        url: `https://site.meuagente.api.br/blog/${post.slug}`,
         })}
       />
       <div className="min-h-screen bg-background">

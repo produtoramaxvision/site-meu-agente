@@ -46,18 +46,18 @@ export default defineConfig(({ mode }) => {
     serverConfig.allowedHosts = [
       "localhost",
       "127.0.0.1",
-      "meuagente.api.br",
+      "site.meuagente.api.br",
     ];
   }
 
   // Configuração específica para produção
   if (isProduction) {
     serverConfig.hmr = {
-      host: "meuagente.api.br",
+      host: "site.meuagente.api.br",
       port: 8080,
     };
 
-    serverConfig.allowedHosts = ["meuagente.api.br"];
+    serverConfig.allowedHosts = ["site.meuagente.api.br"];
   }
 
   return {

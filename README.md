@@ -231,7 +231,7 @@ Crie um arquivo `.env` na raiz do projeto:
 VITE_GTM_ID=GTM-XXXXXXX
 
 # Site URL (para SEO e Open Graph)
-VITE_SITE_URL=https://meuagente.com
+VITE_SITE_URL=https://site.meuagente.api.br
 ```
 
 ## ♿ Acessibilidade
@@ -270,5 +270,5 @@ O site implementa boas práticas de acessibilidade:
 ## 🤝 Suporte
 
 Para dúvidas ou suporte:
-- Email: contato@meuagente.com
+- Email: contato@meuagente.api.br
 - WhatsApp: (11) 99999-9999

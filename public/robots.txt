@@ -1,6 +1,6 @@
 User-agent: *
 Allow: /
-Sitemap: https://meuagente.com/sitemap.xml
+Sitemap: https://site.meuagente.api.br/sitemap.xml
 
 User-agent: Googlebot
 Allow: /

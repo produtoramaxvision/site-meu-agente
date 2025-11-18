@@ -19,7 +19,7 @@ const SEO = ({
   canonicalUrl = "",
   structuredData,
 }: SEOProps) => {
-  const siteUrl = "https://meuagente.com";
+  const siteUrl = "https://site.meuagente.api.br";
   const fullCanonicalUrl = canonicalUrl ? `${siteUrl}${canonicalUrl}` : siteUrl;
   const fullOgImage = ogImage.startsWith('http') ? ogImage : `${siteUrl}${ogImage}`;
 

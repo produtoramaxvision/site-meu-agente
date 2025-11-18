@@ -1,80 +1,80 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://meuagente.com/</loc>
+    <loc>https://site.meuagente.api.br/</loc>
     <lastmod>2025-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://meuagente.com/planos</loc>
+    <loc>https://site.meuagente.api.br/planos</loc>
     <lastmod>2025-01-16</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://meuagente.com/como-funciona</loc>
+    <loc>https://site.meuagente.api.br/como-funciona</loc>
     <lastmod>2025-01-16</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://meuagente.com/blog</loc>
+    <loc>https://site.meuagente.api.br/blog</loc>
     <lastmod>2025-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://meuagente.com/faq</loc>
+    <loc>https://site.meuagente.api.br/faq</loc>
     <lastmod>2025-01-16</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://meuagente.com/contato</loc>
+    <loc>https://site.meuagente.api.br/contato</loc>
     <lastmod>2025-01-16</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <!-- Blog posts -->
   <url>
-    <loc>https://meuagente.com/blog/agentes-ia-economizar-tempo</loc>
+    <loc>https://site.meuagente.api.br/blog/agentes-ia-economizar-tempo</loc>
     <lastmod>2025-01-16</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://meuagente.com/blog/automatize-atendimento-ia-5-passos</loc>
+    <loc>https://site.meuagente.api.br/blog/automatize-atendimento-ia-5-passos</loc>
     <lastmod>2025-01-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://meuagente.com/blog/sdr-virtual-qualificar-leads</loc>
+    <loc>https://site.meuagente.api.br/blog/sdr-virtual-qualificar-leads</loc>
     <lastmod>2025-01-14</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://meuagente.com/blog/gestao-financeira-whatsapp</loc>
+    <loc>https://site.meuagente.api.br/blog/gestao-financeira-whatsapp</loc>
     <lastmod>2025-01-13</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://meuagente.com/blog/dobrar-conversoes-agentes-ia</loc>
+    <loc>https://site.meuagente.api.br/blog/dobrar-conversoes-agentes-ia</loc>
     <lastmod>2025-01-12</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://meuagente.com/blog/whatsapp-business-guia-completo</loc>
+    <loc>https://site.meuagente.api.br/blog/whatsapp-business-guia-completo</loc>
     <lastmod>2025-01-11</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://meuagente.com/blog/google-ads-automacao-ia</loc>
+    <loc>https://site.meuagente.api.br/blog/google-ads-automacao-ia</loc>
     <lastmod>2025-01-10</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>

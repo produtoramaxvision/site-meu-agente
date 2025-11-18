@@ -53,7 +53,7 @@ const Contato = () => {
     {
       icon: Mail,
       title: "Email",
-      details: ["contato@meuagente.com", "suporte@meuagente.com"],
+      details: ["contato@meuagente.api.br", "suporte@meuagente.api.br"],
     },
     {
       icon: Phone,
