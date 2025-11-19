@@ -9,6 +9,7 @@ import Footer from "./components/layout/Footer";
 import ChatWidget from "./components/ChatWidget";
 import GTM from "./components/GTM";
 import Index from "./pages/Index";
+import TrabalheConosco from "./pages/TrabalheConosco";
 import TermosDeUso from "./pages/TermosDeUso";
 import PoliticaDePrivacidade from "./pages/PoliticaDePrivacidade";
 import Planos from "./pages/Planos";
@@ -45,6 +46,7 @@ const App = () => (
               <Route path="/blog/:slug" element={<BlogPost />} />
               <Route path="/guia-do-usuario" element={<GuiaDoUsuario />} />
               <Route path="/faq" element={<FAQ />} />
+              <Route path="/trabalhe-conosco" element={<TrabalheConosco />} />
               <Route path="/contato" element={<Contato />} />
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
               <Route path="*" element={<NotFound />} />
