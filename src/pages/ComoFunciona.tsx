@@ -2,26 +2,24 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { 
-  DollarSign, 
-  Search, 
-  Database, 
-  UserCheck, 
-  TrendingUp, 
-  Calendar, 
-  Code, 
+import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
+import {
+  DollarSign,
+  Search,
+  Database,
+  UserCheck,
+  TrendingUp,
+  Calendar,
+  Code,
   Video,
   CheckCircle,
-  FileText,
-  Repeat,
-  PhoneCall,
   ArrowRight,
   Zap,
   BarChart,
   Target,
   ListChecks,
   Bell,
-  Settings
+  Settings,
 } from "lucide-react";
 
 const ComoFunciona = () => {
@@ -258,246 +256,635 @@ No plano Premium, você tem cota maior de minutos de geração, permitindo escal
     },
   ];
 
+  const overviewSteps = [
+    {
+      step: "1",
+      title: "Seu cliente fala com você no WhatsApp",
+      description:
+        "Ele envia mensagens normalmente, como já está acostumado — sem baixar app, sem login, sem fricção.",
+    },
+    {
+      step: "2",
+      title: "Os Agentes de IA entendem, classificam e executam",
+      description:
+        "Cada agente é especialista em uma parte do seu negócio: financeiro, SDR, marketing, agenda, dev e muito mais.",
+    },
+    {
+      step: "3",
+      title: "Você acompanha tudo em um app web completo",
+      description:
+        "Dashboards, relatórios, agenda e tarefas em um painel moderno para você ter visão de dono em tempo real.",
+    },
+  ];
+
   const sdrFlow = [
-    { step: "1", title: "Lead chega no WhatsApp", description: "Contato inicial via campanha, indicação ou busca orgânica" },
-    { step: "2", title: "Coleta rápida de informações", description: "Nome, telefone, empresa, interesse, urgência, orçamento" },
-    { step: "3", title: "Qualificação automática", description: "Fit (alto/médio/baixo) e definição da próxima ação" },
-    { step: "4", title: "Oferta de reunião ou orçamento", description: "Apresenta 2 opções de horário ou prepara orçamento resumido" },
-    { step: "5", title: "Agendamento automático", description: "Cria evento no Google Calendar e envia link de acesso" },
-    { step: "6", title: "Confirmação e lembrete", description: "Envia confirmação via WhatsApp e email, com lembrete 1h antes" },
+    {
+      step: "1",
+      title: "Lead chega no WhatsApp",
+      description: "Contato inicial via campanha, indicação ou busca orgânica.",
+    },
+    {
+      step: "2",
+      title: "Coleta rápida de informações",
+      description: "Nome, telefone, empresa, interesse, urgência, orçamento.",
+    },
+    {
+      step: "3",
+      title: "Qualificação automática",
+      description: "Fit (alto/médio/baixo) e definição da próxima ação.",
+    },
+    {
+      step: "4",
+      title: "Oferta de reunião ou orçamento",
+      description: "Apresenta 2 opções de horário ou prepara orçamento resumido.",
+    },
+    {
+      step: "5",
+      title: "Agendamento automático",
+      description: "Cria evento no Google Calendar e envia link de acesso.",
+    },
+    {
+      step: "6",
+      title: "Confirmação e lembrete",
+      description: "Envia confirmação via WhatsApp e email, com lembrete 1h antes.",
+    },
   ];
 
   const appFeatures = [
     {
       icon: BarChart,
-      name: "Dashboard",
-      description: "Visão consolidada de receitas, despesas, saldo e gráficos de evolução diária por categoria.",
+      name: "Dashboard em tempo real",
+      description:
+        "Visão consolidada de receitas, despesas, saldo e gráficos de evolução diária por categoria.",
     },
     {
       icon: DollarSign,
-      name: "Gestão de Contas",
-      description: "12 categorias inteligentes, validação de duplicatas e marcação de pagamentos.",
+      name: "Gestão financeira inteligente",
+      description: "Categorias inteligentes, validação de duplicatas e acompanhamento de caixa.",
     },
     {
       icon: Target,
-      name: "Metas Financeiras",
-      description: "Crie metas de economia, compra, viagem ou educação com acompanhamento visual de progresso.",
+      name: "Metas e previsões",
+      description:
+        "Crie metas de economia, compra ou crescimento com acompanhamento visual de progresso.",
     },
     {
       icon: Calendar,
-      name: "Agenda Completa",
-      description: "6 visualizações (dia, semana, mês, lista, timeline, ano) com drag-and-drop de eventos.",
+      name: "Agenda completa",
+      description:
+        "Calendário integrado com Google Calendar para organizar reuniões, compromissos e lembretes.",
     },
     {
       icon: ListChecks,
-      name: "Tarefas",
-      description: "Organize tarefas com prioridades, prazos e drag-and-drop para reordenação.",
-    },
-    {
-      icon: FileText,
-      name: "Relatórios Avançados",
-      description: "Filtros por período/categoria/tipo, gráficos interativos e exportação em múltiplos formatos.",
+      name: "Tarefas e rotinas",
+      description: "Organize tarefas recorrentes, priorize o que importa e delegue para os agentes.",
     },
     {
       icon: Bell,
-      name: "Notificações Inteligentes",
-      description: "Alertas de contas vencendo, metas próximas, saldo baixo e eventos importantes.",
+      name: "Alertas inteligentes",
+      description:
+        "Notificações de contas vencendo, metas próximas, saldo baixo e oportunidades de otimização.",
     },
     {
       icon: Settings,
-      name: "Configurações",
-      description: "Dados pessoais, segurança, tema claro/escuro, notificações e backups.",
+      name: "Configurações avançadas",
+      description:
+        "Personalize integrações, segurança, times e fluxos de atendimento em poucos cliques.",
+    },
+    {
+      icon: Zap,
+      name: "Orquestração de agentes",
+      description: "Controle quais agentes atuam em cada jornada e quais regras eles devem seguir.",
     },
   ];
 
   return (
     <div className="min-h-screen bg-background">
-      {/* Hero section */}
-      <section className="py-20 bg-gradient-to-br from-surface via-background to-surface">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <Badge variant="outline" className="mb-4 px-4 py-1">
-            Como Funciona
-          </Badge>
-          <h1 className="text-5xl sm:text-6xl font-extrabold text-gradient mb-6 pb-4 leading-normal">
-            Conheça Seus Agentes de IA
-          </h1>
-          <p className="text-xl text-text-muted max-w-3xl mx-auto">
-            Cada agente é especializado em uma área específica do seu negócio. Explore abaixo os detalhes, exemplos de uso e casos reais por setor.
-          </p>
+      {/* HERO */}
+      <section className="relative overflow-hidden border-b bg-gradient-to-b from-brand-950 via-background to-background">
+        <div className="pointer-events-none absolute inset-0 opacity-40">
+          <div className="bg-[radial-gradient(circle_at_top,_rgba(56,189,248,0.25)_0,_transparent_55%),_radial-gradient(circle_at_bottom,_rgba(244,244,245,0.1)_0,_transparent_55%)] h-full w-full" />
         </div>
-      </section>
 
-      {/* Agents detailed sections */}
-      <section className="py-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-24">
-          {agents.map((agent, index) => (
-            <div key={agent.id} className="animate-fade-in" style={{ animationDelay: `${index * 0.1}s` }}>
-              <Card className={`overflow-hidden bg-gradient-to-br ${agent.color} border-border/50`}>
-                <CardHeader>
-                  <div className="flex items-start justify-between mb-4">
-                    <div className="flex items-center gap-4">
-                      <div className={`w-16 h-16 rounded-2xl bg-background/50 backdrop-blur-sm flex items-center justify-center`}>
-                        <agent.icon className={`w-8 h-8 ${agent.iconColor}`} />
+        <div className="relative z-10 mx-auto flex max-w-7xl flex-col gap-12 px-4 pb-20 pt-24 sm:px-6 lg:flex-row lg:items-center lg:px-8 lg:pb-28 lg:pt-28">
+          <div className="max-w-xl space-y-6">
+            <Badge variant="outline" className="border-brand-500/40 bg-background/80 px-4 py-1 text-xs font-medium uppercase tracking-wide text-brand-500">
+              Como Funciona na Prática
+            </Badge>
+
+            <h1 className="text-balance text-4xl font-semibold tracking-tight text-gradient sm:text-5xl lg:text-6xl">
+              Do WhatsApp ao resultado,
+              <span className="block">em uma orquestra de Agentes de IA.</span>
+            </h1>
+
+            <p className="text-lg text-text-muted sm:text-xl">
+              O Meu Agente conecta conversas do WhatsApp com agentes especializados e um app web poderoso.
+              Em poucos minutos, você tem uma equipe completa de IA trabalhando 24/7 para o seu negócio.
+            </p>
+
+            <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
+              <Button
+                size="lg"
+                className="w-full sm:w-auto"
+                onClick={() => (window.location.href = "/planos")}
+              >
+                Ver planos e começar hoje
+                <ArrowRight className="ml-2 h-5 w-5" />
+              </Button>
+              <Button
+                size="lg"
+                variant="outline"
+                className="w-full border-border/60 bg-background/70 backdrop-blur sm:w-auto"
+                onClick={() => window.open("https://app.meuagente.api.br", "_blank")}
+              >
+                Assistir demo em 3 minutos
+              </Button>
+            </div>
+
+            <div className="grid gap-4 pt-4 text-sm text-text-muted sm:grid-cols-3">
+              <div className="rounded-xl border border-border/60 bg-background/60 p-4">
+                <p className="text-xs uppercase tracking-wide text-text-muted/80">Tempo médio de ativação</p>
+                <p className="mt-2 text-2xl font-semibold text-text">menos de 1 dia</p>
+              </div>
+              <div className="rounded-xl border border-border/60 bg-background/60 p-4">
+                <p className="text-xs uppercase tracking-wide text-text-muted/80">Canais</p>
+                <p className="mt-2 text-2xl font-semibold text-text">WhatsApp + Web</p>
+              </div>
+              <div className="rounded-xl border border-border/60 bg-background/60 p-4">
+                <p className="text-xs uppercase tracking-wide text-text-muted/80">Equipe de IA</p>
+                <p className="mt-2 text-2xl font-semibold text-text">8+ agentes prontos</p>
+              </div>
+            </div>
+          </div>
+
+          <div className="relative w-full max-w-xl self-stretch lg:self-auto">
+            <div className="pointer-events-none absolute inset-0 rounded-[2.5rem] border border-brand-500/20 bg-gradient-to-br from-brand-500/10 via-transparent to-brand-900/30 shadow-[0_0_60px_rgba(15,23,42,0.8)]" />
+            <Card className="relative h-full min-h-[320px] overflow-hidden rounded-[2.25rem] border-border/60 bg-background/80 shadow-2xl backdrop-blur">
+              <CardHeader className="border-b border-border/40 pb-4">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <CardTitle className="text-base font-semibold text-text">
+                      Jornada em tempo real
+                    </CardTitle>
+                    <CardDescription className="text-xs text-text-muted">
+                      Como os agentes atuam na conversa do seu cliente.
+                    </CardDescription>
+                  </div>
+                  <div className="flex gap-1.5">
+                    <span className="h-2.5 w-2.5 rounded-full bg-emerald-500" />
+                    <span className="h-2.5 w-2.5 rounded-full bg-amber-400" />
+                    <span className="h-2.5 w-2.5 rounded-full bg-rose-500" />
+                  </div>
+                </div>
+              </CardHeader>
+              <CardContent className="space-y-4 pt-4">
+                <div className="space-y-3 text-sm">
+                  {overviewSteps.map((item) => (
+                    <div key={item.step} className="flex gap-3 rounded-xl border border-border/50 bg-surface/60 p-3">
+                      <div className="flex h-8 w-8 items-center justify-center rounded-full bg-brand-500/10 text-xs font-semibold text-brand-500">
+                        {item.step}
                       </div>
                       <div>
-                        <CardTitle className="text-3xl mb-2">{agent.name}</CardTitle>
-                        <Badge variant="secondary" className="text-xs">
-                          {agent.tierBadge}
-                        </Badge>
+                        <p className="text-sm font-medium text-text">{item.title}</p>
+                        <p className="text-xs text-text-muted">{item.description}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+
+                <div className="mt-2 flex flex-wrap items-center gap-3 border-t border-border/40 pt-4 text-xs text-text-muted">
+                  <div className="inline-flex items-center gap-2 rounded-full bg-surface/60 px-3 py-1">
+                    <CheckCircle className="h-3.5 w-3.5 text-emerald-500" />
+                    <span>Sem código, sem complexidade técnica</span>
+                  </div>
+                  <div className="inline-flex items-center gap-2 rounded-full bg-surface/60 px-3 py-1">
+                    <Zap className="h-3.5 w-3.5 text-amber-400" />
+                    <span>Ativo 24/7 em todos os planos</span>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+      </section>
+
+      {/* VISÃO EM CAMADAS */}
+      <section className="border-b bg-surface/40 py-16 sm:py-20">
+        <div className="mx-auto flex max-w-7xl flex-col gap-12 px-4 sm:px-6 lg:flex-row lg:px-8">
+          <div className="max-w-xl space-y-4">
+            <h2 className="text-balance text-3xl font-semibold tracking-tight text-text sm:text-4xl">
+              Uma arquitetura pensada para escalar junto com seu time.
+            </h2>
+            <p className="text-base text-text-muted sm:text-lg">
+              O Meu Agente conecta seus canais, orquestra os agentes de IA e ainda oferece um app web
+              completo para gestão. Tudo isso com segurança, alta disponibilidade e foco em resultado.
+            </p>
+            <ul className="mt-4 space-y-3 text-sm text-text-muted">
+              <li className="flex gap-2">
+                <CheckCircle className="mt-0.5 h-4 w-4 flex-shrink-0 text-emerald-500" />
+                <span>Integração nativa com WhatsApp Business.</span>
+              </li>
+              <li className="flex gap-2">
+                <CheckCircle className="mt-0.5 h-4 w-4 flex-shrink-0 text-emerald-500" />
+                <span>Agentes especialistas para cada área do seu negócio.</span>
+              </li>
+              <li className="flex gap-2">
+                <CheckCircle className="mt-0.5 h-4 w-4 flex-shrink-0 text-emerald-500" />
+                <span>App web para gestão, relatórios e visão estratégica.</span>
+              </li>
+            </ul>
+          </div>
+
+          <div className="grid flex-1 gap-4 sm:grid-cols-2">
+            <Card className="relative overflow-hidden border-border/70 bg-gradient-to-br from-brand-500/10 via-background to-surface">
+              <CardHeader className="pb-3">
+                <Badge variant="secondary" className="mb-2 rounded-full bg-emerald-500/10 text-xs font-semibold text-emerald-500">
+                  Camada 1
+                </Badge>
+                <CardTitle className="text-lg">Conversas no WhatsApp</CardTitle>
+                <CardDescription className="text-xs text-text-muted">
+                  Clientes falando com sua marca no canal que eles já usam todos os dias.
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-2 text-xs text-text-muted">
+                <p>Entrada única para suporte, vendas, financeiro, agendamentos e muito mais.</p>
+                <p>Sem mudança de comportamento para o seu cliente final.</p>
+              </CardContent>
+            </Card>
+
+            <Card className="relative overflow-hidden border-border/70 bg-gradient-to-br from-amber-500/10 via-background to-surface">
+              <CardHeader className="pb-3">
+                <Badge variant="secondary" className="mb-2 rounded-full bg-amber-500/10 text-xs font-semibold text-amber-400">
+                  Camada 2
+                </Badge>
+                <CardTitle className="text-lg">Agentes de IA especializados</CardTitle>
+                <CardDescription className="text-xs text-text-muted">
+                  Cada agente cuida de uma parte específica da operação, sem você precisar gerenciar tudo.
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-2 text-xs text-text-muted">
+                <p>Financeiro, SDR, marketing, agenda, dev, vídeo e agentes premium.</p>
+                <p>Orquestrados por regras inteligentes para garantir consistência e escala.</p>
+              </CardContent>
+            </Card>
+
+            <Card className="relative overflow-hidden border-border/70 bg-gradient-to-br from-sky-500/10 via-background to-surface sm:col-span-2">
+              <CardHeader className="pb-3">
+                <Badge variant="secondary" className="mb-2 rounded-full bg-sky-500/10 text-xs font-semibold text-sky-400">
+                  Camada 3
+                </Badge>
+                <CardTitle className="text-lg">App web e visão de dono</CardTitle>
+                <CardDescription className="text-xs text-text-muted">
+                  Um painel completo para você acompanhar tudo o que os agentes estão fazendo.
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="grid gap-4 text-xs text-text-muted md:grid-cols-3">
+                <div>
+                  <p className="font-medium text-text">Indicadores</p>
+                  <p className="mt-1 text-text-muted">MRR, funil, taxa de resposta, agendamentos e muito mais.</p>
+                </div>
+                <div>
+                  <p className="font-medium text-text">Operação</p>
+                  <p className="mt-1 text-text-muted">Contas, tarefas, agenda, campanhas e fluxos ativos.</p>
+                </div>
+                <div>
+                  <p className="font-medium text-text">Configuração</p>
+                  <p className="mt-1 text-text-muted">
+                    Times, permissões, regras dos agentes e integrações em um só lugar.
+                  </p>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+      </section>
+
+      {/* AGENTES EM TABS */}
+      <section className="border-b bg-background py-16 sm:py-20">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="mb-10 flex flex-col gap-4 sm:items-center sm:text-center">
+            <Badge variant="outline" className="border-border/70 bg-surface/60 px-3 py-1 text-xs font-medium uppercase tracking-wide">
+              Orquestração de Agentes
+            </Badge>
+            <h2 className="text-balance text-3xl font-semibold tracking-tight text-text sm:text-4xl">
+              Todos os agentes que compõem a sua equipe de IA.
+            </h2>
+            <p className="max-w-3xl text-sm text-text-muted sm:text-base">
+              Em vez de um chatbot genérico, você terá agentes especialistas conversando com seus clientes,
+              monitorando campanhas, cuidando do caixa e organizando sua agenda automaticamente.
+            </p>
+          </div>
+
+          <Tabs defaultValue="financeiro" className="space-y-8">
+            <ScrollArea className="-mx-4 w-[calc(100%+2rem)] sm:mx-0 sm:w-full">
+              <TabsList className="mx-4 inline-flex h-auto flex-nowrap gap-2 rounded-full bg-surface/80 p-1 sm:mx-0 sm:flex-wrap">
+                {agents.map((agent) => (
+                  <TabsTrigger
+                    key={agent.id}
+                    value={agent.id}
+                    className="data-[state=active]:bg-background data-[state=active]:text-text flex items-center gap-2 rounded-full px-4 py-2 text-xs sm:text-sm"
+                  >
+                    <agent.icon className={`h-4 w-4 ${agent.iconColor}`} />
+                    <span>{agent.name}</span>
+                    <Badge
+                      variant="secondary"
+                      className="ml-1 hidden rounded-full px-2 py-0.5 text-[10px] uppercase tracking-wide sm:inline-flex"
+                    >
+                      {agent.tierBadge}
+                    </Badge>
+                  </TabsTrigger>
+                ))}
+              </TabsList>
+              <ScrollBar orientation="horizontal" />
+            </ScrollArea>
+
+            {agents.map((agent) => (
+              <TabsContent key={agent.id} value={agent.id} className="mt-0">
+                <Card className={`overflow-hidden border-border/70 bg-gradient-to-br ${agent.color}`}>
+                  <div className="grid gap-8 p-6 md:grid-cols-[minmax(0,1.3fr)_minmax(0,1fr)] md:p-8">
+                    <div className="space-y-6">
+                      <div className="flex items-start gap-4">
+                        <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-background/80 backdrop-blur">
+                          <agent.icon className={`h-7 w-7 ${agent.iconColor}`} />
+                        </div>
+                        <div>
+                          <div className="flex flex-wrap items-center gap-2">
+                            <CardTitle className="text-2xl">{agent.name}</CardTitle>
+                            <Badge variant="secondary" className="text-[10px] uppercase tracking-wide">
+                              {agent.tierBadge}
+                            </Badge>
+                          </div>
+                          <CardDescription className="mt-1 text-xs text-text-muted">
+                            {agent.tier}
+                          </CardDescription>
+                        </div>
+                      </div>
+
+                      <div className="space-y-3 text-sm text-text-muted">
+                        {agent.description.split("\n\n").map((paragraph, idx) => (
+                          <p key={idx} className="leading-relaxed">
+                            {paragraph}
+                          </p>
+                        ))}
+                      </div>
+
+                      <div className="flex flex-wrap gap-3 pt-2 text-xs text-text-muted">
+                        <div className="inline-flex items-center gap-1 rounded-full bg-background/70 px-3 py-1">
+                          <CheckCircle className="h-3.5 w-3.5 text-emerald-500" />
+                          <span>Operando 24/7 junto com o seu time.</span>
+                        </div>
+                        <div className="inline-flex items-center gap-1 rounded-full bg-background/70 px-3 py-1">
+                          <Zap className="h-3.5 w-3.5 text-amber-400" />
+                          <span>Configurável por regras, sem código.</span>
+                        </div>
+                      </div>
+
+                      <div className="pt-3">
+                        <Button
+                          size="sm"
+                          className="rounded-full"
+                          onClick={() => window.open("https://app.meuagente.api.br", "_blank")}
+                        >
+                          {agent.tierBadge === "FREE"
+                            ? "Testar este agente agora"
+                            : `Liberar no meu plano ${agent.tierBadge === "BUSINESS" ? "Business" : "Premium"}`}
+                          <ArrowRight className="ml-2 h-4 w-4" />
+                        </Button>
+                      </div>
+                    </div>
+
+                    <div className="space-y-6 rounded-3xl border border-border/60 bg-background/80 p-4 text-xs text-text-muted backdrop-blur">
+                      <div>
+                        <p className="mb-3 text-[11px] font-semibold uppercase tracking-wide text-text-muted/80">
+                          Exemplos de prompts reais
+                        </p>
+                        <div className="space-y-2">
+                          {agent.examples.map((example, idx) => (
+                            <div key={idx} className="rounded-xl border border-border/40 bg-surface/70 p-3">
+                              <p className="font-mono text-[11px] leading-relaxed">{example}</p>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+
+                      <div className="border-t border-border/60 pt-4">
+                        <p className="mb-3 text-[11px] font-semibold uppercase tracking-wide text-text-muted/80">
+                          Casos de uso em diferentes setores
+                        </p>
+                        <div className="grid gap-3 sm:grid-cols-2">
+                          {agent.useCases.map((useCase, idx) => (
+                            <div key={idx} className="rounded-xl border border-border/40 bg-surface/60 p-3">
+                              <p className="mb-1 text-[11px] font-semibold uppercase tracking-wide text-text">
+                                {useCase.sector}
+                              </p>
+                              <p className="text-[11px] leading-relaxed text-text-muted">{useCase.use}</p>
+                            </div>
+                          ))}
+                        </div>
                       </div>
                     </div>
                   </div>
-                  <CardDescription className="text-base text-text-muted">
-                    {agent.tier}
-                  </CardDescription>
-                </CardHeader>
+                </Card>
+              </TabsContent>
+            ))}
+          </Tabs>
+        </div>
+      </section>
 
-                <CardContent className="space-y-8">
-                  {/* Description */}
-                  <div className="prose prose-sm max-w-none">
-                    {agent.description.split('\n\n').map((paragraph, idx) => (
-                      <p key={idx} className="text-text-muted leading-relaxed mb-4">
-                        {paragraph}
-                      </p>
-                    ))}
-                  </div>
+      {/* SDR FLOW – TIMELINE */}
+      <section className="border-b bg-surface/40 py-16 sm:py-20">
+        <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+          <div className="mb-10 text-center">
+            <Badge variant="outline" className="border-border/70 bg-background/60 px-3 py-1 text-xs uppercase tracking-wide">
+              Fluxo SDR Automatizado
+            </Badge>
+            <h2 className="mt-4 text-balance text-3xl font-semibold tracking-tight text-text sm:text-4xl">
+              Como o Agente SDR leva cada lead até a reunião marcada.
+            </h2>
+            <p className="mx-auto mt-3 max-w-2xl text-sm text-text-muted sm:text-base">
+              Veja a jornada completa, passo a passo, desde o primeiro contato até a confirmação da
+              reunião — tudo automatizado, mas com tom humano.
+            </p>
+          </div>
 
-                  {/* Examples */}
-                  <div>
-                    <h4 className="text-lg font-semibold text-text mb-4">📝 Exemplos de Uso</h4>
-                    <div className="space-y-3">
-                      {agent.examples.map((example, idx) => (
-                        <div key={idx} className="p-4 rounded-lg bg-background/50 border border-border/30">
-                          <p className="text-sm text-text font-mono">
-                            {example}
-                          </p>
-                        </div>
-                      ))}
-                    </div>
+          <ScrollArea className="w-full">
+            <div className="flex min-w-[720px] gap-6 pb-4 md:min-w-full md:grid md:grid-cols-3 md:gap-6">
+              {sdrFlow.map((item, index) => (
+                <Card
+                  key={item.step}
+                  className="relative flex-1 border-border/70 bg-background/80 p-5 shadow-sm transition-transform duration-300 hover:-translate-y-1 hover:shadow-lg"
+                >
+                  <div className="absolute -top-4 left-4 flex h-9 w-9 items-center justify-center rounded-full bg-gradient-to-br from-brand-900 to-brand-700 text-xs font-semibold text-white shadow-lg">
+                    {item.step}
                   </div>
-
-                  {/* Use cases by sector */}
-                  <div>
-                    <h4 className="text-lg font-semibold text-text mb-4">🎯 Casos de Uso por Setor</h4>
-                    <div className="grid gap-4 md:grid-cols-2">
-                      {agent.useCases.map((useCase, idx) => (
-                        <div key={idx} className="p-4 rounded-lg bg-background/30 border border-border/20">
-                          <h5 className="font-semibold text-text text-sm mb-2">{useCase.sector}</h5>
-                          <p className="text-xs text-text-muted">{useCase.use}</p>
-                        </div>
-                      ))}
-                    </div>
+                  {index < sdrFlow.length - 1 && (
+                    <div className="pointer-events-none absolute right-[-18px] top-1/2 hidden h-[1px] w-10 -translate-y-1/2 bg-gradient-to-r from-brand-900/40 to-transparent md:block" />
+                  )}
+                  <div className="mt-4 space-y-2">
+                    <h3 className="text-sm font-semibold text-text">{item.title}</h3>
+                    <p className="text-xs text-text-muted">{item.description}</p>
                   </div>
-
-                  {/* CTA */}
-                  <div className="pt-4 border-t border-border/30">
-                    <Button size="lg" className="w-full sm:w-auto" onClick={() => window.open("https://app.meuagente.api.br", "_blank")}>
-                      {agent.tierBadge === "FREE" ? "Experimentar Gratuitamente" : `Contratar Plano ${agent.tierBadge === "BUSINESS" ? "Business" : "Premium"}`}
-                      <ArrowRight className="ml-2 h-5 w-5" />
-                    </Button>
-                  </div>
-                </CardContent>
-              </Card>
+                </Card>
+              ))}
             </div>
-          ))}
-        </div>
-      </section>
+            <ScrollBar orientation="horizontal" />
+          </ScrollArea>
 
-      {/* SDR Flow Diagram */}
-      <section className="py-16 bg-surface/30">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-          <h2 className="text-4xl font-bold text-gradient mb-4 pb-2 leading-normal">
-              Fluxo Completo do Agente SDR
-            </h2>
-            <p className="text-lg text-text-muted max-w-2xl mx-auto">
-              Veja como o SDR conduz o lead desde o primeiro contato até a reunião agendada
-            </p>
-          </div>
-
-          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-            {sdrFlow.map((item, index) => (
-              <Card 
-                key={index} 
-                className="relative p-6 hover:scale-105 transition-all duration-300 animate-fade-in"
-                style={{ animationDelay: `${index * 0.1}s` }}
-              >
-                <div className="absolute -top-4 -left-4 w-12 h-12 rounded-full bg-gradient-to-br from-brand-900 to-brand-700 text-white flex items-center justify-center font-bold text-lg shadow-lg">
-                  {item.step}
-                </div>
-                <div className="mt-4">
-                  <h3 className="text-lg font-bold text-text mb-2">{item.title}</h3>
-                  <p className="text-sm text-text-muted">{item.description}</p>
-                </div>
-                
-                {index < sdrFlow.length - 1 && (
-                  <div className="hidden lg:block absolute -right-6 top-1/2 -translate-y-1/2">
-                    <ArrowRight className="w-6 h-6 text-brand-900/30" />
-                  </div>
-                )}
-              </Card>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* App Features */}
-      <section className="py-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-4xl font-bold text-gradient mb-4 pb-2 leading-normal">
-              Recursos Completos do App Web
-            </h2>
-            <p className="text-lg text-text-muted max-w-2xl mx-auto">
-              Além dos agentes no WhatsApp, você tem acesso a um app web completo para gestão e visualização
-            </p>
-          </div>
-
-          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
-            {appFeatures.map((feature, index) => (
-              <Card 
-                key={index}
-                className="group p-6 hover:scale-105 hover:-translate-y-2 transition-all duration-300 animate-fade-in"
-                style={{ animationDelay: `${index * 0.05}s` }}
-              >
-                <div className="mb-4">
-                  <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-brand-900/10 to-brand-700/10 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                    <feature.icon className="w-6 h-6 text-brand-900" />
-                  </div>
-                </div>
-                <h3 className="text-lg font-semibold text-text mb-2">{feature.name}</h3>
-                <p className="text-sm text-text-muted leading-relaxed">{feature.description}</p>
-              </Card>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Final CTA */}
-      <section className="py-16 bg-gradient-to-br from-brand-900 to-brand-700">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-4xl font-bold text-white mb-6 pb-2 leading-normal">
-            Pronto para Começar?
-          </h2>
-          <p className="text-xl text-white/90 mb-8">
-            Escolha seu plano e transforme seu WhatsApp em uma equipe de IA trabalhando 24/7
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button 
-              size="lg"
-              className="bg-white text-brand-900 hover:bg-white/90 shadow-2xl"
-              onClick={() => window.location.href = "/planos"}
-            >
-              Ver Planos e Preços
-              <ArrowRight className="ml-2 h-5 w-5" />
-            </Button>
-            <Button 
-              size="lg"
+          <div className="mt-8 flex flex-col items-center justify-between gap-4 text-xs text-text-muted sm:flex-row">
+            <div className="inline-flex items-center gap-2 rounded-full bg-background/70 px-4 py-2">
+              <CheckCircle className="h-3.5 w-3.5 text-emerald-500" />
+              <span>
+                O SDR virtual faz a triagem completa e só entrega para o humano quando o lead está pronto para
+                fechar.
+              </span>
+            </div>
+            <Button
               variant="outline"
-              className="border-2 border-white/30 text-white hover:bg-white/10"
+              size="sm"
+              className="border-border/70 bg-background/70"
               onClick={() => window.open("https://app.meuagente.api.br", "_blank")}
             >
-              Começar Gratuitamente
+              Ver o SDR funcionando na prática
+              <ArrowRight className="ml-2 h-4 w-4" />
+            </Button>
+          </div>
+        </div>
+      </section>
+
+      {/* APP WEB */}
+      <section className="border-b bg-background py-16 sm:py-20">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="mb-10 grid gap-10 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,1fr)] lg:items-center">
+            <div className="space-y-4">
+              <Badge variant="outline" className="border-border/70 bg-surface/60 px-3 py-1 text-xs uppercase tracking-wide">
+                App web do Meu Agente
+              </Badge>
+              <h2 className="text-balance text-3xl font-semibold tracking-tight text-text sm:text-4xl">
+                Painel moderno para enxergar tudo que seus agentes estão fazendo.
+              </h2>
+              <p className="text-sm text-text-muted sm:text-base">
+                Enquanto os agentes atuam nas conversas, o app web reúne indicadores, tarefas, agenda e
+                relatórios em um único lugar. É aqui que você toma decisões rápidas e enxergam o impacto real
+                da IA no seu negócio.
+              </p>
+              <ul className="mt-4 grid gap-3 text-sm text-text-muted sm:grid-cols-2">
+                <li className="flex gap-2">
+                  <CheckCircle className="mt-0.5 h-4 w-4 flex-shrink-0 text-emerald-500" />
+                  <span>Visualize a operação em tempo real, sem abrir mil abas.</span>
+                </li>
+                <li className="flex gap-2">
+                  <CheckCircle className="mt-0.5 h-4 w-4 flex-shrink-0 text-emerald-500" />
+                  <span>Identifique gargalos e oportunidades de otimização em minutos.</span>
+                </li>
+                <li className="flex gap-2">
+                  <CheckCircle className="mt-0.5 h-4 w-4 flex-shrink-0 text-emerald-500" />
+                  <span>Crie metas e acompanhe resultados por time, campanha ou canal.</span>
+                </li>
+                <li className="flex gap-2">
+                  <CheckCircle className="mt-0.5 h-4 w-4 flex-shrink-0 text-emerald-500" />
+                  <span>Pensado para ser perfeito tanto em desktop quanto em notebook.</span>
+                </li>
+              </ul>
+            </div>
+
+            <Card className="relative overflow-hidden rounded-3xl border-border/70 bg-gradient-to-b from-surface/80 to-background shadow-xl">
+              <CardHeader className="flex flex-row items-center justify-between border-b border-border/60 pb-3">
+                <div>
+                  <CardTitle className="text-sm">Visão do app web</CardTitle>
+                  <CardDescription className="text-xs text-text-muted">
+                    Representação ilustrativa do painel Meu Agente.
+                  </CardDescription>
+                </div>
+                <div className="flex gap-1.5">
+                  <span className="h-1.5 w-6 rounded-full bg-emerald-500/80" />
+                  <span className="h-1.5 w-6 rounded-full bg-amber-400/80" />
+                  <span className="h-1.5 w-6 rounded-full bg-sky-400/80" />
+                </div>
+              </CardHeader>
+              <CardContent className="space-y-4 pt-4">
+                <div className="grid gap-3 text-xs text-text-muted sm:grid-cols-[1.2fr_1fr]">
+                  <div className="space-y-3 rounded-2xl border border-border/60 bg-surface/80 p-3">
+                    <div className="flex items-center justify-between text-[11px] text-text-muted">
+                      <span>Resumo financeiro</span>
+                      <span className="rounded-full bg-emerald-500/10 px-2 py-0.5 text-[10px] font-medium text-emerald-500">
+                        +18% mês
+                      </span>
+                    </div>
+                    <div className="flex items-end gap-1">
+                      <div className="h-16 flex-1 rounded-full bg-emerald-500/20" />
+                      <div className="h-10 flex-1 rounded-full bg-emerald-500/30" />
+                      <div className="h-20 flex-1 rounded-full bg-emerald-500/40" />
+                      <div className="h-12 flex-1 rounded-full bg-emerald-500/25" />
+                      <div className="h-24 flex-1 rounded-full bg-emerald-500/60" />
+                    </div>
+                  </div>
+                  <div className="space-y-2 rounded-2xl border border-border/60 bg-surface/80 p-3">
+                    <p className="text-[11px] font-medium text-text">Agendamentos do dia</p>
+                    <ul className="space-y-1.5 text-[11px]">
+                      <li className="flex justify-between">
+                        <span>Demo SaaS • João</span>
+                        <span className="text-text-muted">10:30</span>
+                      </li>
+                      <li className="flex justify-between">
+                        <span>Onboarding • Clínica Vida</span>
+                        <span className="text-text-muted">14:00</span>
+                      </li>
+                      <li className="flex justify-between">
+                        <span>Reunião comercial • Loja Fit</span>
+                        <span className="text-text-muted">16:15</span>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+
+                <div className="grid gap-3 text-xs text-text-muted sm:grid-cols-3">
+                  {appFeatures.map((feature, index) => (
+                    <div
+                      key={index}
+                      className="flex gap-2 rounded-2xl border border-border/60 bg-surface/80 p-3"
+                    >
+                      <div className="mt-0.5 flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-brand-500/10">
+                        <feature.icon className="h-4 w-4 text-brand-700" />
+                      </div>
+                      <div>
+                        <p className="text-[11px] font-semibold text-text">{feature.name}</p>
+                        <p className="text-[11px] leading-snug text-text-muted">{feature.description}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+      </section>
+
+      {/* FINAL CTA */}
+      <section className="bg-gradient-to-br from-brand-900 via-brand-800 to-brand-700 py-16 sm:py-20">
+        <div className="mx-auto max-w-4xl px-4 text-center sm:px-6 lg:px-8">
+          <h2 className="text-balance text-3xl font-semibold tracking-tight text-white sm:text-4xl">
+            Pronto para ver esses agentes trabalhando pelo seu negócio?
+          </h2>
+          <p className="mt-4 text-balance text-sm text-white/80 sm:text-base">
+            Escolha seu plano, conecte seu WhatsApp e ative os agentes mais relevantes para a sua operação.
+            Em menos de 24h, você já pode ter uma equipe completa de IA rodando na sua empresa.
+          </p>
+          <div className="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row">
+            <Button
+              size="lg"
+              className="w-full bg-white text-brand-950 hover:bg-white/90 sm:w-auto"
+              onClick={() => (window.location.href = "/planos")}
+            >
+              Ver planos e preços
+              <ArrowRight className="ml-2 h-5 w-5" />
+            </Button>
+            <Button
+              size="lg"
+              variant="outline"
+              className="w-full border-2 border-white/40 bg-transparent text-white hover:bg-white/10 sm:w-auto"
+              onClick={() => window.open("https://app.meuagente.api.br", "_blank")}
+            >
+              Começar gratuitamente agora
             </Button>
           </div>
         </div>
