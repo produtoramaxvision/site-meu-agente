@@ -37,7 +37,7 @@ const FinalCTASection = () => {
           <Button 
             size="lg" 
             variant="outline" 
-            className="group border-2 border-white/30 hover:border-white/50 hover:bg-white/10 text-white transition-all duration-300 text-lg px-8 py-6"
+            className="group border-2 border-white/30 bg-transparent hover:border-white/50 hover:bg-white/10 text-white transition-all duration-300 text-lg px-8 py-6"
           >
             <MessageSquare className="mr-2 h-5 w-5" />
             Falar com Especialista

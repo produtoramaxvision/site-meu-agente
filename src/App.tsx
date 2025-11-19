@@ -9,6 +9,8 @@ import Footer from "./components/layout/Footer";
 import ChatWidget from "./components/ChatWidget";
 import GTM from "./components/GTM";
 import Index from "./pages/Index";
+import TermosDeUso from "./pages/TermosDeUso";
+import PoliticaDePrivacidade from "./pages/PoliticaDePrivacidade";
 import Planos from "./pages/Planos";
 import ComoFunciona from "./pages/ComoFunciona";
 import Blog from "./pages/Blog";
@@ -32,6 +34,8 @@ const App = () => (
           <main className="flex-1">
             <Routes>
               <Route path="/" element={<Index />} />
+              <Route path="/termos-de-uso" element={<TermosDeUso />} />
+              <Route path="/politica-de-privacidade" element={<PoliticaDePrivacidade />} />
               <Route path="/planos" element={<Planos />} />
               <Route path="/como-funciona" element={<ComoFunciona />} />
               <Route path="/blog" element={<Blog />} />
