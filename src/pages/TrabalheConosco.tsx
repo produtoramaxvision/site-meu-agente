@@ -206,7 +206,7 @@ const CULTURE = [
   },
 ] as const;
 
-const METRICS = [
+const METRICS: { value: string; label: string; prefix?: string }[] = [
   {
     value: "+8",
     label: "Agentes de IA em produção",
@@ -220,7 +220,7 @@ const METRICS = [
     label: "para tirar um experimento do papel",
     prefix: "< 10",
   },
-] as const;
+];
 
 const CANDIDATE_FAQS = [
   {
@@ -324,7 +324,7 @@ const TrabalheConosco = () => {
           {/* HERO */}
           <section className="relative overflow-hidden border-b border-border/60 bg-gradient-to-b from-brand-950 via-background to-background py-20 sm:py-24">
             <div className="pointer-events-none absolute inset-0 z-0 bg-[linear-gradient(to_right,#8080800b_1px,transparent_1px),linear-gradient(to_bottom,#8080800b_1px,transparent_1px)] bg-[size:14px_24px]" />
-            <div className="relative z-10 mx-auto flex max-w-7xl flex-col gap-10 px-4 sm:px-6 lg:flex-row lg:items-start lg:px-8">
+            <div className="relative z-10 mx-auto flex max-w-7xl flex-col gap-10 px-4 sm:px-6 lg:flex-row lg:items-stretch lg:px-8">
               <div className="max-w-2xl space-y-6">
                 <Badge className="inline-flex items-center gap-2 bg-emerald-500/10 text-emerald-400 border-emerald-500/40 px-3 py-1 text-xs font-semibold uppercase tracking-wide">
                   <Sparkles className="h-3.5 w-3.5" />
@@ -370,40 +370,10 @@ const TrabalheConosco = () => {
                     </p>
                   </Card>
                 </div>
-
-                <div className="flex flex-wrap items-center gap-3 pt-2">
-                  <Button
-                    size="lg"
-                    className="group relative overflow-hidden bg-gradient-to-r from-brand-900 to-brand-700 hover:from-brand-800 hover:to-brand-600 text-white shadow-lg"
-                    onClick={() => {
-                      const el = document.getElementById("vagas");
-                      if (!el) return;
-                      const rect = el.getBoundingClientRect();
-                      const offsetTop = window.scrollY + rect.top - 80;
-                      window.scrollTo({
-                        top: offsetTop,
-                        behavior: "smooth",
-                      });
-                    }}
-                  >
-                    Ver vagas abertas
-                    <ArrowRight className="ml-2 h-4 w-4 transition-transform duration-200 group-hover:translate-x-1" />
-                    <span className="pointer-events-none absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/10 to-transparent group-hover:translate-x-full transition-transform duration-700" />
-                  </Button>
-                </div>
-
-                <div className="mt-4 flex flex-wrap items-center gap-3 text-xs text-text-muted">
-                  <span className="rounded-full bg-surface/60 px-3 py-1">
-                    Rotina remota, horários flexíveis e foco em resultado.
-                  </span>
-                  <span className="rounded-full bg-surface/60 px-3 py-1">
-                    Processos seletivos com feedback em todas as etapas.
-                  </span>
-                </div>
               </div>
 
-              {/* Métricas culturais */}
-              <div className="w-full max-w-md lg:ml-auto">
+              {/* Métricas culturais + CTA principal */}
+              <div className="w-full max-w-md lg:ml-auto flex flex-col justify-between">
                 <Card className="relative overflow-hidden border-border/70 bg-background/90 shadow-2xl backdrop-blur">
                   <div className="absolute inset-0 bg-gradient-to-br from-brand-500/10 via-transparent to-emerald-500/10 pointer-events-none" />
                   <div className="relative p-6 space-y-6">
@@ -456,6 +426,33 @@ const TrabalheConosco = () => {
                     </div>
                   </div>
                 </Card>
+
+                <div className="mt-6 flex flex-col items-start lg:items-end gap-3">
+                  <Button
+                    size="lg"
+                    className="group relative overflow-hidden bg-gradient-to-r from-brand-900 to-brand-700 hover:from-brand-800 hover:to-brand-600 text-white shadow-lg"
+                    onClick={() => {
+                      const el = document.getElementById("vagas");
+                      if (!el) return;
+                      const rect = el.getBoundingClientRect();
+                      const offsetTop = window.scrollY + rect.top - 80;
+                      window.scrollTo({
+                        top: offsetTop,
+                        behavior: "smooth",
+                      });
+                    }}
+                  >
+                    Ver vagas abertas
+                    <ArrowRight className="ml-2 h-4 w-4 transition-transform duração-200 group-hover:translate-x-1" />
+                    <span className="pointer-events-none absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/10 to-transparent group-hover:translate-x-full transition-transform duração-700" />
+                  </Button>
+
+                  <div className="flex flex-wrap items-center gap-3 text-xs text-text-muted justify-start lg:justify-end">
+                    <span className="rounded-full bg-surface/60 px-3 py-1">
+                      Rotina remota, horários flexíveis e foco em resultado.
+                    </span>
+                  </div>
+                </div>
               </div>
             </div>
           </section>
@@ -463,7 +460,7 @@ const TrabalheConosco = () => {
           {/* Cultura e benefícios */}
           <section className="border-b border-border/60 bg-surface/40 py-16 sm:py-20">
             <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 space-y-12">
-              <div className="grid gap-8 lg:grid-cols-[minmax(0,1.2fr)_minmax(0,1fr)] items-start">
+              <div className="grid gap-8 lg:grid-cols-[minmax(0,1.2fr)_minmax(0,1fr)] items-stretch">
                 <div className="space-y-4">
                   <h2 className="text-2xl sm:text-3xl font-semibold tracking-tight text-text">
                     Uma cultura feita para quem gosta de construir.
@@ -498,14 +495,14 @@ const TrabalheConosco = () => {
                   </div>
                 </div>
 
-                <div className="space-y-4">
+                <div className="flex flex-col justify-between space-y-8">
                   <div className="inline-flex items-center gap-2 rounded-full bg-background/80 border border-border/60 px-3 py-1 text-[11px] text-text-muted">
                     <Star className="h-3.5 w-3.5 text-brand-900" />
                     Nossos princípios em decisões do dia a dia
                   </div>
 
-                  <Card className="p-5 bg-background/90 border-border/60">
-                    <ul className="space-y-3 text-sm text-text">
+                  <Card className="mt-4 p-5 bg-background/90 border-border/60">
+                    <ul className="space-y-5 text-sm text-text">
                       {CULTURE.map((item) => (
                         <li key={item.label} className="space-y-1">
                           <p className="font-semibold">{item.label}</p>
@@ -548,12 +545,7 @@ const TrabalheConosco = () => {
                     banco de talentos.
                   </p>
                 </div>
-                <div className="text-xs text-text-muted">
-                  <p>
-                    Processo seletivo com etapas claras, desafios leves e
-                    feedback em todas as fases.
-                  </p>
-                </div>
+                <div className="text-xs text-text-muted" />
               </div>
 
               {/* Filtros */}
