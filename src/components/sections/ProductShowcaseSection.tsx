@@ -314,19 +314,19 @@ const ProductShowcaseSection = () => {
         {/* Layout principal: menu + preview */}
         <Tabs
           defaultValue="financeiro"
-          className="grid gap-8 lg:grid-cols-12 items-stretch"
+          className="grid gap-8 lg:grid-cols-12 items-stretch w-full min-w-0"
         >
           {/* Coluna esquerda – menu de casos de uso */}
-          <div className="lg:col-span-4 space-y-4">
-            <TabsList className="w-full justify-start gap-2 overflow-x-auto rounded-full border border-border/60 bg-surface/80/80 p-1 shadow-sm backdrop-blur-sm sm:rounded-xl sm:p-1.5 lg:flex lg:h-auto lg:flex-col lg:items-stretch lg:space-y-2 lg:rounded-2xl lg:border-0 lg:bg-transparent lg:p-0">
+          <div className="lg:col-span-4 space-y-4 w-full min-w-0">
+            <TabsList className="flex flex-nowrap w-full h-auto items-center justify-start gap-2 overflow-x-auto rounded-full border border-border/60 bg-surface/80 p-1 shadow-sm backdrop-blur-sm touch-pan-x snap-x snap-mandatory sm:rounded-xl sm:p-1.5 lg:flex-col lg:items-stretch lg:space-y-2 lg:rounded-2xl lg:border-0 lg:bg-transparent lg:p-0 max-w-full scrollbar-hide">
               {useCases.map((useCase) => (
                 <TabsTrigger
                   key={useCase.id}
                   value={useCase.id}
-                  className="group relative flex min-w-[140px] flex-1 items-center justify-start gap-3 rounded-full border border-transparent px-3 py-2 text-xs sm:text-sm font-medium text-text-muted transition-colors data-[state=active]:border-border data-[state=active]:bg-surface-2 data-[state=active]:text-text data-[state=active]:shadow-sm lg:rounded-xl lg:px-4 lg:py-3 hover:bg-surface-2 hover:text-text focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-900/40 focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+                  className="group relative flex min-w-[120px] sm:min-w-[140px] flex-none items-center justify-start gap-2 sm:gap-3 rounded-full border border-transparent px-3.5 sm:px-4 py-2.5 text-xs sm:text-sm font-medium text-text-muted transition-colors data-[state=active]:border-border data-[state=active]:bg-surface-2 data-[state=active]:text-text data-[state=active]:shadow-sm lg:rounded-xl lg:py-3 hover:bg-surface-2 hover:text-text focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-900/40 focus-visible:ring-offset-2 focus-visible:ring-offset-background whitespace-nowrap"
                 >
-                  <span className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-surface-2">
-                    <useCase.icon className="w-4 h-4 text-brand-900" />
+                  <span className="inline-flex h-7 w-7 sm:h-8 sm:w-8 shrink-0 items-center justify-center rounded-full bg-surface-2">
+                    <useCase.icon className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-brand-900" />
                   </span>
                   <span>{useCase.label}</span>
                 </TabsTrigger>
@@ -356,30 +356,30 @@ const ProductShowcaseSection = () => {
           </div>
 
           {/* Coluna direita – preview “WhatsApp / dashboard” */}
-          <div className="lg:col-span-8">
+          <div className="lg:col-span-8 w-full min-w-0">
             {useCases.map((useCase) => (
-              <TabsContent key={useCase.id} value={useCase.id} className="mt-0">
-                <Card className="relative overflow-hidden border-border/70 bg-gradient-to-br from-surface-2 via-surface to-surface-3 shadow-2xl md:mt-4 lg:mt-6">
+              <TabsContent key={useCase.id} value={useCase.id} className="mt-0 w-full focus-visible:ring-0">
+                <Card className="relative overflow-hidden border-border/70 bg-gradient-to-br from-surface-2 via-surface to-surface-3 shadow-2xl md:mt-4 lg:mt-6 w-full max-w-full">
                   {/* Glow de fundo */}
                   <div className="pointer-events-none absolute -top-40 left-1/3 h-72 w-72 rounded-full bg-brand-900/25 blur-3xl" />
 
-                  <div className="relative flex flex-col gap-4 p-4 sm:p-6 lg:p-7">
+                  <div className="relative flex flex-col gap-4 p-4 sm:p-6 lg:p-7 w-full max-w-full overflow-hidden">
                     {/* Topo do “app” */}
-                    <div className="flex items-center justify-between gap-4">
-                      <div className="flex items-center gap-3">
-                        <div className="flex h-9 w-9 items-center justify-center rounded-full bg-emerald-500/10 ring-2 ring-emerald-500/60">
+                    <div className="flex items-center justify-between gap-4 w-full">
+                      <div className="flex items-center gap-3 min-w-0 overflow-hidden">
+                        <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-emerald-500/10 ring-2 ring-emerald-500/60">
                           <MessageCircle className="w-4 h-4 text-emerald-500" />
                         </div>
-                        <div>
-                          <p className="text-xs font-semibold text-text">
+                        <div className="min-w-0 flex-1">
+                          <p className="text-xs font-semibold text-text truncate">
                             Meu Agente • {useCase.label}
                           </p>
-                          <p className="text-[11px] text-emerald-400">
+                          <p className="text-[11px] text-emerald-400 truncate">
                             Online • resposta média &lt; 2 min
                           </p>
                         </div>
                       </div>
-                      <div className="hidden sm:flex items-center gap-4 text-xs text-text-muted">
+                      <div className="hidden sm:flex items-center gap-4 text-xs text-text-muted shrink-0">
                         <div className="flex flex-col items-end">
                           <span className="font-semibold text-text">
                             {useCase.kpi}
@@ -392,27 +392,27 @@ const ProductShowcaseSection = () => {
                       </div>
                     </div>
 
-                    <div className="grid gap-4 md:grid-cols-[minmax(0,3fr)_minmax(0,2fr)] items-stretch md:min-h-[420px] lg:min-h-[460px]">
+                    <div className="grid gap-4 md:grid-cols-[minmax(0,3fr)_minmax(0,2fr)] items-stretch md:min-h-[420px] lg:min-h-[460px] w-full max-w-full">
                       {/* Conversa em si */}
-                      <ScrollArea className="h-full min-h-[340px] sm:min-h-[400px] rounded-2xl border border-border/60 bg-background/80 p-4">
-                        <div className="space-y-3 text-[13px] leading-relaxed">
+                      <ScrollArea className="h-full min-h-[340px] sm:min-h-[400px] rounded-2xl border border-border/60 bg-background/80 p-4 w-full max-w-full">
+                        <div className="space-y-3 text-[13px] leading-relaxed w-full">
                           {messagesByUseCase[useCase.id].map((msg, index) => (
                             <div
                               key={index}
-                              className={`flex ${
+                              className={`flex w-full ${
                                 msg.from === "user"
                                   ? "justify-start"
                                   : "justify-end"
                               }`}
                             >
                               <div
-                                className={`max-w-[82%] rounded-2xl px-3.5 py-2.5 shadow-sm ${
+                                className={`max-w-[85%] sm:max-w-[82%] rounded-2xl px-3.5 py-2.5 shadow-sm break-words overflow-hidden ${
                                   msg.from === "user"
                                     ? "bg-surface-2 text-text"
                                     : "bg-gradient-to-br from-brand-900 to-brand-700 text-white"
                                 }`}
                               >
-                                <p className="whitespace-pre-line">{msg.text}</p>
+                                <p className="whitespace-pre-line break-words leading-relaxed">{msg.text}</p>
                                 <span
                                   className={`mt-1 block text-[10px] ${
                                     msg.from === "user"

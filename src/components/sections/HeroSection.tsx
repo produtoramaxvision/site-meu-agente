@@ -19,7 +19,7 @@ const HeroSection = () => {
             <span className="relative inline-flex rounded-full h-2 w-2 bg-success"></span>
           </span>
           <span className="text-sm font-medium text-text-muted">
-            Mais de 500 empresas economizam 40h/mês
+            Mais de 35 empresas economizam 40h/mês
           </span>
         </div>
 
