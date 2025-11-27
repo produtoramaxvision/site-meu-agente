@@ -1,13 +1,11 @@
 import HeroSection from "@/components/sections/HeroSection";
 import LogosSection from "@/components/sections/LogosSection";
-import WhySection from "@/components/sections/WhySection";
 import HowItWorksSection from "@/components/sections/HowItWorksSection";
 import AgentsSection from "@/components/sections/AgentsSection";
 import ExamplesSection from "@/components/sections/ExamplesSection";
 import PricingSection from "@/components/sections/PricingSection";
 import ProductShowcaseSection from "@/components/sections/ProductShowcaseSection";
 import FeaturesSection from "@/components/sections/FeaturesSection";
-import IntegrationsSection from "@/components/sections/IntegrationsSection";
 import SecuritySection from "@/components/sections/SecuritySection";
 import TestimonialsSection from "@/components/sections/TestimonialsSection";
 import FaqSection from "@/components/sections/FaqSection";
@@ -21,9 +19,9 @@ import {
 
 const SECTION_LINKS = [
   { id: "visao-geral", label: "Visão geral" },
+  { id: "plataforma", label: "Plataforma" },
   { id: "agentes-ia", label: "Agentes de IA" },
   { id: "casos-uso", label: "Casos de uso" },
-  { id: "plataforma", label: "Plataforma" },
   { id: "planos", label: "Planos" },
   { id: "seguranca", label: "Segurança" },
   { id: "duvidas", label: "Dúvidas" },
@@ -90,7 +88,7 @@ const Index = () => {
               <p className="hidden md:block text-xs font-medium text-text-muted">
                 Navegue pelos destaques da página
               </p>
-              <div className="flex w-full md:w-auto items-center gap-2 overflow-x-auto pb-1">
+              <div className="flex w-full md:w-auto items-center gap-2 overflow-x-auto pb-1 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
                 {SECTION_LINKS.map((link) => (
                   <Button
                     key={link.id}
@@ -111,22 +109,20 @@ const Index = () => {
         {/* Capítulo 1 – Por que & Como funciona */}
         <div id="visao-geral" className="relative z-10">
           <ProductShowcaseSection />
-        <WhySection />
         <HowItWorksSection />
         </div>
 
-        {/* Capítulo 2 – Agentes e casos de uso */}
-        <div id="agentes-ia" className="relative z-10">
-        <AgentsSection />
-        </div>
-        <div id="casos-uso" className="relative z-10">
-        <ExamplesSection />
+        {/* Capítulo 2 – Plataforma e integrações */}
+        <div id="plataforma" className="relative z-10">
+          <FeaturesSection />
         </div>
 
-        {/* Capítulo 3 – Plataforma e integrações */}
-        <div id="plataforma" className="relative z-10">
-        <FeaturesSection />
-        <IntegrationsSection />
+        {/* Capítulo 3 – Agentes e casos de uso */}
+        <div id="agentes-ia" className="relative z-10">
+          <AgentsSection />
+        </div>
+        <div id="casos-uso" className="relative z-10">
+          <ExamplesSection />
         </div>
 
         {/* Capítulo 4 – Segurança e prova social */}

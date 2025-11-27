@@ -44,11 +44,20 @@ const Header = () => {
 
           {/* CTA buttons */}
           <div className="hidden md:flex items-center gap-4">
-            <Button variant="ghost" size="sm" onClick={() => window.open("https://app.meuagente.api.br", "_blank")}>
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={() => window.open("https://app.meuagente.api.br", "_blank")}
+            >
               Entrar
             </Button>
-            <Button size="sm" className="bg-gradient-to-r from-brand-900 to-brand-700 hover:from-brand-800 hover:to-brand-600 text-white" onClick={() => window.open("https://app.meuagente.api.br", "_blank")}>
-              Começar Grátis
+            <Button
+              size="sm"
+              className="group relative overflow-hidden bg-gradient-to-r from-brand-900 to-brand-700 hover:from-brand-800 hover:to-brand-600 text-white shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105"
+              onClick={() => window.open("https://app.meuagente.api.br", "_blank")}
+            >
+              <span>Começar Grátis</span>
+              <span className="pointer-events-none absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/20 to-transparent group-hover:translate-x-full transition-transform duration-700" />
             </Button>
           </div>
 
@@ -74,11 +83,21 @@ const Header = () => {
               </a>
             ))}
             <div className="px-4 pt-4 space-y-2">
-              <Button variant="outline" size="sm" className="w-full" onClick={() => window.open("https://app.meuagente.api.br", "_blank")}>
+              <Button
+                variant="outline"
+                size="sm"
+                className="w-full"
+                onClick={() => window.open("https://app.meuagente.api.br", "_blank")}
+              >
                 Entrar
               </Button>
-              <Button size="sm" className="w-full bg-gradient-to-r from-brand-900 to-brand-700 text-white" onClick={() => window.open("https://app.meuagente.api.br", "_blank")}>
-                Começar Grátis
+              <Button
+                size="sm"
+                className="group relative w-full overflow-hidden bg-gradient-to-r from-brand-900 to-brand-700 hover:from-brand-800 hover:to-brand-600 text-white shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-[1.02]"
+                onClick={() => window.open("https://app.meuagente.api.br", "_blank")}
+              >
+                <span>Começar Grátis</span>
+                <span className="pointer-events-none absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/20 to-transparent group-hover:translate-x-full transition-transform duration-700" />
               </Button>
             </div>
           </div>

@@ -9,12 +9,13 @@ import {
   BarChart3,
   Handshake,
 } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const LogosSection = () => {
   const badges = [
-    { icon: Shield, label: "LGPD Compliant" },
-    { icon: Award, label: "Segurança Garantida" },
-    { icon: Zap, label: "99.9% Uptime" },
+    { icon: Shield, label: "LGPD Compliant", href: "/politica-de-privacidade" },
+    { icon: Award, label: "Segurança Garantida", href: "/termos-de-uso" },
+    { icon: Zap, label: "99.9% Uptime", href: "/status-do-sistema" },
   ];
 
   const sectors = [
@@ -32,13 +33,14 @@ const LogosSection = () => {
         {/* Badges */}
         <div className="flex flex-wrap justify-center items-center gap-8 mb-12">
           {badges.map((badge, index) => (
-            <div
+            <Link
               key={index}
-              className="flex items-center gap-3 px-6 py-3 rounded-full bg-background/80 backdrop-blur-sm border border-border/50 hover:border-brand-900/30 transition-all duration-300 hover:scale-105"
+              to={badge.href}
+              className="flex items-center gap-3 px-6 py-3 rounded-full bg-background/80 backdrop-blur-sm border border-border/50 hover:border-brand-900/30 transition-all duration-300 hover:scale-105 cursor-pointer"
             >
               <badge.icon className="w-5 h-5 text-brand-900" />
               <span className="text-sm font-semibold text-text">{badge.label}</span>
-            </div>
+            </Link>
           ))}
         </div>
 

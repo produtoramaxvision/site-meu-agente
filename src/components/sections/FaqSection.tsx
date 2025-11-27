@@ -1,96 +1,138 @@
+import { Button } from "@/components/ui/button";
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import { Sparkles, ArrowRight } from "lucide-react";
 
 const FaqSection = () => {
   const faqs = [
     {
-      question: "Como funciona o Meu Agente?",
-      answer: "O Meu Agente disponibiliza uma equipe de Agentes de IA que operam diretamente no WhatsApp. Você conversa naturalmente, envia comandos por mensagem e os agentes executam tarefas como lançamentos financeiros, pesquisas web, qualificação de leads, agendamentos e muito mais. É como ter assistentes especializados 24/7 no seu bolso."
+      question: "Como funciona o Meu Agente na prática?",
+      answer:
+        "Você conversa com os agentes diretamente pelo WhatsApp, como se fosse um contato comum. A partir dos seus pedidos em linguagem natural, eles executam tarefas como organizar finanças, pesquisar informações, resumir conversas, criar listas de tarefas e muito mais.",
     },
     {
-      question: "Preciso ter conhecimento técnico para usar?",
-      answer: "Não! O Meu Agente foi projetado para ser intuitivo. Você conversa com os agentes usando linguagem natural, sem comandos complexos ou programação. Se você sabe usar WhatsApp, já sabe usar o Meu Agente."
+      question: "Quais tipos de tarefas os agentes conseguem fazer?",
+      answer:
+        "Hoje temos agentes focados em finanças, atendimento, SDR, pesquisa web, organização de agenda, automações e análise de dados. Você pode combiná-los para montar fluxos que atendam desde um profissional autônomo até equipes completas.",
     },
     {
-      question: "Posso usar sem número próprio?",
-      answer: "Sim. No plano Free e Básico, você opera manualmente via app. Nos planos Business e Premium, oferecemos número WhatsApp dedicado com infraestrutura completa e implantação inclusa."
+      question: "Preciso ter conhecimento técnico ou saber programar?",
+      answer:
+        "Não. O Meu Agente foi pensado para quem quer resultado sem complexidade. Basta explicar o que você precisa em português claro e os agentes cuidam do resto, sem códigos, integrações manuais ou painéis complicados.",
     },
     {
-      question: "O que muda entre os planos?",
-      answer: "O plano Free é manual e exploratório. O Básico adiciona automação via WhatsApp e exportações. Business inclui número dedicado, implantação, suporte 24/7 e sub-agentes especializados (SDR, Marketing, Dev, Vídeo). Premium adiciona agentes exclusivos (Confirmação, Resumo, Remarketing, Follow-up) e backups off-site."
+      question: "Como funciona a segurança e a privacidade dos meus dados?",
+      answer:
+        "Utilizamos criptografia em trânsito, controle de acesso por função e práticas de segurança inspiradas em padrões de mercado. Seus dados são usados apenas para operar seus agentes e nunca são vendidos ou compartilhados com terceiros para fins comerciais.",
     },
     {
-      question: "Como funcionam as mensagens proativas?",
-      answer: "As mensagens proativas seguem estritamente as políticas do WhatsApp Business. Enviamos apenas notificações relevantes (alertas financeiros, confirmações de agenda, resumos solicitados) dentro de janelas de 24h após interação ativa do usuário. Você pode cancelar a qualquer momento com \"SAIR\" ou \"pare\"."
+      question: "O Meu Agente funciona só no WhatsApp?",
+      answer:
+        "Hoje o foco é o WhatsApp, justamente por ser o principal canal de comunicação das empresas no Brasil. Porém, a infraestrutura foi pensada para, no futuro, conectar outros canais e ferramentas sem que você precise mudar o jeito de trabalhar.",
     },
     {
-      question: "Há taxa de manutenção?",
-      answer: "Sim, nos planos Business e Premium há uma taxa de manutenção de R$ 149/h para ajustes, customizações e suporte técnico avançado além do escopo padrão."
+      question: "Posso testar antes de contratar um plano pago?",
+      answer:
+        "Sim. Você pode começar pelo plano Free para conhecer os agentes e entender como eles se encaixam na sua rotina. Quando fizer sentido automatizar de vez, é só migrar para um dos planos pagos sem perder histórico.",
     },
     {
-      question: "Vocês fazem scraping de sites que proíbem?",
-      answer: "Não. O Agente de Scrape/Extract respeita robots.txt, Terms of Service e só opera em fontes permitidas ou via APIs oficiais. Priorizamos conformidade legal e ética."
-    },
-    {
-      question: "Como exporto meus dados?",
-      answer: "Nos planos pagos, você pode exportar relatórios em CSV, PDF ou JSON diretamente via comando no WhatsApp ou pelo app web. No plano Free, não há exportação disponível."
-    },
-    {
-      question: "Como alterar minha senha?",
-      answer: "Acesse Configurações > Segurança > Alterar Senha no app web. Digite a senha atual, a nova senha (mínimo 8 caracteres) e confirme. Para redefinição sem acesso, use a opção \"Esqueci minha senha\" na tela de login."
-    },
-    {
-      question: "Qual o prazo para suporte responder?",
-      answer: "Planos Business e Premium têm suporte prioritário 24/7 com SLA de até 2h em dias úteis e 4h em fins de semana. Planos Free e Básico têm suporte via FAQ e tickets com resposta em até 48h úteis."
+      question: "E se eu precisar de ajuda para configurar meus agentes?",
+      answer:
+        "Você conta com materiais de apoio, tutoriais e suporte por dentro do app. Em planos superiores, nossa equipe acompanha de perto a implantação para garantir que os agentes estejam alinhados com o seu processo de negócio.",
     },
   ];
 
   return (
-    <section className="py-24 bg-background section-texture-soft">
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Section header */}
-        <div className="text-center mb-16">
-          <h2 className="text-4xl sm:text-5xl font-extrabold text-gradient mb-4 pb-2 leading-normal">
-            Perguntas Frequentes
-          </h2>
-          <p className="text-xl text-text-muted">
-            Tudo o que você precisa saber sobre o Meu Agente
-          </p>
-        </div>
+    <section className="py-24 bg-surface/30 relative overflow-hidden">
+      {/* Elementos decorativos de fundo (mesmo estilo da página de Planos) */}
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-7xl h-full pointer-events-none opacity-40">
+        <div className="absolute top-20 right-0 w-96 h-96 bg-brand-900/10 rounded-full blur-[100px]" />
+        <div className="absolute bottom-20 left-0 w-72 h-72 bg-blue-500/10 rounded-full blur-[100px]" />
+      </div>
 
-        {/* FAQ accordion */}
-        <Accordion type="single" collapsible className="space-y-4">
-          {faqs.map((faq, index) => (
-            <AccordionItem
-              key={index}
-              value={`item-${index}`}
-              className="border border-border/50 rounded-xl px-6 bg-background/80 backdrop-blur-sm hover:border-brand-900/30 transition-all duration-300"
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div className="grid gap-12 lg:grid-cols-[1fr_1.5fr] lg:gap-24 items-stretch">
+          {/* Coluna Esquerda: Cabeçalho + CTA */}
+          <div className="flex flex-col gap-6 h-full lg:justify-between">
+            <div className="space-y-4">
+              <div className="inline-flex items-center gap-2 rounded-full border border-border/50 bg-background/70 px-3 py-1 text-xs font-medium text-text-muted">
+                <Sparkles className="h-3 w-3 text-brand-900" />
+                <span>Perguntas Frequentes</span>
+              </div>
+              <h2 className="text-3xl sm:text-4xl font-bold text-text leading-tight">
+                Tudo o que você precisa saber sobre o Meu Agente
+              </h2>
+              <p className="text-text-muted text-lg leading-relaxed">
+                Reunimos as principais dúvidas de quem está começando a usar agentes de IA no dia a dia, para você entender onde o Meu Agente realmente entra na sua operação.
+              </p>
+            </div>
+
+            {/* Card de Suporte - altura independente do acordeão */}
+            <div className="flex flex-col justify-between p-6 rounded-2xl border border-brand-900/10 bg-gradient-to-br from-brand-900/5 to-transparent backdrop-blur-sm mt-2">
+              <div>
+                <div className="flex items-center gap-3 mb-3">
+                  <div className="h-10 w-10 rounded-full bg-brand-900/10 flex items-center justify-center text-brand-900 shadow-sm">
+                    <Sparkles className="h-5 w-5" />
+                  </div>
+                  <p className="font-semibold text-text">
+                    Ainda com perguntas sobre o Meu Agente?
+                  </p>
+                </div>
+                <p className="text-sm text-text-muted mb-5 leading-relaxed">
+                  Nossa equipe pode te ajudar a entender se os agentes se encaixam bem no seu momento e sugerir o melhor próximo passo.
+                </p>
+              </div>
+              <Button
+                variant="outline"
+                className="w-full bg-background/50 border-brand-900/20 hover:bg-brand-900/10 hover:text-brand-900 hover:border-brand-900/30 transition-all mt-auto"
+                onClick={() =>
+                  window.open("https://app.meuagente.api.br", "_blank")
+                }
+              >
+                Falar com um especialista
+                <ArrowRight className="ml-2 h-4 w-4" />
+              </Button>
+            </div>
+          </div>
+
+          {/* Coluna Direita: Accordion padronizado */}
+          <div className="w-full">
+            <Accordion
+              type="single"
+              collapsible
+              className="flex h-full flex-col justify-between space-y-2"
             >
-              <AccordionTrigger className="text-left font-semibold text-text hover:text-brand-900 transition-colors">
-                {faq.question}
-              </AccordionTrigger>
-              <AccordionContent className="text-text-muted leading-relaxed pt-2">
-                {faq.answer}
-              </AccordionContent>
-            </AccordionItem>
-          ))}
-        </Accordion>
+              {faqs.map((faq, index) => (
+                <AccordionItem
+                  key={index}
+                  value={`item-${index + 1}`}
+                  className="group border border-border/60 rounded-lg bg-background/60 px-1 hover:border-brand-900/30 hover:bg-background/80 transition-all duration-300 shadow-sm data-[state=open]:border-brand-900/30 data-[state=open]:bg-background/90 data-[state=open]:shadow-md"
+                >
+                  <AccordionTrigger className="px-3 text-left font-medium text-sm text-text group-hover:text-brand-900 transition-colors py-3">
+                    {faq.question}
+                  </AccordionTrigger>
+                  <AccordionContent className="px-3 pb-3 text-sm text-text-muted leading-relaxed">
+                    {faq.answer}
+                  </AccordionContent>
+                </AccordionItem>
+              ))}
+            </Accordion>
 
-        {/* CTA to full FAQ page */}
-        <div className="mt-12 text-center">
-          <p className="text-text-muted mb-4">
-            Não encontrou sua dúvida?
-          </p>
-          <a
-            href="/faq"
-            className="text-brand-900 font-semibold hover:underline transition-all"
-          >
-            Ver todas as perguntas →
-          </a>
+            {/* Link para FAQ completa */}
+            <div className="mt-8 text-sm text-text-muted text-center">
+              <span>Quer ver respostas mais detalhadas? </span>
+              <a
+                href="/faq"
+                className="text-brand-900 font-semibold hover:underline transition-all"
+              >
+                Acesse a central completa de dúvidas →
+              </a>
+            </div>
+          </div>
         </div>
       </div>
     </section>
