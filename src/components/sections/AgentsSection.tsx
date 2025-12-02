@@ -124,7 +124,7 @@ const AgentsSection = () => {
           {agents.map((agent, index) => (
             <Card
               key={index}
-              className={`group relative overflow-hidden p-6 bg-gradient-to-br ${agent.color} border-border/50 hover:border-accent transition-all duration-300 hover:scale-105 hover:-translate-y-2 hover:shadow-xl-adaptive`}
+              className={`group relative overflow-hidden p-6 bg-gradient-to-br ${agent.color} border-border/50 hover:border-accent transition-all duration-300 hover:scale-105 hover:-translate-y-2 hover:shadow-xl-adaptive flex flex-col h-full`}
             >
               {/* Icon */}
               <div className="mb-4">
@@ -134,16 +134,20 @@ const AgentsSection = () => {
               </div>
 
               {/* Content */}
-              <h3 className="text-lg font-bold text-text mb-2">{agent.name}</h3>
-              <p className="text-sm text-text-muted mb-4">{agent.description}</p>
+              <div className="flex-1 flex flex-col">
+                <h3 className="text-lg font-bold text-text mb-2">{agent.name}</h3>
+                <p className="text-sm text-text-muted mb-4 flex-1">{agent.description}</p>
 
-              {/* Tier badge */}
-              <Badge 
-                variant="secondary" 
-                className="text-xs"
-              >
-                {agent.tier}
-              </Badge>
+                {/* Tier badge - sempre na base */}
+                <div className="mt-auto pt-2">
+                  <Badge 
+                    variant="secondary" 
+                    className="text-xs"
+                  >
+                    {agent.tier}
+                  </Badge>
+                </div>
+              </div>
 
               {/* Hover effect */}
               <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700"></div>
