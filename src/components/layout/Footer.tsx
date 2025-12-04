@@ -189,7 +189,18 @@ const Footer = () => {
               © 2025 Meu Agente. Todos os direitos reservados.
             </p>
             <div className="flex items-center gap-6 text-sm text-text-muted">
-              <span>Made with ❤️ in Brasil</span>
+              <span>
+                Desenvolvido por ©{" "}
+                <a
+                  href="https://www.produtoramaxvision.com.br/inteligencia-artificial"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-[#A93838]"
+                >
+                  Produtora MaxVision
+                </a>{" "}
+                2025 – Todos os direitos reservados.
+              </span>
             </div>
           </div>
         </div>
