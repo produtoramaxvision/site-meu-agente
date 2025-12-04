@@ -18,8 +18,8 @@ const members = [
   },
   {
     src: '',
-    name: 'Maria Oliveira',
-    role: 'CTO',
+    name: 'Carlos Ribeiro',
+    role: 'Diretor de Tecnologia',
     bio: 'Especialista em IA e arquitetura de software.',
     socials: [
       { icon: Github, href: '#' },
@@ -28,8 +28,8 @@ const members = [
   },
   {
     src: '',
-    name: 'Carlos Santos',
-    role: 'Head of Product',
+    name: 'Manu Lens',
+    role: 'Chefe de Produto',
     bio: 'Focado em criar experiências incríveis.',
     socials: [
       { icon: Linkedin, href: '#' },

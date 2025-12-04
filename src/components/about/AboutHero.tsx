@@ -23,7 +23,7 @@ export function AboutHero() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
         >
-          <Badge className="inline-flex items-center gap-2 bg-brand-500/10 text-brand-400 border-brand-500/20 px-4 py-1.5 text-sm font-medium rounded-full mb-8 backdrop-blur-sm">
+          <Badge className="inline-flex items-center gap-2 mb-3 rounded-full border border-brand-500/40 bg-brand-500/10 px-3 py-1 text-xs font-semibold text-brand-500">
             <Sparkles className="h-4 w-4" />
             Nossa História & Visão
           </Badge>

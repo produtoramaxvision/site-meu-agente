@@ -46,6 +46,19 @@ const getStatusConfig = (status: TimelineItem["status"]) => {
   return configs[status || "upcoming"]
 }
 
+const getStatusLabel = (status: TimelineItem["status"]) => {
+  switch (status) {
+    case "completed":
+      return "Concluído"
+    case "current":
+      return "Em Andamento"
+    case "upcoming":
+      return "Em Breve"
+    default:
+      return "Em Breve"
+  }
+}
+
 const getStatusIcon = (status: TimelineItem["status"]) => {
   switch (status) {
     case "completed":
@@ -186,9 +199,9 @@ export function Timeline({ items, className }: TimelineProps) {
                               config.badgeText,
                               "border-current/20"
                             )}
-                            aria-label={`Status: ${item.status || "upcoming"}`}
+                            aria-label={`Status: ${getStatusLabel(item.status)}`}
                           >
-                            {item.status ? item.status.charAt(0).toUpperCase() + item.status.slice(1) : "Upcoming"}
+                            {getStatusLabel(item.status)}
                           </Badge>
                         </div>
 
