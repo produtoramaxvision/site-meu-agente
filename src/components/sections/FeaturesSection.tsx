@@ -1,6 +1,7 @@
 import { useState } from "react";
 
 import { Card } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
 import {
   BarChart3,
   Bell,
@@ -13,6 +14,7 @@ import {
   Sparkles,
   Target,
   Wallet,
+  Layers,
 } from "lucide-react";
 
 const FeaturesSection = () => {
@@ -91,15 +93,13 @@ const FeaturesSection = () => {
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section header */}
         <div className="text-center mb-16 space-y-5">
-          <div className="inline-flex items-center gap-2 rounded-full border border-border/60 bg-surface/70 px-4 py-1 text-[11px] font-medium text-text-muted shadow-[0_0_0_1px_rgba(15,23,42,0.35)]">
-            <span className="relative flex h-2 w-2">
-              <span className="absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-60 animate-ping" />
-              <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-400" />
-            </span>
-            <span className="uppercase tracking-[0.22em]">
-              Plataforma completa além dos agentes de IA
-            </span>
-          </div>
+          <Badge
+            variant="outline"
+            className="inline-flex items-center gap-2 mb-3 rounded-full border border-brand-500/40 bg-brand-500/10 px-3 py-1 text-xs font-semibold text-brand-500"
+          >
+            <Layers className="h-3.5 w-3.5 text-brand-500" />
+            <span>Plataforma completa além dos agentes de IA</span>
+          </Badge>
 
           <h2 className="text-4xl sm:text-5xl font-extrabold text-gradient mb-2 pb-1 leading-tight">
             Recursos Completos do App
@@ -403,10 +403,13 @@ const FeaturesSection = () => {
 
             <div className="relative flex flex-col lg:flex-row items-start lg:items-center gap-6 lg:gap-10">
               <div className="space-y-3 max-w-xl">
-                <div className="inline-flex items-center gap-2 rounded-full bg-background/80 border border-border/60 px-3 py-1 text-[11px] font-medium text-text-muted uppercase tracking-[0.22em]">
-                  <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" />
-                  Integrações Google Workspace
-                </div>
+                <Badge
+                  variant="outline"
+                  className="inline-flex items-center gap-2 mb-3 rounded-full border border-brand-500/40 bg-brand-500/10 px-3 py-1 text-xs font-semibold text-brand-500"
+                >
+                  <Folder className="h-3.5 w-3.5 text-brand-500" />
+                  <span>Integrações Google Workspace</span>
+                </Badge>
                 <h3 className="text-xl sm:text-2xl font-semibold text-text">
                   Conecte seu painel aos apps que você já usa no dia a dia.
                 </h3>

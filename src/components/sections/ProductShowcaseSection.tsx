@@ -288,11 +288,12 @@ const ProductShowcaseSection = () => {
         {/* Cabeçalho da seção */}
         <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between mb-10 md:mb-14">
           <div className="max-w-2xl space-y-3">
-            <Badge variant="outline" className="rounded-full px-3 py-1 text-xs">
-              <span className="inline-flex items-center gap-1">
-                <MessageCircle className="w-3 h-3" />
-                Vitrine em tempo real
-              </span>
+            <Badge
+              variant="outline"
+              className="inline-flex items-center gap-2 mb-3 rounded-full border border-brand-500/40 bg-brand-500/10 px-3 py-1 text-xs font-semibold text-brand-500"
+            >
+              <MessageCircle className="h-3.5 w-3.5 text-brand-500" />
+              <span>Vitrine em tempo real</span>
             </Badge>
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-gradient leading-tight">
               Veja seus Agentes de IA{" "}

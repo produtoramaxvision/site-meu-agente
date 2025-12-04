@@ -21,6 +21,7 @@ import {
   Sparkles,
   Star,
   Users,
+  Briefcase,
 } from "lucide-react";
 
 type JobAreaId =
@@ -326,9 +327,12 @@ const TrabalheConosco = () => {
             <div className="pointer-events-none absolute inset-0 z-0 bg-[linear-gradient(to_right,#8080800b_1px,transparent_1px),linear-gradient(to_bottom,#8080800b_1px,transparent_1px)] bg-[size:14px_24px]" />
             <div className="relative z-10 mx-auto flex max-w-7xl flex-col gap-10 px-4 sm:px-6 lg:flex-row lg:items-stretch lg:px-8">
               <div className="max-w-2xl space-y-6">
-                <Badge className="inline-flex items-center gap-2 bg-emerald-500/10 text-emerald-400 border-emerald-500/40 px-3 py-1 text-xs font-semibold uppercase tracking-wide">
-                  <Sparkles className="h-3.5 w-3.5" />
-                  Carreiras em IA aplicada a negócios
+                <Badge
+                  variant="outline"
+                  className="inline-flex items-center gap-2 mb-3 rounded-full border border-brand-500/40 bg-brand-500/10 px-3 py-1 text-xs font-semibold text-brand-500"
+                >
+                  <Briefcase className="h-3.5 w-3.5 text-brand-500" />
+                  <span>Carreiras em IA aplicada a negócios</span>
                 </Badge>
 
                 <h1 className="text-balance text-4xl font-semibold tracking-tight leading-normal pb-2 text-gradient sm:text-5xl lg:text-6xl">
@@ -496,10 +500,13 @@ const TrabalheConosco = () => {
                 </div>
 
                 <div className="flex flex-col justify-between space-y-8">
-                  <div className="inline-flex items-center gap-2 rounded-full bg-background/80 border border-border/60 px-3 py-1 text-[11px] text-text-muted">
-                    <Star className="h-3.5 w-3.5 icon-accent" />
-                    Nossos princípios em decisões do dia a dia
-                  </div>
+                  <Badge
+                    variant="outline"
+                    className="inline-flex items-center gap-2 mb-3 rounded-full border border-brand-500/40 bg-brand-500/10 px-3 py-1 text-xs font-semibold text-brand-500"
+                  >
+                    <Star className="h-3.5 w-3.5 text-brand-500" />
+                    <span>Nossos princípios em decisões do dia a dia</span>
+                  </Badge>
 
                   <Card className="mt-4 p-5 bg-background/90 border-border/60">
                     <ul className="space-y-5 text-sm text-text">

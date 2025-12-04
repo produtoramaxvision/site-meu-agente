@@ -6,7 +6,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { Home, ChevronRight, ShieldCheck, FileText, Clock } from "lucide-react";
+import { Home, ChevronRight, ShieldCheck, FileText, Clock, Scale } from "lucide-react";
 import SEO from "@/components/SEO";
 import termosDeUsoMarkdown from "../../docs/termos-de-uso.md?raw";
 
@@ -105,10 +105,11 @@ const TermosDeUso = () => {
             <div className="grid items-start gap-10 lg:grid-cols-[minmax(0,2.2fr)_minmax(0,1.2fr)]">
               <div className="space-y-6">
                 <Badge
-                  variant="secondary"
-                  className="text-[11px] uppercase tracking-[0.18em]"
+                  variant="outline"
+                  className="inline-flex items-center gap-2 mb-3 rounded-full border border-brand-500/40 bg-brand-500/10 px-3 py-1 text-xs font-semibold text-brand-500"
                 >
-                  Documento legal
+                  <Scale className="h-3.5 w-3.5 text-brand-500" />
+                  <span>Documento legal</span>
                 </Badge>
                 <h1 className="text-balance pb-2 text-3xl font-extrabold leading-tight text-gradient sm:text-4xl lg:text-5xl">
                   Termos de Uso – Meu Agente
