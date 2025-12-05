@@ -8,8 +8,8 @@ const HeroSection = () => {
       <div className="absolute inset-0 bg-[linear-gradient(to_right,#8080800b_1px,transparent_1px),linear-gradient(to_bottom,#8080800b_1px,transparent_1px)] bg-[size:14px_24px]"></div>
       
       {/* Floating elements */}
-      <div className="absolute top-20 left-10 w-72 h-72 glow-blur-soft rounded-full blur-3xl animate-float"></div>
-      <div className="absolute bottom-20 right-10 w-96 h-96 glow-blur-soft rounded-full blur-3xl animate-float" style={{ animationDelay: "1s" }}></div>
+      <div className="hidden sm:block absolute top-20 left-10 w-72 h-72 glow-blur-soft rounded-full blur-3xl animate-float motion-reduce:animate-none"></div>
+      <div className="hidden sm:block absolute bottom-20 right-10 w-96 h-96 glow-blur-soft rounded-full blur-3xl animate-float motion-reduce:animate-none" style={{ animationDelay: "1s" }}></div>
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
         {/* Badge */}

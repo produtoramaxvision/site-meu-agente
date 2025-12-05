@@ -16,7 +16,7 @@ const ChatWidget = () => {
       {/* Floating button */}
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="fixed bottom-6 right-6 z-50 w-16 h-16 rounded-full btn-primary-gradient shadow-2xl-adaptive hover:shadow-xl-adaptive hover:scale-110 transition-all duration-600 flex items-center justify-center group animate-pulse-slow"
+        className="fixed bottom-6 right-6 z-50 w-16 h-16 rounded-full btn-primary-gradient shadow-2xl-adaptive hover:shadow-xl-adaptive hover:scale-110 transition-all duration-600 flex items-center justify-center group md:animate-pulse-slow motion-reduce:animate-none"
         aria-label="Abrir chat"
       >
         {isOpen ? (
@@ -30,7 +30,7 @@ const ChatWidget = () => {
 
       {/* Chat card */}
       {isOpen && (
-        <div className="fixed bottom-24 right-6 z-50 w-80 sm:w-96 animate-scale-in">
+        <div className="fixed bottom-24 right-6 z-50 w-80 sm:w-96 animate-scale-in motion-reduce:animate-none">
           <Card className="shadow-2xl-adaptive border-border">
             <CardHeader className="bg-section-dark text-white rounded-t-xl">
               <div className="flex items-center justify-between">
@@ -108,7 +108,7 @@ const ChatWidget = () => {
       {isOpen && (
         <div
           onClick={() => setIsOpen(false)}
-          className="fixed inset-0 bg-black/20 z-40 animate-fade-in"
+          className="fixed inset-0 bg-black/20 z-40 animate-fade-in motion-reduce:animate-none"
         ></div>
       )}
     </>
