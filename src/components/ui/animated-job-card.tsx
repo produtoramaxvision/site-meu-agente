@@ -74,7 +74,14 @@ export const AnimatedJobCard = ({
   const springRotateY = useSpring(rotateY, springConfig)
 
   return (
-    <div className={cn("h-full w-full [perspective:1000px]", className)}>
+    <div
+      className={cn(
+        // Wrapper com perspectiva 3D e respiro lateral em telas menores
+        // para evitar que o card "estoure" as bordas em MOBILE/TABLET.
+        "h-full w-full [perspective:1000px] px-4 sm:px-6 lg:px-0",
+        className,
+      )}
+    >
       <motion.div
         layout
         onClick={onClick}
@@ -88,7 +95,10 @@ export const AnimatedJobCard = ({
           transformStyle: "preserve-3d",
         }}
         className={cn(
-          "relative h-full w-full transform-gpu cursor-pointer overflow-hidden rounded-xl bg-card border border-border/70 shadow-adaptive p-6 transition-shadow duration-300 hover:shadow-xl-adaptive",
+          // Em telas menores, limitamos a largura visual do card para ~90vw,
+          // garantindo que mesmo com o tilt 3D ele não ultrapasse as bordas.
+          "relative h-full w-full max-w-[90vw] sm:max-w-none mx-auto",
+          "transform-gpu cursor-pointer overflow-hidden rounded-xl bg-card border border-border/70 shadow-adaptive p-6 transition-shadow duration-300 hover:shadow-xl-adaptive",
           "border-t-4",
           variantClasses[variant],
         )}

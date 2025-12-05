@@ -88,12 +88,12 @@ export function AboutProduct() {
 
     if (index === prevIndex) {
       // Card à esquerda (levemente rotacionado e deslocado)
-      return "-rotate-8 -translate-x-24 sm:-translate-x-32 translate-y-2 z-20 opacity-80"
+      return "-rotate-6 -translate-x-10 sm:-translate-x-20 md:-translate-x-24 translate-y-2 z-20 opacity-80 scale-95"
     }
 
     if (index === nextIndex) {
       // Card à direita (levemente rotacionado e deslocado)
-      return "rotate-8 translate-x-24 sm:translate-x-32 translate-y-2 z-20 opacity-80"
+      return "rotate-6 translate-x-10 sm:translate-x-20 md:translate-x-24 translate-y-2 z-20 opacity-80 scale-95"
     }
 
     // Cards que não estão imediatamente na esquerda/direita ficam discretos no fundo
@@ -126,8 +126,10 @@ export function AboutProduct() {
           </p>
         </div>
 
-        {/* Deck interativo de cards sobrepostos (4 cards) */}
-        <div className="relative flex justify-center items-center py-4 sm:py-8">
+        {/* Deck interativo de cards sobrepostos (4 cards)
+            Em telas pequenas usamos -mx-4 para compensar o padding do container pai
+            e dar espaço extra para os cards rotacionados sem cortá-los nas laterais. */}
+        <div className="relative flex justify-center items-center py-4 sm:py-8 -mx-4 sm:mx-0">
           <div className="relative w-full max-w-5xl h-[260px] sm:h-[280px] md:h-[320px]">
             {deckCards.map((card, index) => (
               <AnimatedJobCard
@@ -146,7 +148,7 @@ export function AboutProduct() {
                 )}
               />
             ))}
-              </div>
+          </div>
         </div>
       </div>
     </section>
