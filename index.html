@@ -1,5 +1,5 @@
 ﻿<!doctype html>
-<html lang="en">
+<html lang="pt-BR">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -20,8 +20,31 @@
 
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="/balao-branco.png" />
-    <link rel="preload" as="image" href="/meuagente_logo_transparente-preto.png" />
-
+    
+    <!-- Preload de recursos críticos para melhorar LCP -->
+    <link rel="preload" as="image" href="/meuagente_logo_transparente-preto.png" fetchpriority="high" />
+    
+    <!-- Preload das fontes críticas (Latin subset - mais usado no Brasil) -->
+    <link rel="preload" as="font" type="font/woff2" href="/assets/inter-latin-400-normal.woff2" crossorigin />
+    <link rel="preload" as="font" type="font/woff2" href="/assets/inter-latin-600-normal.woff2" crossorigin />
+    
+    <!-- Preconnect para domínios externos (se houver CDN ou analytics) -->
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    
+    <!-- CSS Crítico Inline para evitar render-blocking -->
+    <style>
+      /* Critical CSS - Estilos mínimos para First Paint */
+      *,*::before,*::after{box-sizing:border-box}
+      html{-webkit-text-size-adjust:100%;line-height:1.5;scroll-behavior:smooth}
+      body{margin:0;font-family:'Inter',system-ui,-apple-system,sans-serif;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
+      #root{min-height:100vh;display:flex;flex-direction:column}
+      /* Skeleton loading para evitar layout shift */
+      .skeleton-header{height:64px;background:linear-gradient(90deg,#f0f0f0 25%,#e0e0e0 50%,#f0f0f0 75%);background-size:200% 100%;animation:shimmer 1.5s infinite}
+      @keyframes shimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
+      /* Dark mode support */
+      .dark body{background:#0d0d0d;color:#fff}
+      .dark .skeleton-header{background:linear-gradient(90deg,#1a1a1a 25%,#2a2a2a 50%,#1a1a1a 75%);background-size:200% 100%}
+    </style>
   </head>
 
   <body>
