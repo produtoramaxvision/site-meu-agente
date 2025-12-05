@@ -34,12 +34,16 @@ const scrollToSection = (id: (typeof SECTION_LINKS)[number]["id"]) => {
   if (!el) return;
 
   const headerOffset = 80; // altura aproximada do header fixo
-  const rect = el.getBoundingClientRect();
-  const offsetTop = window.scrollY + rect.top - headerOffset;
 
-  window.scrollTo({
-    top: offsetTop,
-    behavior: "smooth",
+  // Agrupar leitura de layout em requestAnimationFrame para evitar reflow forçado
+  requestAnimationFrame(() => {
+    const rect = el.getBoundingClientRect();
+    const offsetTop = window.scrollY + rect.top - headerOffset;
+
+    window.scrollTo({
+      top: offsetTop,
+      behavior: "smooth",
+    });
   });
 };
 

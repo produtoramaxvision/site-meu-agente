@@ -48,14 +48,46 @@ export const AnimatedJobCard = ({
   const mouseY = useMotionValue(0)
 
   const cardRef = React.useRef<HTMLDivElement | null>(null)
+  // Cache das dimensões para evitar reflow em cada mousemove
+  const dimensionsRef = React.useRef<{ width: number; height: number } | null>(null)
+
+  // Atualizar cache de dimensões apenas quando necessário (resize ou mount)
+  React.useEffect(() => {
+    const updateDimensions = () => {
+      if (cardRef.current) {
+        const { width, height } = cardRef.current.getBoundingClientRect()
+        dimensionsRef.current = { width, height }
+      }
+    }
+    
+    // Usar requestAnimationFrame para evitar reflow síncrono
+    requestAnimationFrame(updateDimensions)
+    
+    // Atualizar no resize com debounce implícito via ResizeObserver
+    const resizeObserver = new ResizeObserver(() => {
+      requestAnimationFrame(updateDimensions)
+    })
+    
+    if (cardRef.current) {
+      resizeObserver.observe(cardRef.current)
+    }
+    
+    return () => resizeObserver.disconnect()
+  }, [])
 
   const onMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (!cardRef.current) return
+    if (!cardRef.current || !dimensionsRef.current) return
 
-    const { left, top, width, height } = cardRef.current.getBoundingClientRect()
+    // Usar offsetX/offsetY do evento nativo - não causa reflow
+    // Estes valores são relativos ao elemento target
+    const { width, height } = dimensionsRef.current
+    
+    // nativeEvent.offsetX/offsetY são relativos ao target, não causam reflow
+    const offsetX = e.nativeEvent.offsetX
+    const offsetY = e.nativeEvent.offsetY
 
-    mouseX.set(e.clientX - left - width / 2)
-    mouseY.set(e.clientY - top - height / 2)
+    mouseX.set(offsetX - width / 2)
+    mouseY.set(offsetY - height / 2)
   }
 
   const onMouseLeave = () => {
