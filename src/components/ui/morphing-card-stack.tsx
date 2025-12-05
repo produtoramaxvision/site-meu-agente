@@ -159,7 +159,12 @@ export function MorphingCardStack({
 
       {/* Cards Container */}
       <LayoutGroup>
-        <motion.div layout className={cn(containerStyles[layout], "mx-auto")}>
+        <motion.div 
+          layout="position"
+          layoutDependency={layout}
+          className={cn(containerStyles[layout], "mx-auto")}
+          style={{ contain: 'layout' }}
+        >
           <AnimatePresence mode="popLayout">
             {displayCards.map((card) => {
               const styles = getLayoutStyles(card.stackPosition)
@@ -170,6 +175,8 @@ export function MorphingCardStack({
                 <motion.div
                   key={card.id}
                   layoutId={card.id}
+                  layout="position"
+                  layoutDependency={layout}
                   initial={{ opacity: 0, scale: 0.8 }}
                   animate={{
                     opacity: 1,
@@ -182,7 +189,9 @@ export function MorphingCardStack({
                     type: "spring",
                     stiffness: 300,
                     damping: 25,
+                    layout: { duration: 0.3 }
                   }}
+                  style={{ willChange: 'transform, opacity' }}
                   drag={isTopCard ? "x" : false}
                   dragConstraints={{ left: 0, right: 0 }}
                   dragElastic={0.7}

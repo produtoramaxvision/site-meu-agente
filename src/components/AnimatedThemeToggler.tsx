@@ -36,6 +36,18 @@ export const AnimatedThemeToggler = ({ className }: AnimatedThemeTogglerProps) =
     const buttonEl = buttonRef.current
     if (!buttonEl) return
 
+    // OTIMIZAÇÃO: Ler propriedades de layout ANTES de qualquer mutação DOM
+    // Isso evita reflow forçado pois a leitura acontece quando o DOM está estável
+    const { left, top, width, height } = buttonEl.getBoundingClientRect()
+    const centerX = left + width / 2
+    const centerY = top + height / 2
+    const viewportWidth = window.visualViewport?.width ?? window.innerWidth
+    const viewportHeight = window.visualViewport?.height ?? window.innerHeight
+    const maxDistance = Math.hypot(
+      Math.max(centerX, viewportWidth - centerX),
+      Math.max(centerY, viewportHeight - centerY),
+    )
+
     const nextIsDark = !darkMode
 
     const applyTheme = () => {
@@ -56,38 +68,21 @@ export const AnimatedThemeToggler = ({ className }: AnimatedThemeTogglerProps) =
 
     await transition.ready
 
-    // Usar requestAnimationFrame para agrupar leituras de layout
-    // e evitar reflow forçado durante a animação
-    requestAnimationFrame(() => {
-      // Animação radial a partir do centro do botão
-      const { left, top, width, height } = buttonEl.getBoundingClientRect()
-      const centerX = left + width / 2
-      const centerY = top + height / 2
-      
-      // Usar visualViewport para dimensões quando disponível (evita reflow adicional)
-      const viewportWidth = window.visualViewport?.width ?? window.innerWidth
-      const viewportHeight = window.visualViewport?.height ?? window.innerHeight
-      
-      const maxDistance = Math.hypot(
-        Math.max(centerX, viewportWidth - centerX),
-        Math.max(centerY, viewportHeight - centerY),
-      )
-
-      document.documentElement.animate(
-        {
-          clipPath: [
-            `circle(0px at ${centerX}px ${centerY}px)`,
-            `circle(${maxDistance}px at ${centerX}px ${centerY}px)`,
-          ],
-        },
-        {
-          duration: 700,
-          easing: "ease-in-out",
-          // @ts-expect-error – pseudoElement ainda não está tipado em todos os libs
-          pseudoElement: "::view-transition-new(root)",
-        },
-      )
-    })
+    // Animação radial usando valores pré-calculados (sem reflow)
+    document.documentElement.animate(
+      {
+        clipPath: [
+          `circle(0px at ${centerX}px ${centerY}px)`,
+          `circle(${maxDistance}px at ${centerX}px ${centerY}px)`,
+        ],
+      },
+      {
+        duration: 700,
+        easing: "ease-in-out",
+        // @ts-expect-error – pseudoElement ainda não está tipado em todos os libs
+        pseudoElement: "::view-transition-new(root)",
+      },
+    )
   }, [darkMode, setTheme])
 
   return (

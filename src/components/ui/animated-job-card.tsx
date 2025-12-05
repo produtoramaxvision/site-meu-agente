@@ -51,21 +51,18 @@ export const AnimatedJobCard = ({
   // Cache das dimensões para evitar reflow em cada mousemove
   const dimensionsRef = React.useRef<{ width: number; height: number } | null>(null)
 
-  // Atualizar cache de dimensões apenas quando necessário (resize ou mount)
+  // Atualizar cache de dimensões usando ResizeObserverEntry.contentRect 
+  // ao invés de getBoundingClientRect() - evita reflow forçado
   React.useEffect(() => {
-    const updateDimensions = () => {
-      if (cardRef.current) {
-        const { width, height } = cardRef.current.getBoundingClientRect()
-        dimensionsRef.current = { width, height }
+    const resizeObserver = new ResizeObserver((entries) => {
+      // ResizeObserverEntry.contentRect já contém as dimensões
+      // sem precisar fazer leitura síncrona de layout
+      for (const entry of entries) {
+        dimensionsRef.current = { 
+          width: entry.contentRect.width, 
+          height: entry.contentRect.height 
+        }
       }
-    }
-    
-    // Usar requestAnimationFrame para evitar reflow síncrono
-    requestAnimationFrame(updateDimensions)
-    
-    // Atualizar no resize com debounce implícito via ResizeObserver
-    const resizeObserver = new ResizeObserver(() => {
-      requestAnimationFrame(updateDimensions)
     })
     
     if (cardRef.current) {

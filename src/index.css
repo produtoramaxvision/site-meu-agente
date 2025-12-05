@@ -167,6 +167,19 @@ All colors MUST be HSL.
     @apply border-border;
   }
 
+  /* Scroll margin para compensar o header fixo */
+  /* Usado com scrollIntoView nativo para evitar reflow forçado */
+  [id^="visao-geral"],
+  [id^="agentes-ia"],
+  [id^="casos-uso"],
+  [id^="plataforma"],
+  [id^="planos"],
+  [id^="seguranca"],
+  [id^="duvidas"],
+  [id^="vagas"] {
+    scroll-margin-top: 5rem; /* 80px = altura do header */
+  }
+
   body {
     @apply bg-background text-foreground;
     font-family: 'Inter', system-ui, -apple-system, sans-serif;

@@ -438,14 +438,11 @@ const TrabalheConosco = () => {
                     onClick={() => {
                       const el = document.getElementById("vagas");
                       if (!el) return;
-                      // Usar requestAnimationFrame para evitar reflow forçado
-                      requestAnimationFrame(() => {
-                        const rect = el.getBoundingClientRect();
-                        const offsetTop = window.scrollY + rect.top - 80;
-                        window.scrollTo({
-                          top: offsetTop,
-                          behavior: "smooth",
-                        });
+                      // OTIMIZAÇÃO: Usar scrollIntoView nativo com scroll-margin-top no CSS
+                      // Isso evita getBoundingClientRect e reflow forçado
+                      el.scrollIntoView({
+                        behavior: "smooth",
+                        block: "start",
                       });
                     }}
                   >
