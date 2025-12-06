@@ -1,4 +1,5 @@
 import { Badge } from "@/components/ui/badge";
+import { Glow } from "@/components/ui/glow";
 import { MorphingCardStack, type CardData } from "@/components/ui/morphing-card-stack";
 import { 
   DollarSign, 
@@ -140,6 +141,11 @@ const AgentsSection = () => {
 
   return (
     <section className="py-24 bg-background section-texture-soft">
+      <Glow
+        variant="center"
+        className="pointer-events-none z-0"
+        aria-hidden="true"
+      />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section header */}
         <div className="text-center mb-12">
