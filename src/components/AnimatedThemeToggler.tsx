@@ -20,6 +20,7 @@ export const AnimatedThemeToggler = ({ className }: AnimatedThemeTogglerProps) =
       ? document.documentElement.classList.contains("dark")
       : false
   )
+  const [isAnimating, setIsAnimating] = useState(false)
 
   useEffect(() => {
     const syncTheme = () =>
@@ -34,16 +35,24 @@ export const AnimatedThemeToggler = ({ className }: AnimatedThemeTogglerProps) =
   }, [])
 
   const onToggle = useCallback(async () => {
-    if (!buttonRef.current) return
+    if (!buttonRef.current || isAnimating) return
+    
+    setIsAnimating(true)
 
-    await document.startViewTransition(() => {
+    // Check if View Transitions API is supported
+    if (!document.startViewTransition) {
+      // Fallback for browsers without View Transitions API support
       flushSync(() => {
         const toggled = !darkMode
         setDarkMode(toggled)
         document.documentElement.classList.toggle("dark", toggled)
         localStorage.setItem("theme", toggled ? "dark" : "light")
       })
-    }).ready
+      
+      // Wait for Framer Motion animation to complete
+      setTimeout(() => setIsAnimating(false), 350)
+      return
+    }
 
     const { left, top, width, height } = buttonRef.current.getBoundingClientRect()
     const centerX = left + width / 2
@@ -53,6 +62,20 @@ export const AnimatedThemeToggler = ({ className }: AnimatedThemeTogglerProps) =
       Math.max(centerY, window.innerHeight - centerY)
     )
 
+    // Start the View Transition
+    const transition = document.startViewTransition(() => {
+      flushSync(() => {
+        const toggled = !darkMode
+        setDarkMode(toggled)
+        document.documentElement.classList.toggle("dark", toggled)
+        localStorage.setItem("theme", toggled ? "dark" : "light")
+      })
+    })
+
+    // Wait for the transition to be ready before animating
+    await transition.ready
+
+    // Apply the circular reveal animation
     document.documentElement.animate(
       {
         clipPath: [
@@ -66,15 +89,21 @@ export const AnimatedThemeToggler = ({ className }: AnimatedThemeTogglerProps) =
         pseudoElement: "::view-transition-new(root)",
       }
     )
-  }, [darkMode])
+    
+    // Reset animation lock after both animations complete
+    await transition.finished
+    setIsAnimating(false)
+  }, [darkMode, isAnimating])
 
   return (
     <button
       ref={buttonRef}
       onClick={onToggle}
       aria-label="Switch theme"
+      disabled={isAnimating}
       className={cn(
-        "flex items-center justify-center p-2 rounded-full outline-none focus:outline-none active:outline-none focus:ring-0 cursor-pointer",
+        "flex items-center justify-center p-2 rounded-full outline-none focus:outline-none active:outline-none focus:ring-0 cursor-pointer transition-opacity",
+        isAnimating && "pointer-events-none",
         className
       )}
       type="button"
@@ -83,10 +112,13 @@ export const AnimatedThemeToggler = ({ className }: AnimatedThemeTogglerProps) =
         {darkMode ? (
           <motion.span
             key="sun-icon"
-            initial={{ opacity: 0, scale: 0.55, rotate: 25 }}
+            initial={{ opacity: 0, scale: 0.5, rotate: 90 }}
             animate={{ opacity: 1, scale: 1, rotate: 0 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.33 }}
+            exit={{ opacity: 0, scale: 0.5, rotate: -90 }}
+            transition={{ 
+              duration: 0.25,
+              ease: [0.4, 0, 0.2, 1]
+            }}
             className="text-white"
           >
             <Sun />
@@ -94,10 +126,13 @@ export const AnimatedThemeToggler = ({ className }: AnimatedThemeTogglerProps) =
         ) : (
           <motion.span
             key="moon-icon"
-            initial={{ opacity: 0, scale: 0.55, rotate: -25 }}
+            initial={{ opacity: 0, scale: 0.5, rotate: -90 }}
             animate={{ opacity: 1, scale: 1, rotate: 0 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.33 }}
+            exit={{ opacity: 0, scale: 0.5, rotate: 90 }}
+            transition={{ 
+              duration: 0.25,
+              ease: [0.4, 0, 0.2, 1]
+            }}
             className="text-black"
           >
             <Moon />
