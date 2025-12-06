@@ -107,8 +107,7 @@ export const AnimatedThemeToggler = ({ className }: AnimatedThemeTogglerProps) =
             key="sun-icon"
             initial={{ opacity: 0, scale: 0.55, rotate: 25 }}
             animate={{ opacity: 1, scale: 1, rotate: 0 }}
-            exit={{ opacity: 0, scale: 0.8, rotate: -10 }}
-            transition={{ duration: 0.33, ease: "easeOut" }}
+            transition={{ duration: 0.2, ease: "easeOut" }}
             className="text-amber-300"
           >
             <Sun className="h-5 w-5" />
@@ -118,8 +117,7 @@ export const AnimatedThemeToggler = ({ className }: AnimatedThemeTogglerProps) =
             key="moon-icon"
             initial={{ opacity: 0, scale: 0.55, rotate: -25 }}
             animate={{ opacity: 1, scale: 1, rotate: 0 }}
-            exit={{ opacity: 0, scale: 0.8, rotate: 10 }}
-            transition={{ duration: 0.33, ease: "easeOut" }}
+            transition={{ duration: 0.2, ease: "easeOut" }}
             className="text-slate-900 dark:text-slate-50"
           >
             <Moon className="h-5 w-5" />
