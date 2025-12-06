@@ -24,9 +24,11 @@
     <!-- Preload de recursos críticos para melhorar LCP -->
     <link rel="preload" as="image" href="/meuagente_logo_transparente-preto.png" fetchpriority="high" />
     
-    <!-- Preload das fontes críticas (Latin subset - mais usado no Brasil) -->
-    <link rel="preload" as="font" type="font/woff2" href="/assets/inter-latin-400-normal.woff2" crossorigin />
-    <link rel="preload" as="font" type="font/woff2" href="/assets/inter-latin-600-normal.woff2" crossorigin />
+    <!-- Preload das fontes críticas em WOFF2 (Latin subset - mais usado no Brasil) -->
+    <link rel="preload" as="font" type="font/woff2" href="/fonts/inter-latin-400-normal.woff2" crossorigin />
+    <link rel="preload" as="font" type="font/woff2" href="/fonts/inter-latin-600-normal.woff2" crossorigin />
+    <link rel="preload" as="font" type="font/woff2" href="/fonts/inter-latin-ext-400-normal.woff2" crossorigin />
+    <link rel="preload" as="font" type="font/woff2" href="/fonts/inter-latin-ext-600-normal.woff2" crossorigin />
     
     <!-- DNS Prefetch para domínios externos -->
     <link rel="dns-prefetch" href="https://fonts.gstatic.com" />
@@ -35,6 +37,12 @@
     <!-- Preconnect para domínios externos (se houver CDN ou analytics) -->
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin />
+    
+    <!-- Fontes carregadas de forma assíncrona para não bloquear o rendering -->
+    <link rel="preload" as="style" href="/fonts.css" onload="this.onload=null;this.rel='stylesheet'" />
+    <noscript>
+      <link rel="stylesheet" href="/fonts.css" />
+    </noscript>
     
     <!-- CSS Crítico Inline para evitar render-blocking -->
     <style>
@@ -54,7 +62,8 @@
 
   <body>
     <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
+    <!-- Defer script loading to avoid blocking HTML parsing -->
+    <script type="module" src="/src/main.tsx" defer></script>
   </body>
 </html>
 

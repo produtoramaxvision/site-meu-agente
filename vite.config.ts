@@ -49,6 +49,25 @@ function cssNonBlockingPlugin(): Plugin {
   };
 }
 
+/**
+ * Plugin para adicionar modulepreload nos chunks críticos
+ * Melhora o carregamento paralelo de módulos dependentes
+ */
+function modulePreloadPlugin(): Plugin {
+  return {
+    name: "module-preload-optimization",
+    enforce: "post",
+    transformIndexHtml(html) {
+      // Adiciona preload para chunks críticos do React
+      const preloadTags = `
+    <!-- Modulepreload para chunks críticos -->
+    <link rel="modulepreload" href="/src/main.tsx" />`;
+      
+      return html.replace('</head>', `${preloadTags}\n  </head>`);
+    },
+  };
+}
+
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => {
   const isDevelopment = mode === "development";
@@ -120,6 +139,8 @@ export default defineConfig(({ mode }) => {
       isDevelopment && componentTagger(),
       // Plugin para CSS não-bloqueante (resolve render-blocking do PageSpeed)
       isProduction && cssNonBlockingPlugin(),
+      // Plugin para modulepreload de chunks críticos
+      isProduction && modulePreloadPlugin(),
       viteCompression({
         algorithm: "gzip",
         ext: ".gz",
@@ -173,6 +194,23 @@ export default defineConfig(({ mode }) => {
     build: {
       target: "esnext",
       minify: "terser",
+      // Otimização agressiva de modulepreload para reduzir critical path
+      modulePreload: {
+        polyfill: true,
+        resolveDependencies: (filename, deps, { hostType }) => {
+          // Preload apenas chunks críticos, não todos os chunks
+          // Isso reduz o número de requests no critical path
+          if (hostType === 'html') {
+            // Para HTML, preload apenas vendor chunks principais
+            return deps.filter(dep => 
+              dep.includes('react-vendor') || 
+              dep.includes('index')
+            );
+          }
+          // Para JS, deixa o comportamento padrão
+          return deps;
+        },
+      },
       terserOptions: {
         compress: {
           drop_console: isProduction, // Remove console.log apenas em produção
