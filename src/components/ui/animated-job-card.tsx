@@ -87,43 +87,28 @@ export const AnimatedJobCard = ({
   const mouseY = useMotionValue(0)
 
   const cardRef = React.useRef<HTMLDivElement | null>(null)
-  // Cache das dimensões para evitar reflow em cada mousemove
-  const dimensionsRef = React.useRef<{ width: number; height: number } | null>(null)
+  const boundsRef = React.useRef<{ left: number; top: number; width: number; height: number } | null>(null)
 
-  // Atualizar cache de dimensões usando ResizeObserverEntry.contentRect 
-  // ao invés de getBoundingClientRect() - evita reflow forçado
-  React.useEffect(() => {
-    const resizeObserver = new ResizeObserver((entries) => {
-      // ResizeObserverEntry.contentRect já contém as dimensões
-      // sem precisar fazer leitura síncrona de layout
-      for (const entry of entries) {
-        dimensionsRef.current = { 
-          width: entry.contentRect.width, 
-          height: entry.contentRect.height 
-        }
-      }
-    })
-    
-    if (cardRef.current) {
-      resizeObserver.observe(cardRef.current)
+  const onMouseEnter = () => {
+    if (!cardRef.current) return
+
+    // Apenas uma leitura de layout na entrada do hover; evita thrash em cada move
+    const rect = cardRef.current.getBoundingClientRect()
+    boundsRef.current = {
+      left: rect.left,
+      top: rect.top,
+      width: rect.width,
+      height: rect.height,
     }
-    
-    return () => resizeObserver.disconnect()
-  }, [])
+  }
 
   const onMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (!cardRef.current || !dimensionsRef.current) return
+    if (!boundsRef.current) return
 
-    // Usar offsetX/offsetY do evento nativo - não causa reflow
-    // Estes valores são relativos ao elemento target
-    const { width, height } = dimensionsRef.current
-    
-    // nativeEvent.offsetX/offsetY são relativos ao target, não causam reflow
-    const offsetX = e.nativeEvent.offsetX
-    const offsetY = e.nativeEvent.offsetY
+    const { left, top, width, height } = boundsRef.current
 
-    mouseX.set(offsetX - width / 2)
-    mouseY.set(offsetY - height / 2)
+    mouseX.set(e.clientX - left - width / 2)
+    mouseY.set(e.clientY - top - height / 2)
   }
 
   const onMouseLeave = () => {
@@ -131,10 +116,9 @@ export const AnimatedJobCard = ({
     mouseY.set(0)
   }
 
-  // Transform mouse position into a 3D rotation (card tilt)
-  // Usamos um range menor para evitar movimentos exagerados e manter a animação suave.
-  const rotateX = useTransform(mouseY, [-80, 80], [8, -8])
-  const rotateY = useTransform(mouseX, [-80, 80], [-8, 8])
+  // Transform mouse position into a 3D rotation (card tilt) — alinhado ao original
+  const rotateX = useTransform(mouseY, [-150, 150], [10, -10])
+  const rotateY = useTransform(mouseX, [-150, 150], [-10, 10])
 
   // Apply spring physics for a smooth return effect
   const springConfig = { stiffness: 300, damping: 20, mass: 0.5 }
@@ -156,6 +140,7 @@ export const AnimatedJobCard = ({
         onClick={onClick}
         transition={{ type: "spring", stiffness: 400, damping: 30 }}
         ref={cardRef}
+        onMouseEnter={onMouseEnter}
         onMouseMove={onMouseMove}
         onMouseLeave={onMouseLeave}
         style={{
