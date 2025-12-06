@@ -1,0 +1,11 @@
+# Redirects para evitar latência extra (Netlify/Cloudflare Pages)
+# Força HTTPS e remove www para evitar redirecionamentos duplos
+
+# Redirecionar HTTP para HTTPS (se ainda não estiver)
+http://site.meuagente.api.br/* https://site.meuagente.api.br/:splat 301!
+
+# Redirecionar www para não-www
+https://www.site.meuagente.api.br/* https://site.meuagente.api.br/:splat 301!
+
+# SPA fallback - todas as rotas vão para index.html
+/*    /index.html   200

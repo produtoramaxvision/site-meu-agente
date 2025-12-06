@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -38,7 +38,12 @@ const AnimatedTestimonials = ({
     }
   }, [autoplay]);
 
-  const randomRotateY = () => Math.floor(Math.random() * 21) - 10;
+  // OTIMIZAÇÃO: Memoizar rotações para evitar recálculo em cada render
+  // Especialmente importante em desktop onde há mais espaço e animações maiores
+  const rotations = useMemo(
+    () => testimonials.map(() => Math.floor(Math.random() * 21) - 10),
+    [testimonials.length]
+  );
 
   return (
     <div
@@ -57,12 +62,12 @@ const AnimatedTestimonials = ({
                   initial={{
                     opacity: 0,
                     scale: 0.9,
-                    rotate: randomRotateY(),
+                    rotate: rotations[index],
                   }}
                   animate={{
                     opacity: isActive(index) ? 1 : 0.6,
                     scale: isActive(index) ? 1 : 0.96,
-                    rotate: isActive(index) ? 0 : randomRotateY(),
+                    rotate: isActive(index) ? 0 : rotations[index],
                     zIndex: isActive(index)
                       ? 999
                       : testimonials.length + 2 - index,
@@ -71,12 +76,13 @@ const AnimatedTestimonials = ({
                   exit={{
                     opacity: 0,
                     scale: 0.9,
-                    rotate: randomRotateY(),
+                    rotate: rotations[index],
                   }}
                   transition={{
                     duration: 0.4,
                     ease: "easeInOut",
                   }}
+                  style={{ willChange: 'transform, opacity' }}
                   className="absolute inset-0 origin-bottom"
                 >
                   <img
