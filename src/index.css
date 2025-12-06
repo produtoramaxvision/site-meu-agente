@@ -188,51 +188,6 @@ All colors MUST be HSL.
     -moz-osx-font-smoothing: grayscale;
   }
 
-  /* View Transitions optimization for mobile */
-  /* Prevent flickering during theme transitions */
-  ::view-transition-old(root),
-  ::view-transition-new(root) {
-    animation-duration: 0.7s;
-    animation-timing-function: ease-in-out;
-    mix-blend-mode: normal;
-  }
-
-  /* Ensure smooth transition without intermediate flickering */
-  ::view-transition-old(root) {
-    z-index: 1;
-  }
-
-  ::view-transition-new(root) {
-    z-index: 2;
-    animation-delay: 0s;
-  }
-
-  /* Prevent layout shifts during theme transition on mobile */
-  @media (max-width: 768px) {
-    ::view-transition-group(root) {
-      animation-duration: 0.7s;
-      animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-    }
-    
-    ::view-transition-old(root),
-    ::view-transition-new(root) {
-      /* Force GPU acceleration for smoother animations on mobile */
-      transform: translateZ(0);
-      will-change: opacity;
-      backface-visibility: hidden;
-      -webkit-backface-visibility: hidden;
-    }
-  }
-
-  /* Optimize body transitions to prevent flickering */
-  body {
-    transition: none !important;
-  }
-
-  .dark body {
-    transition: none !important;
-  }
-
   /* Custom animations */
   /* Keyframes are defined in tailwind.config.ts to avoid duplication */
 

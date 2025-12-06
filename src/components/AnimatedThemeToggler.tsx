@@ -20,7 +20,6 @@ export const AnimatedThemeToggler = ({ className }: AnimatedThemeTogglerProps) =
       ? document.documentElement.classList.contains("dark")
       : false
   )
-  const [isAnimating, setIsAnimating] = useState(false)
 
   useEffect(() => {
     const syncTheme = () =>
@@ -35,22 +34,17 @@ export const AnimatedThemeToggler = ({ className }: AnimatedThemeTogglerProps) =
   }, [])
 
   const onToggle = useCallback(async () => {
-    if (!buttonRef.current || isAnimating) return
-    
-    setIsAnimating(true)
+    if (!buttonRef.current) return
 
-    // Check if View Transitions API is supported
+    const toggled = !darkMode
+
+    // Fallback for browsers without View Transitions API support
     if (!document.startViewTransition) {
-      // Fallback for browsers without View Transitions API support
       flushSync(() => {
-        const toggled = !darkMode
         setDarkMode(toggled)
         document.documentElement.classList.toggle("dark", toggled)
         localStorage.setItem("theme", toggled ? "dark" : "light")
       })
-      
-      // Wait for Framer Motion animation to complete
-      setTimeout(() => setIsAnimating(false), 350)
       return
     }
 
@@ -63,19 +57,15 @@ export const AnimatedThemeToggler = ({ className }: AnimatedThemeTogglerProps) =
     )
 
     // Start the View Transition
-    const transition = document.startViewTransition(() => {
+    await document.startViewTransition(() => {
       flushSync(() => {
-        const toggled = !darkMode
         setDarkMode(toggled)
         document.documentElement.classList.toggle("dark", toggled)
         localStorage.setItem("theme", toggled ? "dark" : "light")
       })
-    })
+    }).ready
 
-    // Wait for the transition to be ready before animating
-    await transition.ready
-
-    // Apply the circular reveal animation
+    // Apply the circular reveal animation AFTER transition is ready
     document.documentElement.animate(
       {
         clipPath: [
@@ -89,57 +79,49 @@ export const AnimatedThemeToggler = ({ className }: AnimatedThemeTogglerProps) =
         pseudoElement: "::view-transition-new(root)",
       }
     )
-    
-    // Reset animation lock after both animations complete
-    await transition.finished
-    setIsAnimating(false)
-  }, [darkMode, isAnimating])
+  }, [darkMode])
 
   return (
-    <button
-      ref={buttonRef}
-      onClick={onToggle}
-      aria-label="Switch theme"
-      disabled={isAnimating}
-      className={cn(
-        "flex items-center justify-center p-2 rounded-full outline-none focus:outline-none active:outline-none focus:ring-0 cursor-pointer transition-opacity",
-        isAnimating && "pointer-events-none",
-        className
-      )}
-      type="button"
-    >
-      <AnimatePresence mode="wait" initial={false}>
-        {darkMode ? (
-          <motion.span
-            key="sun-icon"
-            initial={{ opacity: 0, scale: 0.5, rotate: 90 }}
-            animate={{ opacity: 1, scale: 1, rotate: 0 }}
-            exit={{ opacity: 0, scale: 0.5, rotate: -90 }}
-            transition={{ 
-              duration: 0.25,
-              ease: [0.4, 0, 0.2, 1]
-            }}
-            className="text-white"
-          >
-            <Sun />
-          </motion.span>
-        ) : (
-          <motion.span
-            key="moon-icon"
-            initial={{ opacity: 0, scale: 0.5, rotate: -90 }}
-            animate={{ opacity: 1, scale: 1, rotate: 0 }}
-            exit={{ opacity: 0, scale: 0.5, rotate: 90 }}
-            transition={{ 
-              duration: 0.25,
-              ease: [0.4, 0, 0.2, 1]
-            }}
-            className="text-black"
-          >
-            <Moon />
-          </motion.span>
+    <>
+      {/* Critical CSS: Disable default view transition animations to prevent flickering */}
+      <style>{`::view-transition-old(root),::view-transition-new(root){animation:none;mix-blend-mode:normal;}`}</style>
+      <button
+        ref={buttonRef}
+        onClick={onToggle}
+        aria-label="Switch theme"
+        className={cn(
+          "flex items-center justify-center p-2 rounded-full outline-none focus:outline-none active:outline-none focus:ring-0 cursor-pointer",
+          className
         )}
-      </AnimatePresence>
-    </button>
+        type="button"
+      >
+        <AnimatePresence mode="wait" initial={false}>
+          {darkMode ? (
+            <motion.span
+              key="sun-icon"
+              initial={{ opacity: 0, scale: 0.55, rotate: 25 }}
+              animate={{ opacity: 1, scale: 1, rotate: 0 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.33 }}
+              className="text-white"
+            >
+              <Sun />
+            </motion.span>
+          ) : (
+            <motion.span
+              key="moon-icon"
+              initial={{ opacity: 0, scale: 0.55, rotate: -25 }}
+              animate={{ opacity: 1, scale: 1, rotate: 0 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.33 }}
+              className="text-black"
+            >
+              <Moon />
+            </motion.span>
+          )}
+        </AnimatePresence>
+      </button>
+    </>
   )
 }
 
