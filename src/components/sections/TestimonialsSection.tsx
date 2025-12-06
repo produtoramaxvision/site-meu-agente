@@ -45,6 +45,23 @@ const AnimatedTestimonials = ({
     [testimonials.length]
   );
 
+  const activeQuoteWords = useMemo(
+    () => testimonials[active].quote.split(" "),
+    [active, testimonials]
+  );
+
+  const wordContainer = {
+    hidden: {},
+    visible: {
+      transition: { staggerChildren: 0.02, delayChildren: 0 },
+    },
+  };
+
+  const wordItem = {
+    hidden: { opacity: 0, y: 6 },
+    visible: { opacity: 1, y: 0 },
+  };
+
   return (
     <div
       className={cn(
@@ -123,23 +140,24 @@ const AnimatedTestimonials = ({
             <p className="text-sm text-muted-foreground">
               {testimonials[active].designation}
             </p>
-            <motion.p 
+            <motion.p
               className="text-lg text-muted-foreground mt-6 md:mt-8 leading-relaxed"
-              initial={{
-                opacity: 0,
-                y: 10,
-              }}
-              animate={{
-                opacity: 1,
-                y: 0,
-              }}
-              transition={{
-                duration: 0.3,
-                ease: "easeOut",
-              }}
-              style={{ willChange: 'transform, opacity' }}
+              variants={wordContainer}
+              initial="hidden"
+              animate="visible"
+              exit="hidden"
             >
-              {testimonials[active].quote}
+              {activeQuoteWords.map((word, idx) => (
+                <motion.span
+                  key={`${word}-${idx}`}
+                  className="inline-block mr-1"
+                  variants={wordItem}
+                  transition={{ duration: 0.24, ease: "easeOut" }}
+                  style={{ willChange: "transform, opacity" }}
+                >
+                  {word}
+                </motion.span>
+              ))}
             </motion.p>
           </motion.div>
 

@@ -122,7 +122,7 @@ const Footer = () => {
                     <li key={link.name}>
                       <a
                         href={link.href}
-                        className="text-sm text-text hover:opacity-90 transition-colors"
+                        className="text-sm text-text-muted hover:text-text transition-colors"
                       >
                         {link.name}
                       </a>
@@ -138,7 +138,7 @@ const Footer = () => {
                     <li key={link.name}>
                       <a
                         href={link.href}
-                        className="text-sm text-text hover:opacity-90 transition-colors"
+                        className="text-sm text-text-muted hover:text-text transition-colors"
                       >
                         {link.name}
                       </a>
@@ -154,7 +154,7 @@ const Footer = () => {
                     <li key={link.name}>
                       <a
                         href={link.href}
-                        className="text-sm text-text hover:opacity-90 transition-colors"
+                        className="text-sm text-text-muted hover:text-text transition-colors"
                       >
                         {link.name}
                       </a>
@@ -170,7 +170,7 @@ const Footer = () => {
                     <li key={link.name}>
                       <a
                         href={link.href}
-                        className="text-sm text-text hover:opacity-90 transition-colors"
+                        className="text-sm text-text-muted hover:text-text transition-colors"
                       >
                         {link.name}
                       </a>
