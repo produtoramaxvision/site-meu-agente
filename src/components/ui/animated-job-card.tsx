@@ -192,7 +192,7 @@ export const AnimatedJobCard = ({
 
           {/* Job Details */}
           <div>
-            <h3 className="text-lg font-bold text-white">{jobTitle}</h3>
+            <h3 className="text-xl sm:text-2xl font-bold text-white leading-snug">{jobTitle}</h3>
             <p className="text-sm font-medium text-muted-foreground">{salary}</p>
           </div>
 
