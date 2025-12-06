@@ -1,12 +1,10 @@
 import { Button } from "@/components/ui/button";
-import { Menu, Sun, Moon } from "lucide-react";
+import { Menu } from "lucide-react";
 import { useState } from "react";
-import { useTheme } from "next-themes";
 import { AnimatedThemeToggler } from "@/components/AnimatedThemeToggler";
 
 const Header = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const { theme, setTheme } = useTheme();
 
   const navigation = [
     { name: "Início", href: "/" },
