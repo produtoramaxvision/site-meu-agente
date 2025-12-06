@@ -123,10 +123,16 @@ export default defineConfig(({ mode }) => {
       viteCompression({
         algorithm: "gzip",
         ext: ".gz",
+        threshold: 1024, // Apenas arquivos > 1KB
+        deleteOriginFile: false,
+        verbose: true,
       }),
       viteCompression({
         algorithm: "brotliCompress",
         ext: ".br",
+        threshold: 1024, // Apenas arquivos > 1KB
+        deleteOriginFile: false,
+        verbose: true,
       }),
       isProduction &&
         ViteImageOptimizer({
@@ -154,7 +160,21 @@ export default defineConfig(({ mode }) => {
     // Configurações de build otimizadas
     build: {
       target: "esnext",
-      minify: "esbuild",
+      minify: "terser",
+      terserOptions: {
+        compress: {
+          drop_console: isProduction, // Remove console.log apenas em produção
+          drop_debugger: true,
+          pure_funcs: isProduction ? ["console.log", "console.info"] : [],
+          passes: 2, // 2 passes de compressão para melhor resultado
+        },
+        format: {
+          comments: false, // Remove comentários
+        },
+        mangle: {
+          safari10: true, // Compatibilidade com Safari 10
+        },
+      },
       sourcemap: isDevelopment,
       // CSS code splitting - separa CSS por chunk para carregamento mais eficiente
       cssCodeSplit: true,
@@ -170,6 +190,12 @@ export default defineConfig(({ mode }) => {
           manualChunks: {
             // React core (react + react-dom + react-router)
             "react-vendor": ["react", "react-dom", "react-router-dom"],
+
+            // Framer Motion (separado pois é pesado)
+            "vendor-animation": ["framer-motion"],
+
+            // Embla Carousel (separado pois é pesado)
+            "vendor-carousel": ["embla-carousel-react"],
 
             // Supabase
             supabase: ["@supabase/supabase-js"],
@@ -191,6 +217,7 @@ export default defineConfig(({ mode }) => {
               "@radix-ui/react-label",
               "@radix-ui/react-switch",
               "@radix-ui/react-slot",
+              "@radix-ui/react-accordion",
             ],
 
             // Charts
