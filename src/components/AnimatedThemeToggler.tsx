@@ -41,8 +41,12 @@ export const AnimatedThemeToggler = ({ className }: AnimatedThemeTogglerProps) =
     const { left, top, width, height } = buttonEl.getBoundingClientRect()
     const centerX = left + width / 2
     const centerY = top + height / 2
-    const viewportWidth = window.visualViewport?.width ?? window.innerWidth
-    const viewportHeight = window.visualViewport?.height ?? window.innerHeight
+    // Em mobile, o visualViewport pode ser menor que a viewport real (barras dinâmicas).
+    // Usamos sempre o maior valor para garantir que o círculo cobre toda a tela.
+    const baseWidth = window.innerWidth
+    const baseHeight = window.innerHeight
+    const viewportWidth = Math.max(baseWidth, window.visualViewport?.width ?? 0)
+    const viewportHeight = Math.max(baseHeight, window.visualViewport?.height ?? 0)
     const maxDistance = Math.hypot(
       Math.max(centerX, viewportWidth - centerX),
       Math.max(centerY, viewportHeight - centerY),
