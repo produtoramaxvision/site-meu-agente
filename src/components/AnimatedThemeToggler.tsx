@@ -58,6 +58,10 @@ export const AnimatedThemeToggler = ({ className }: AnimatedThemeTogglerProps) =
       flushSync(() => {
         setDarkMode(nextIsDark)
         setTheme(nextIsDark ? "dark" : "light")
+        // Garantimos que a classe no <html> troque imediatamente dentro da transição
+        // (next-themes pode aplicar de forma assíncrona), evitando “flash” no mobile.
+        document.documentElement.classList.toggle("dark", nextIsDark)
+        localStorage.setItem("theme", nextIsDark ? "dark" : "light")
       })
     }
 
