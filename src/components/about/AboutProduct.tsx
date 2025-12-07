@@ -72,6 +72,41 @@ export function AboutProduct() {
   ]
 
   const [activeIndex, setActiveIndex] = useState(0)
+  const [dragStartX, setDragStartX] = useState<number | null>(null)
+  const [dragDelta, setDragDelta] = useState(0)
+  const totalCards = deckCards.length
+
+  const goToIndex = (index: number) => setActiveIndex(index)
+  const goToPrev = () => setActiveIndex((prev) => (prev - 1 + totalCards) % totalCards)
+  const goToNext = () => setActiveIndex((prev) => (prev + 1) % totalCards)
+
+  const handleSwipe = (delta: number) => {
+    const threshold = 40
+    if (Math.abs(delta) < threshold) return
+    if (delta > 0) {
+      goToPrev()
+    } else {
+      goToNext()
+    }
+  }
+
+  const handlePointerDown = (event: React.PointerEvent<HTMLDivElement>) => {
+    setDragStartX(event.clientX)
+    setDragDelta(0)
+    event.currentTarget.setPointerCapture(event.pointerId)
+  }
+
+  const handlePointerMove = (event: React.PointerEvent<HTMLDivElement>) => {
+    if (dragStartX === null) return
+    setDragDelta(event.clientX - dragStartX)
+  }
+
+  const handlePointerEnd = () => {
+    if (dragStartX === null) return
+    handleSwipe(dragDelta)
+    setDragStartX(null)
+    setDragDelta(0)
+  }
 
   // Calcula a posição visual de cada card no deck (esquerda, centro, direita, fundo)
   // A ideia aqui é ficar bem próximo do layout de referência: três cards sobrepostos,
@@ -134,7 +169,15 @@ export function AboutProduct() {
             para evitar estouro nas bordas e garantir clique confortável.
             As laterais aparecem apenas a partir de sm com as classes acima. */}
         <div className="relative flex justify-center items-center py-4 sm:py-8 -mx-4 sm:mx-0">
-          <div className="relative w-full max-w-5xl min-h-[380px] sm:min-h-[280px] md:min-h-[320px]">
+          <div
+            className="relative w-full max-w-5xl min-h-[380px] sm:min-h-[280px] md:min-h-[320px]"
+            onPointerDown={handlePointerDown}
+            onPointerMove={handlePointerMove}
+            onPointerUp={handlePointerEnd}
+            onPointerLeave={handlePointerEnd}
+            onPointerCancel={handlePointerEnd}
+            style={{ touchAction: "pan-y" }}
+          >
             {deckCards.map((card, index) => (
               <AnimatedJobCard
                 key={card.id}
@@ -145,7 +188,7 @@ export function AboutProduct() {
                 tags={card.tags}
                 postedDate={card.postedDate}
                 variant={card.variant}
-                onClick={() => setActiveIndex(index)}
+                onClick={() => goToIndex(index)}
                 className={cn(
                   "absolute inset-0 max-w-xl mx-auto cursor-pointer transition-transform duration-300",
                   getDeckPositionClasses(index),
@@ -162,7 +205,7 @@ export function AboutProduct() {
             <button
               key={card.id}
               type="button"
-              onClick={() => setActiveIndex(index)}
+              onClick={() => goToIndex(index)}
               className={cn(
                 "h-2 rounded-full transition-all",
                 index === activeIndex ? "w-6 bg-brand-400" : "w-2 bg-border hover:bg-border/80",
