@@ -120,8 +120,6 @@ export default defineConfig(({ mode }) => {
       isDevelopment && componentTagger(),
       // Plugin para CSS não-bloqueante (resolve render-blocking do PageSpeed)
       isProduction && cssNonBlockingPlugin(),
-      // REMOVIDO modulePreloadPlugin - causava waterfall no mobile
-      // O build.modulePreload.resolveDependencies já controla isso de forma otimizada
       viteCompression({
         algorithm: "gzip",
         ext: ".gz",
@@ -175,24 +173,6 @@ export default defineConfig(({ mode }) => {
     build: {
       target: "esnext",
       minify: "terser",
-      // Otimização agressiva de modulepreload para reduzir critical path MOBILE
-      modulePreload: {
-        polyfill: true,
-        resolveDependencies: (filename, deps, { hostType }) => {
-          // CRÍTICO: Limitar modulepreload para evitar waterfall no mobile
-          // Muitos preloads criam cadeia de dependências sequenciais
-          if (hostType === 'html') {
-            // Para HTML, preload APENAS o chunk principal do React
-            // Outros chunks serão carregados sob demanda (mais rápido no mobile)
-            return deps.filter(dep => 
-              dep.includes('react-core')
-            ).slice(0, 1); // Máximo 1 preload do HTML
-          }
-          // Para imports em JS, não fazer preload (carrega sob demanda)
-          // Isso evita a cadeia: index → ui → icons → animation → etc
-          return [];
-        },
-      },
       terserOptions: {
         compress: {
           drop_console: isProduction, // Remove console.log apenas em produção
@@ -220,21 +200,23 @@ export default defineConfig(({ mode }) => {
           entryFileNames: "assets/[name]-[hash].js",
           assetFileNames: "assets/[name]-[hash].[ext]",
           manualChunks: {
-            // OTIMIZAÇÃO MOBILE: Consolidar chunks para reduzir cadeia de dependências
-            // Em vez de muitos chunks pequenos, criar poucos chunks maiores
-            // Isso reduz o "waterfall" de requests no mobile
-            
-            // React + Router + Query = core do app (carrega sempre)
-            "react-core": [
-              "react", 
-              "react-dom", 
-              "react-router-dom",
-              "@tanstack/react-query",
-            ],
+            // React core (react + react-dom + react-router)
+            "react-vendor": ["react", "react-dom", "react-router-dom"],
 
-            // UI Bundle consolidado (Radix + Icons + Animações essenciais)
-            // Consolidado para evitar cadeia: ui → icons → animation
-            "ui-bundle": [
+            // Framer Motion (separado pois é pesado)
+            "vendor-animation": ["framer-motion"],
+
+            // Embla Carousel (separado pois é pesado)
+            "vendor-carousel": ["embla-carousel-react"],
+
+            // Supabase
+            supabase: ["@supabase/supabase-js"],
+
+            // TanStack Query (separado para melhor cache)
+            tanstack: ["@tanstack/react-query"],
+
+            // UI Components (Radix UI + Shadcn)
+            ui: [
               "@radix-ui/react-dialog",
               "@radix-ui/react-dropdown-menu",
               "@radix-ui/react-select",
@@ -248,18 +230,16 @@ export default defineConfig(({ mode }) => {
               "@radix-ui/react-switch",
               "@radix-ui/react-slot",
               "@radix-ui/react-accordion",
-              "lucide-react",
             ],
 
-            // Framer Motion (pesado, mas usado em muitas páginas)
-            "vendor-animation": ["framer-motion"],
+            // Charts
+            charts: ["recharts"],
 
-            // Lazy-loaded: carregados apenas quando necessário
-            // Não afetam o critical path da página inicial
-            "lazy-carousel": ["embla-carousel-react"],
-            "lazy-supabase": ["@supabase/supabase-js"],
-            "lazy-charts": ["recharts"],
-            "lazy-dates": ["date-fns"],
+            // Date utilities
+            "date-utils": ["date-fns"],
+
+            // Icons
+            icons: ["lucide-react"],
           },
         },
       },
