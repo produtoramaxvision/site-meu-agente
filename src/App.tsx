@@ -8,7 +8,7 @@ import { HelmetProvider } from "react-helmet-async";
 import { ThemeProvider } from "next-themes";
 import Header from "./components/layout/Header";
 import Footer from "./components/layout/Footer";
-import ChatWidget from "./components/ChatWidget";
+const ChatWidget = lazy(() => import("./components/ChatWidget"));
 import GTM from "./components/GTM";
 import Index from "./pages/Index";
 
@@ -62,7 +62,9 @@ const App = () => (
                 </Suspense>
               </main>
               <Footer />
-              <ChatWidget />
+              <Suspense fallback={null}>
+                <ChatWidget />
+              </Suspense>
             </div>
           </BrowserRouter>
       </TooltipProvider>

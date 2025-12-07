@@ -1,22 +1,25 @@
+import { lazy, Suspense } from "react";
 import HeroSection from "@/components/sections/HeroSection";
 import LogosSection from "@/components/sections/LogosSection";
-import HowItWorksSection from "@/components/sections/HowItWorksSection";
-import AgentsSection from "@/components/sections/AgentsSection";
-import { WhatsappExamples } from "@/components/about/WhatsappExamples";
-import PricingSection from "@/components/sections/PricingSection";
-import ProductShowcaseSection from "@/components/sections/ProductShowcaseSection";
-import FeaturesSection from "@/components/sections/FeaturesSection";
-import { ResponsibleAI } from "@/components/about/ResponsibleAI";
-import TestimonialsSection from "@/components/sections/TestimonialsSection";
-import FaqSection from "@/components/sections/FaqSection";
-import FinalCTASection from "@/components/sections/FinalCTASection";
 import SEO from "@/components/SEO";
 import { Button } from "@/components/ui/button";
-import { AboutProduct } from "@/components/about/AboutProduct";
 import {
   createSoftwareApplicationSchema,
   createOrganizationSchema,
 } from "@/lib/seo";
+
+// Seções abaixo da dobra são carregadas sob demanda para encurtar o bundle crítico
+const ProductShowcaseSection = lazy(() => import("@/components/sections/ProductShowcaseSection"));
+const AboutProduct = lazy(() => import("@/components/about/AboutProduct").then((m) => ({ default: m.AboutProduct })));
+const HowItWorksSection = lazy(() => import("@/components/sections/HowItWorksSection"));
+const AgentsSection = lazy(() => import("@/components/sections/AgentsSection"));
+const WhatsappExamples = lazy(() => import("@/components/about/WhatsappExamples").then((m) => ({ default: m.WhatsappExamples })));
+const FeaturesSection = lazy(() => import("@/components/sections/FeaturesSection"));
+const ResponsibleAI = lazy(() => import("@/components/about/ResponsibleAI").then((m) => ({ default: m.ResponsibleAI })));
+const TestimonialsSection = lazy(() => import("@/components/sections/TestimonialsSection"));
+const PricingSection = lazy(() => import("@/components/sections/PricingSection"));
+const FaqSection = lazy(() => import("@/components/sections/FaqSection"));
+const FinalCTASection = lazy(() => import("@/components/sections/FinalCTASection"));
 
 const SECTION_LINKS = [
   { id: "visao-geral", label: "Visão geral" },
@@ -107,37 +110,51 @@ const Index = () => {
 
         {/* Capítulo 1 – Visão geral da plataforma & Como funciona */}
         <div id="visao-geral" className="relative z-10">
-          <ProductShowcaseSection />
-          <AboutProduct />
-          <HowItWorksSection />
+          <Suspense fallback={<div className="h-40" aria-label="Carregando vitrine" />}> 
+            <ProductShowcaseSection />
+            <AboutProduct />
+            <HowItWorksSection />
+          </Suspense>
         </div>
 
         {/* Capítulo 2 – Agentes e casos de uso */}
         <div id="agentes-ia" className="relative z-10">
-        <AgentsSection />
+          <Suspense fallback={<div className="h-32" aria-label="Carregando agentes" />}> 
+            <AgentsSection />
+          </Suspense>
         </div>
         <div id="casos-uso" className="relative z-10">
-        <WhatsappExamples />
+          <Suspense fallback={<div className="h-32" aria-label="Carregando exemplos" />}> 
+            <WhatsappExamples />
+          </Suspense>
         </div>
 
         {/* Capítulo 3 – Plataforma e integrações */}
         <div id="plataforma" className="relative z-10">
-        <FeaturesSection />
+          <Suspense fallback={<div className="h-32" aria-label="Carregando plataforma" />}> 
+            <FeaturesSection />
+          </Suspense>
         </div>
 
         {/* Capítulo 4 – Segurança e prova social */}
         <div id="seguranca" className="relative z-10">
-        <ResponsibleAI />
-        <TestimonialsSection />
+          <Suspense fallback={<div className="h-32" aria-label="Carregando segurança" />}> 
+            <ResponsibleAI />
+            <TestimonialsSection />
+          </Suspense>
         </div>
 
         {/* Capítulo 5 – Planos, FAQ e CTA final */}
         <div id="planos" className="relative z-10">
-          <PricingSection />
+          <Suspense fallback={<div className="h-32" aria-label="Carregando planos" />}> 
+            <PricingSection />
+          </Suspense>
         </div>
         <div id="duvidas" className="relative z-10">
-        <FaqSection />
-        <FinalCTASection />
+          <Suspense fallback={<div className="h-32" aria-label="Carregando dúvidas" />}> 
+            <FaqSection />
+            <FinalCTASection />
+          </Suspense>
         </div>
       </main>
     </>
