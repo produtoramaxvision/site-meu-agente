@@ -7,7 +7,7 @@ tags: ["Cases", "Conversão", "IA", "ROI"]
 author: "Equipe Meu Agente"
 date: "2025-01-12"
 coverImage: "/placeholder.svg"
-readTime: "11 min"
+readTime: "11h33"
 featured: true
 ---
 

@@ -7,7 +7,7 @@ tags: ["IA", "Atendimento", "Automação", "WhatsApp"]
 author: "Equipe Meu Agente"
 date: "2025-01-15"
 coverImage: "/placeholder.svg"
-readTime: "10 min"
+readTime: "12h47"
 featured: true
 ---
 

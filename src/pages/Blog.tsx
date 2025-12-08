@@ -30,7 +30,11 @@ const Blog = () => {
   const [featuredPosts, setFeaturedPosts] = useState<BlogPost[]>([]);
   const [selectedCategory, setSelectedCategory] = useState("Todos");
   const [searchQuery, setSearchQuery] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
   const categories = getCategories();
+  
+  // Configuração de paginação - 9 artigos por página (melhor prática para blogs)
+  const POSTS_PER_PAGE = 9;
 
   useEffect(() => {
     const loadPosts = async () => {
@@ -61,6 +65,32 @@ const Blog = () => {
   const gridPosts = filteredPosts.filter(
     (post) => !filteredFeatured.some((f) => f.slug === post.slug)
   );
+
+  // Cálculos de paginação
+  const totalPages = Math.ceil(gridPosts.length / POSTS_PER_PAGE);
+  const startIndex = (currentPage - 1) * POSTS_PER_PAGE;
+  const endIndex = startIndex + POSTS_PER_PAGE;
+  const currentPosts = gridPosts.slice(startIndex, endIndex);
+
+  // Resetar para página 1 quando filtros mudarem
+  useEffect(() => {
+    setCurrentPage(1);
+    // Scroll suave para o topo da seção de artigos
+    const articlesSection = document.getElementById('articles-section');
+    if (articlesSection) {
+      articlesSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  }, [selectedCategory, searchQuery]);
+
+  // Função para mudar de página
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page);
+    // Scroll para o topo da seção de artigos
+    const articlesSection = document.getElementById('articles-section');
+    if (articlesSection) {
+      articlesSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  };
 
   return (
     <div className="min-h-screen bg-background">
@@ -223,7 +253,7 @@ const Blog = () => {
       </section>
 
       {/* Conteúdo principal */}
-      <section className="py-14 sm:py-16">
+      <section id="articles-section" className="py-14 sm:py-16">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="grid gap-10 lg:grid-cols-[minmax(0,2fr)_minmax(260px,1fr)]">
             {/* Grid de posts */}
@@ -234,14 +264,13 @@ const Blog = () => {
                     Todos os artigos
                   </h2>
                   <p className="text-xs text-text-muted sm:text-sm">
-                    Explore a biblioteca completa de conteúdos sobre IA e
-                    automação.
+                    Mostrando {startIndex + 1}-{Math.min(endIndex, gridPosts.length)} de {gridPosts.length} artigos
                   </p>
                 </div>
               </div>
 
               <div className="grid gap-7 md:grid-cols-2">
-                {gridPosts.map((post, index) => (
+                {currentPosts.map((post, index) => (
                   <Link to={`/blog/${post.slug}`} key={post.slug}>
                     <Card
                       className="group flex h-full flex-col overflow-hidden border-border/60 bg-surface/70 shadow-adaptive transition-all hover:-translate-y-1 hover:border-accent hover:shadow-xl-adaptive"
@@ -319,6 +348,79 @@ const Blog = () => {
                   >
                     Limpar filtros
                   </Button>
+                </div>
+              )}
+
+              {/* Controles de Paginação */}
+              {totalPages > 1 && (
+                <div className="mt-10 flex flex-col items-center gap-4">
+                  <div className="flex items-center gap-2">
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={() => handlePageChange(currentPage - 1)}
+                      disabled={currentPage === 1}
+                      className="h-9 px-3"
+                    >
+                      <ArrowRight className="h-4 w-4 rotate-180" />
+                      <span className="ml-1 hidden sm:inline">Anterior</span>
+                    </Button>
+
+                    <div className="flex items-center gap-1">
+                      {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => {
+                        // Mostrar sempre primeira, última e páginas próximas à atual
+                        const showPage = 
+                          page === 1 || 
+                          page === totalPages || 
+                          (page >= currentPage - 1 && page <= currentPage + 1);
+                        
+                        const showEllipsis = 
+                          (page === currentPage - 2 && currentPage > 3) ||
+                          (page === currentPage + 2 && currentPage < totalPages - 2);
+
+                        if (showEllipsis) {
+                          return (
+                            <span key={page} className="px-2 text-text-muted">
+                              ...
+                            </span>
+                          );
+                        }
+
+                        if (!showPage) return null;
+
+                        return (
+                          <Button
+                            key={page}
+                            variant={currentPage === page ? "default" : "outline"}
+                            size="sm"
+                            onClick={() => handlePageChange(page)}
+                            className={`h-9 w-9 ${
+                              currentPage === page 
+                                ? "bg-accent text-white hover:bg-accent/90" 
+                                : ""
+                            }`}
+                          >
+                            {page}
+                          </Button>
+                        );
+                      })}
+                    </div>
+
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={() => handlePageChange(currentPage + 1)}
+                      disabled={currentPage === totalPages}
+                      className="h-9 px-3"
+                    >
+                      <span className="mr-1 hidden sm:inline">Próxima</span>
+                      <ArrowRight className="h-4 w-4" />
+                    </Button>
+                  </div>
+
+                  <p className="text-xs text-text-muted">
+                    Página {currentPage} de {totalPages}
+                  </p>
                 </div>
               )}
             </div>

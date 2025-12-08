@@ -7,7 +7,7 @@ tags: ["WhatsApp", "Business", "API", "Compliance"]
 author: "Equipe Meu Agente"
 date: "2025-01-11"
 coverImage: "/placeholder.svg"
-readTime: "13 min"
+readTime: "14h05"
 featured: false
 ---
 

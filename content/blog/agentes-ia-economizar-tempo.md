@@ -7,7 +7,7 @@ tags: ["IA", "WhatsApp", "Produtividade", "Automação"]
 author: "Equipe Meu Agente"
 date: "2025-01-16"
 coverImage: "/placeholder.svg"
-readTime: "8 min"
+readTime: "14h23"
 featured: true
 ---
 

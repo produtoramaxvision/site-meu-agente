@@ -7,7 +7,7 @@ tags: ["Finanças", "WhatsApp", "Gestão", "Automação"]
 author: "Equipe Meu Agente"
 date: "2025-01-13"
 coverImage: "/placeholder.svg"
-readTime: "9 min"
+readTime: "16h18"
 featured: false
 ---
 

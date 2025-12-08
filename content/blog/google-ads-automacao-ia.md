@@ -7,7 +7,7 @@ tags: ["Google Ads", "Marketing", "IA", "Performance"]
 author: "Equipe Meu Agente"
 date: "2025-01-10"
 coverImage: "/placeholder.svg"
-readTime: "10 min"
+readTime: "18h27"
 featured: false
 ---
 

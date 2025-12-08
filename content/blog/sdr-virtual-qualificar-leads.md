@@ -7,7 +7,7 @@ tags: ["SDR", "Vendas", "Leads", "Automação"]
 author: "Equipe Meu Agente"
 date: "2025-01-14"
 coverImage: "/placeholder.svg"
-readTime: "12 min"
+readTime: "09h52"
 featured: true
 ---
 
