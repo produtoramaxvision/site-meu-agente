@@ -264,13 +264,37 @@ const Planos = () => {
                 </div>
               </div>
 
-              <Card className="relative overflow-hidden border-border bg-background/80 backdrop-blur-xl p-8 shadow-2xl-adaptive transition-all duration-300">
-                <div className="absolute inset-x-0 -top-32 h-40 bg-gradient-to-b from-text/10 via-text/3 to-transparent pointer-events-none" />
-                
-                <div className="relative flex flex-col gap-6">
-                  {/* Seletor de Planos */}
-                  <div className="flex flex-col gap-3 mb-4 sm:flex-row sm:items-center sm:justify-between">
-                    <div className="flex justify-center">
+              <div className="relative mt-12 lg:mt-0">
+                {/* Toggle Flutuante Centralizado no Topo do Card */}
+                <div className="absolute -top-5 left-1/2 -translate-x-1/2 z-20">
+                  <div className="inline-flex items-center gap-3 rounded-full border border-border/60 bg-background px-4 py-1.5 shadow-lg backdrop-blur-xl text-xs sm:text-sm whitespace-nowrap">
+                    <span className={cn("font-semibold", billingCycle === "monthly" ? "text-text" : "text-text-muted")}>
+                      Mensal
+                    </span>
+                    <Switch
+                      ref={billingSwitchRef as any}
+                      checked={billingCycle === "annual"}
+                      onCheckedChange={handleBillingToggle}
+                      aria-label="Alternar faturamento anual"
+                      className="data-[state=checked]:bg-primary"
+                    />
+                    <div className="flex items-center gap-1">
+                      <span className={cn("font-semibold", billingCycle === "annual" ? "text-text" : "text-text-muted")}>
+                        Anual
+                      </span>
+                      <span className="text-[10px] font-bold text-primary bg-primary/10 px-2 py-0.5 rounded-full leading-none border border-primary/20">
+                        1 mês grátis
+                      </span>
+                    </div>
+                  </div>
+                </div>
+
+                <Card className="relative overflow-hidden border-border bg-background/80 backdrop-blur-xl p-8 shadow-2xl-adaptive transition-all duration-300">
+                  <div className="absolute inset-x-0 -top-32 h-40 bg-gradient-to-b from-text/10 via-text/3 to-transparent pointer-events-none" />
+                  
+                  <div className="relative flex flex-col gap-6 pt-6">
+                    {/* Seletor de Planos */}
+                    <div className="flex justify-center mb-4">
                       <div className="flex p-1 bg-surface/50 rounded-full border border-border/50 backdrop-blur-md">
                         {plans.map((plan) => (
                           <button
@@ -288,22 +312,6 @@ const Planos = () => {
                         ))}
                       </div>
                     </div>
-                    <div className="flex items-center justify-center gap-3 text-xs sm:text-sm">
-                      <span className={cn("font-semibold", billingCycle === "monthly" ? "text-text" : "text-text-muted")}>
-                        Mensal
-                      </span>
-                      <Switch
-                        ref={billingSwitchRef as any}
-                        checked={billingCycle === "annual"}
-                        onCheckedChange={handleBillingToggle}
-                        aria-label="Alternar faturamento anual"
-                        className="data-[state=checked]:bg-primary"
-                      />
-                      <span className={cn("font-semibold flex items-center gap-1", billingCycle === "annual" ? "text-text" : "text-text-muted")}>
-                        Anual <span className="text-primary font-bold text-[11px]">(1 mês grátis)</span>
-                      </span>
-                    </div>
-                  </div>
 
                   {/* Header Estável - Altura mínima controlada */}
                   <div className="flex flex-col gap-2 min-h-[88px]">
@@ -337,7 +345,7 @@ const Planos = () => {
                     </p>
                   </div>
 
-                  <div className="flex items-baseline gap-2">
+                  <div className="flex items-baseline gap-2 min-h-[56px]">
                     <span className="text-4xl font-extrabold text-text tabular-nums tracking-tight flex items-center gap-1">
                       {heroPlan.id === "free" ? (
                         heroPriceLabel
@@ -353,15 +361,10 @@ const Planos = () => {
                         </>
                       )}
                     </span>
-                {heroPlan.id !== "free" && (
-                  <span className="text-text-muted">{billingCycle === "monthly" ? "/mês" : "/ano"}</span>
-                )}
+                    <span className="text-text-muted">
+                      {heroPlan.id !== "free" ? (billingCycle === "monthly" ? "/mês" : "/ano") : ""}
+                    </span>
                   </div>
-                  {heroPlan.id !== "free" && billingCycle === "monthly" && heroPlan.priceAnnual > 0 && (
-                    <p className="text-xs text-text-muted">
-                      Anual: {formatBRL(heroPlan.priceAnnual)} (paga 11 de 12 meses)
-                    </p>
-                  )}
 
                   <ul className="space-y-2 text-sm min-h-[200px]">
                     {heroPlan.features.slice(0, 7).map((feature, index) => (
@@ -394,33 +397,30 @@ const Planos = () => {
                     </li>
                   </ul>
 
-                  <Button
-                    className={cn(
-                      "mt-2 w-full group relative overflow-hidden btn-primary-gradient shadow-xl-adaptive hover:shadow-2xl-adaptive",
-                      heroPlan.popular ? "" : ""
-                    )}
-                    onClick={() => onPlanClick(heroPlan.id)}
-                    disabled={loading}
-                  >
-                    {loading ? (
-                      <Loader2 className="w-4 h-4 animate-spin mr-2" />
-                    ) : null}
-                    {heroPlan.cta}
-                    {heroPlan.popular && (
-                      <>
-                        <ArrowRight className="ml-2 h-4 w-4 transition-transform duration-200 group-hover:translate-x-1" />
-                        <span className="pointer-events-none absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/10 to-transparent group-hover:translate-x-full transition-transform duration-700" />
-                      </>
-                    )}
-                  </Button>
-
-                  <p className="text-xs text-text-muted text-center mt-1 h-8 flex items-center justify-center px-2">
-                    {heroPlan.id === "free" 
-                      ? "Teste gratuito, sem necessidade de cartão de crédito."
-                      : "Dúvida entre planos? Você pode fazer upgrade ou downgrade a qualquer momento."}
-                  </p>
-                </div>
-              </Card>
+                  <div className="min-h-[48px] flex items-center">
+                    <Button
+                      className={cn(
+                        "w-full group relative overflow-hidden btn-primary-gradient shadow-xl-adaptive hover:shadow-2xl-adaptive",
+                        heroPlan.popular ? "" : ""
+                      )}
+                      onClick={() => onPlanClick(heroPlan.id)}
+                      disabled={loading}
+                    >
+                      {loading ? (
+                        <Loader2 className="w-4 h-4 animate-spin mr-2" />
+                      ) : null}
+                      {heroPlan.cta}
+                      {heroPlan.popular && (
+                        <>
+                          <ArrowRight className="ml-2 h-4 w-4 transition-transform duration-200 group-hover:translate-x-1" />
+                          <span className="pointer-events-none absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/10 to-transparent group-hover:translate-x-full transition-transform duration-700" />
+                        </>
+                      )}
+                    </Button>
+                  </div>
+                  </div>
+                </Card>
+              </div>
             </div>
           </div>
         </section>
@@ -498,9 +498,6 @@ const Planos = () => {
                         <span className="text-text-muted">{billingCycle === "monthly" ? "/mês" : "/ano"}</span>
                       )}
                         </div>
-                        {plan.id !== "free" && billingCycle === "monthly" && plan.priceAnnual > 0 && (
-                          <p className="text-xs text-text-muted">Anual: {formatBRL(plan.priceAnnual)} (1 mês grátis)</p>
-                        )}
                         <p className="text-sm text-text-muted">{plan.description}</p>
                       </div>
 
@@ -545,7 +542,6 @@ const Planos = () => {
                         </div>
                       )}
 
-                      {/* Cabeçalho à esquerda */}
                       <div className="flex-1 lg:max-w-xs">
                         <h3 className="text-2xl font-bold text-text mb-2">{plan.name}</h3>
                         <div className="flex items-baseline gap-1 mb-2">
@@ -555,17 +551,13 @@ const Planos = () => {
                             format={{ minimumFractionDigits: 2, maximumFractionDigits: 2 }}
                             className="text-4xl font-extrabold text-text"
                           />
-                          {plan.id !== "free" && (
-                            <span className="text-text-muted">{billingCycle === "monthly" ? "/mês" : "/ano"}</span>
-                          )}
+                      {plan.id !== "free" && (
+                        <span className="text-text-muted">{billingCycle === "monthly" ? "/mês" : "/ano"}</span>
+                      )}
                         </div>
-                        {billingCycle === "monthly" && plan.priceAnnual > 0 && (
-                          <p className="text-xs text-text-muted mb-2">Anual: {formatBRL(plan.priceAnnual)} (1 mês grátis)</p>
-                        )}
                         <p className="text-sm text-text-muted">{plan.description}</p>
                       </div>
 
-                      {/* Features em grade */}
                       <div className="flex-1 w-full lg:w-auto lg:border-l lg:border-border/50 lg:pl-8">
                         <h4 className="font-semibold text-sm mb-4 text-text-muted lg:hidden">Recursos inclusos:</h4>
                         <ul className="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-3">
@@ -575,11 +567,12 @@ const Planos = () => {
                         </ul>
                       </div>
 
-                      {/* CTA à direita */}
                       <div className="w-full lg:w-auto lg:min-w-[200px] flex flex-col gap-4">
                         <Button
                           className={`w-full group relative overflow-hidden ${
-                            plan.popular ? "btn-primary-gradient shadow-xl-adaptive hover:shadow-2xl-adaptive" : "btn-secondary"
+                            plan.popular
+                              ? "btn-primary-gradient shadow-xl-adaptive hover:shadow-2xl-adaptive"
+                              : "btn-secondary"
                           }`}
                           variant={plan.popular ? "default" : "outline"}
                           onClick={() => onPlanClick(plan.id)}
@@ -597,729 +590,210 @@ const Planos = () => {
                   ))}
                 </div>
 
-                <div className="mt-14 md:mt-16 text-center">
-                  <p className="text-text-muted mb-4">Não sabe qual plano escolher?</p>
+                <div className="mt-12 text-center">
+                  <p className="text-text-muted mb-4">
+                    Não sabe qual plano escolher?
+                  </p>
                   <Button
                     size="lg"
                     className="gap-2 group relative overflow-hidden btn-primary-gradient shadow-xl-adaptive hover:shadow-2xl-adaptive"
                     onClick={() => window.open("https://app.meuagente.api.br", "_blank")}
                   >
                     Falar com Especialista
-                    <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform duration-200" />
                   </Button>
                 </div>
               </TabsContent>
 
-              <TabsContent value="comparison">
-                <div className="mt-2 rounded-2xl border border-border/60 bg-background/80 backdrop-blur p-4 sm:p-6 lg:p-8">
-                  <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
-                    <div className="text-left">
-                      <h3 className="text-xl font-semibold text-text mb-1">
-                        Comparação completa de recursos
-                      </h3>
-                      <p className="text-sm text-text-muted">
-                        Veja, linha a linha, o que está incluído em cada plano para facilitar sua decisão.
-                      </p>
-                    </div>
-                  </div>
-
-                  <div className="overflow-x-auto -mx-2 sm:mx-0">
-                    <table className="min-w-full bg-background rounded-xl border border-border/50 text-sm">
-                      <thead>
-                        <tr className="border-b border-border/50">
-                          <th className="px-4 sm:px-6 py-4 text-left text-xs sm:text-sm font-semibold text-text">
-                            Recurso
-                          </th>
-                          <th className="px-4 sm:px-6 py-4 text-center text-xs sm:text-sm font-semibold text-text">
-                            Free
-                          </th>
-                          <th className="px-4 sm:px-6 py-4 text-center text-xs sm:text-sm font-semibold text-text bg-subtle-5">
-                            Lite
-                          </th>
-                          <th className="px-4 sm:px-6 py-4 text-center text-xs sm:text-sm font-semibold text-text">
-                            Básico
-                          </th>
-                          <th className="px-4 sm:px-6 py-4 text-center text-xs sm:text-sm font-semibold text-text">
-                            Business
-                          </th>
-                          <th className="px-4 sm:px-6 py-4 text-center text-xs sm:text-sm font-semibold text-text">
-                            Premium
-                          </th>
+              <TabsContent value="comparison" className="mt-8">
+                <Card className="overflow-hidden border-border bg-background shadow-adaptive">
+                  <div className="overflow-x-auto">
+                    <table className="w-full text-sm text-left">
+                      <thead className="bg-surface/50 text-text-muted">
+                        <tr>
+                          <th className="p-4 font-medium min-w-[200px]">Recursos</th>
+                          {plans.map((plan) => (
+                            <th key={plan.id} className="p-4 font-medium text-center min-w-[140px]">
+                              {plan.name}
+                            </th>
+                          ))}
                         </tr>
                       </thead>
                       <tbody className="divide-y divide-border/50">
-                        {/* Core funcionalidades base */}
-                        <tr>
-                          <td className="px-4 sm:px-6 py-4 text-sm text-text">Agente Financeiro</td>
-                          <td className="px-4 sm:px-6 py-4 text-center">
-                            <Check className="w-5 h-5 text-success mx-auto" />
-                          </td>
-                          <td className="px-4 sm:px-6 py-4 text-center bg-subtle-5">
-                            <Check className="w-5 h-5 text-success mx-auto" />
-                          </td>
-                          <td className="px-4 sm:px-6 py-4 text-center">
-                            <Check className="w-5 h-5 text-success mx-auto" />
-                          </td>
-                          <td className="px-4 sm:px-6 py-4 text-center">
-                            <Check className="w-5 h-5 text-success mx-auto" />
-                          </td>
-                          <td className="px-4 sm:px-6 py-4 text-center">
-                            <Check className="w-5 h-5 text-success mx-auto" />
-                          </td>
-                        </tr>
-                        <tr>
-                          <td className="px-4 sm:px-6 py-4 text-sm text-text">Agente Web Search</td>
-                          <td className="px-4 sm:px-6 py-4 text-center text-xs">Básico (app/Chat IA)</td>
-                          <td className="px-4 sm:px-6 py-4 text-center bg-subtle-5 text-xs">Básico (app/Chat IA)</td>
-                          <td className="px-4 sm:px-6 py-4 text-center text-xs">Intermediário</td>
-                          <td className="px-4 sm:px-6 py-4 text-center text-xs">Intermediário</td>
-                          <td className="px-4 sm:px-6 py-4 text-center text-xs font-semibold text-success">
-                            Avançado
-                          </td>
-                        </tr>
-                        <tr>
-                          <td className="px-4 sm:px-6 py-4 text-sm text-text">Agente de Scrape</td>
-                          <td className="px-4 sm:px-6 py-4 text-center text-xs">Básico (app/Chat IA)</td>
-                          <td className="px-4 sm:px-6 py-4 text-center bg-subtle-5 text-xs">Básico (app/Chat IA)</td>
-                          <td className="px-4 sm:px-6 py-4 text-center text-xs">Intermediário</td>
-                          <td className="px-4 sm:px-6 py-4 text-center text-xs">Intermediário</td>
-                          <td className="px-4 sm:px-6 py-4 text-center text-xs font-semibold text-success">
-                            Avançado
-                          </td>
-                        </tr>
-                        <tr>
-                          <td className="px-4 sm:px-6 py-4 text-sm text-text">
-                            Agente de Agendamento (Calendar/Drive/Tasks)
-                          </td>
-                          <td className="px-4 sm:px-6 py-4 text-center">
-                            <X className="w-5 h-5 text-text-muted mx-auto" />
-                          </td>
-                          <td className="px-4 sm:px-6 py-4 text-center bg-subtle-5">
-                            <Check className="w-5 h-5 text-success mx-auto" />
-                          </td>
-                          <td className="px-4 sm:px-6 py-4 text-center">
-                            <Check className="w-5 h-5 text-success mx-auto" />
-                          </td>
-                          <td className="px-4 sm:px-6 py-4 text-center">
-                            <Check className="w-5 h-5 text-success mx-auto" />
-                          </td>
-                          <td className="px-4 sm:px-6 py-4 text-center">
-                            <Check className="w-5 h-5 text-success mx-auto" />
-                          </td>
-                        </tr>
-                        <tr>
-                          <td className="px-4 sm:px-6 py-4 text-sm text-text">Reconhecimento de áudio/foto no WhatsApp</td>
-                          <td className="px-4 sm:px-6 py-4 text-center text-xs">Não incluso</td>
-                          <td className="px-4 sm:px-6 py-4 text-center bg-subtle-5 text-xs font-semibold text-success">
-                            Financeiro e Agenda
-                          </td>
-                          <td className="px-4 sm:px-6 py-4 text-center text-xs">
-                            Financeiro, Agenda e fluxos automáticos
-                          </td>
-                          <td className="px-4 sm:px-6 py-4 text-center text-xs">
-                            Financeiro, Agenda e sub-agentes
-                          </td>
-                          <td className="px-4 sm:px-6 py-4 text-center text-xs font-semibold text-success">
-                            Financeiro, Agenda e sub-agentes
-                          </td>
-                        </tr>
-
-                        {/* Funcionalidades a partir do Básico */}
-                        <tr>
-                          <td className="px-4 sm:px-6 py-4 text-sm text-text">Automação via WhatsApp</td>
-                          <td className="px-4 sm:px-6 py-4 text-center text-xs">Somente app/Chat IA</td>
-                          <td className="px-4 sm:px-6 py-4 text-center bg-subtle-5 text-xs">
-                            Financeiro/Agenda via canal compartilhado
-                          </td>
-                          <td className="px-4 sm:px-6 py-4 text-center text-xs">Completa para fluxos</td>
-                          <td className="px-4 sm:px-6 py-4 text-center text-xs">Completa + número próprio</td>
-                          <td className="px-4 sm:px-6 py-4 text-center text-xs font-semibold text-success">
-                            Completa + priorização
-                          </td>
-                        </tr>
-                        <tr>
-                          <td className="px-4 sm:px-6 py-4 text-sm text-text">Exportação CSV/PDF</td>
-                          <td className="px-4 sm:px-6 py-4 text-center">
-                            <X className="w-5 h-5 text-text-muted mx-auto" />
-                          </td>
-                          <td className="px-4 sm:px-6 py-4 text-center bg-subtle-5">
-                            <X className="w-5 h-5 text-text-muted mx-auto" />
-                          </td>
-                          <td className="px-4 sm:px-6 py-4 text-center">
-                            <Check className="w-5 h-5 text-success mx-auto" />
-                          </td>
-                          <td className="px-4 sm:px-6 py-4 text-center">
-                            <Check className="w-5 h-5 text-success mx-auto" />
-                          </td>
-                          <td className="px-4 sm:px-6 py-4 text-center">
-                            <Check className="w-5 h-5 text-success mx-auto" />
-                          </td>
-                        </tr>
-
-                        {/* Funcionalidades a partir do Business */}
-                        <tr>
-                          <td className="px-4 sm:px-6 py-4 text-sm text-text">Número de WhatsApp próprio</td>
-                          <td className="px-4 sm:px-6 py-4 text-center">
-                            <X className="w-5 h-5 text-text-muted mx-auto" />
-                          </td>
-                          <td className="px-4 sm:px-6 py-4 text-center bg-subtle-5">
-                            <X className="w-5 h-5 text-text-muted mx-auto" />
-                          </td>
-                          <td className="px-4 sm:px-6 py-4 text-center">
-                            <X className="w-5 h-5 text-text-muted mx-auto" />
-                          </td>
-                          <td className="px-4 sm:px-6 py-4 text-center">
-                            <Check className="w-5 h-5 text-success mx-auto" />
-                          </td>
-                          <td className="px-4 sm:px-6 py-4 text-center">
-                            <Check className="w-5 h-5 text-success mx-auto" />
-                          </td>
-                        </tr>
-                        <tr>
-                          <td className="px-4 sm:px-6 py-4 text-sm text-text">Suporte prioritário 24/7</td>
-                          <td className="px-4 sm:px-6 py-4 text-center">
-                            <X className="w-5 h-5 text-text-muted mx-auto" />
-                          </td>
-                          <td className="px-4 sm:px-6 py-4 text-center bg-subtle-5">
-                            <X className="w-5 h-5 text-text-muted mx-auto" />
-                          </td>
-                          <td className="px-4 sm:px-6 py-4 text-center">
-                            <X className="w-5 h-5 text-text-muted mx-auto" />
-                          </td>
-                          <td className="px-4 sm:px-6 py-4 text-center">
-                            <Check className="w-5 h-5 text-success mx-auto" />
-                          </td>
-                          <td className="px-4 sm:px-6 py-4 text-center">
-                            <Check className="w-5 h-5 text-success mx-auto" />
-                          </td>
-                        </tr>
-                        <tr>
-                          <td className="px-4 sm:px-6 py-4 text-sm text-text">
-                            Implantação (setup inicial) inclusa
-                          </td>
-                          <td className="px-4 sm:px-6 py-4 text-center">
-                            <X className="w-5 h-5 text-text-muted mx-auto" />
-                          </td>
-                          <td className="px-4 sm:px-6 py-4 text-center bg-subtle-5">
-                            <X className="w-5 h-5 text-text-muted mx-auto" />
-                          </td>
-                          <td className="px-4 sm:px-6 py-4 text-center">
-                            <X className="w-5 h-5 text-text-muted mx-auto" />
-                          </td>
-                          <td className="px-4 sm:px-6 py-4 text-center">
-                            <Check className="w-5 h-5 text-success mx-auto" />
-                          </td>
-                          <td className="px-4 sm:px-6 py-4 text-center">
-                            <Check className="w-5 h-5 text-success mx-auto" />
-                          </td>
-                        </tr>
-                        <tr>
-                          <td className="px-4 sm:px-6 py-4 text-sm text-text">
-                            Agente SDR (qualificação de leads)
-                          </td>
-                          <td className="px-4 sm:px-6 py-4 text-center">
-                            <X className="w-5 h-5 text-text-muted mx-auto" />
-                          </td>
-                          <td className="px-4 sm:px-6 py-4 text-center bg-subtle-5">
-                            <X className="w-5 h-5 text-text-muted mx-auto" />
-                          </td>
-                          <td className="px-4 sm:px-6 py-4 text-center">
-                            <X className="w-5 h-5 text-text-muted mx-auto" />
-                          </td>
-                          <td className="px-4 sm:px-6 py-4 text-center">
-                            <Check className="w-5 h-5 text-success mx-auto" />
-                          </td>
-                          <td className="px-4 sm:px-6 py-4 text-center">
-                            <Check className="w-5 h-5 text-success mx-auto" />
-                          </td>
-                        </tr>
-                        <tr>
-                          <td className="px-4 sm:px-6 py-4 text-sm text-text">
-                            Agente de Marketing (Google Ads)
-                          </td>
-                          <td className="px-4 sm:px-6 py-4 text-center">
-                            <X className="w-5 h-5 text-text-muted mx-auto" />
-                          </td>
-                          <td className="px-4 sm:px-6 py-4 text-center bg-subtle-5">
-                            <X className="w-5 h-5 text-text-muted mx-auto" />
-                          </td>
-                          <td className="px-4 sm:px-6 py-4 text-center">
-                            <X className="w-5 h-5 text-text-muted mx-auto" />
-                          </td>
-                          <td className="px-4 sm:px-6 py-4 text-center">
-                            <Check className="w-5 h-5 text-success mx-auto" />
-                          </td>
-                          <td className="px-4 sm:px-6 py-4 text-center">
-                            <Check className="w-5 h-5 text-success mx-auto" />
-                          </td>
-                        </tr>
-                        <tr>
-                          <td className="px-4 sm:px-6 py-4 text-sm text-text">
-                            Agente de Dev (programação e debugging)
-                          </td>
-                          <td className="px-4 sm:px-6 py-4 text-center">
-                            <X className="w-5 h-5 text-text-muted mx-auto" />
-                          </td>
-                          <td className="px-4 sm:px-6 py-4 text-center bg-subtle-5">
-                            <X className="w-5 h-5 text-text-muted mx-auto" />
-                          </td>
-                          <td className="px-4 sm:px-6 py-4 text-center">
-                            <X className="w-5 h-5 text-text-muted mx-auto" />
-                          </td>
-                          <td className="px-4 sm:px-6 py-4 text-center">
-                            <Check className="w-5 h-5 text-success mx-auto" />
-                          </td>
-                          <td className="px-4 sm:px-6 py-4 text-center">
-                            <Check className="w-5 h-5 text-success mx-auto" />
-                          </td>
-                        </tr>
-                        <tr>
-                          <td className="px-4 sm:px-6 py-4 text-sm text-text">
-                            Agente de Vídeo (Google Veo 3)
-                          </td>
-                          <td className="px-4 sm:px-6 py-4 text-center">
-                            <X className="w-5 h-5 text-text-muted mx-auto" />
-                          </td>
-                          <td className="px-4 sm:px-6 py-4 text-center bg-subtle-5">
-                            <X className="w-5 h-5 text-text-muted mx-auto" />
-                          </td>
-                          <td className="px-4 sm:px-6 py-4 text-center">
-                            <X className="w-5 h-5 text-text-muted mx-auto" />
-                          </td>
-                          <td className="px-4 sm:px-6 py-4 text-center">
-                            <Check className="w-5 h-5 text-success mx-auto" />
-                          </td>
-                          <td className="px-4 sm:px-6 py-4 text-center text-xs font-semibold text-success">
-                            Cota maior
-                          </td>
-                        </tr>
-
-                        {/* Funcionalidades exclusivas Premium */}
-                        <tr>
-                          <td className="px-4 sm:px-6 py-4 text-sm text-text">Agentes Premium Exclusivos</td>
-                          <td className="px-4 sm:px-6 py-4 text-center">
-                            <X className="w-5 h-5 text-text-muted mx-auto" />
-                          </td>
-                          <td className="px-4 sm:px-6 py-4 text-center bg-subtle-5">
-                            <X className="w-5 h-5 text-text-muted mx-auto" />
-                          </td>
-                          <td className="px-4 sm:px-6 py-4 text-center">
-                            <X className="w-5 h-5 text-text-muted mx-auto" />
-                          </td>
-                          <td className="px-4 sm:px-6 py-4 text-center">
-                            <X className="w-5 h-5 text-text-muted mx-auto" />
-                          </td>
-                          <td className="px-4 sm:px-6 py-4 text-center">
-                            <Check className="w-5 h-5 text-success mx-auto" />
-                          </td>
-                        </tr>
-                        <tr>
-                          <td className="px-4 sm:px-6 py-4 text-sm text-text">Backups diários off-site</td>
-                          <td className="px-4 sm:px-6 py-4 text-center">
-                            <X className="w-5 h-5 text-text-muted mx-auto" />
-                          </td>
-                          <td className="px-4 sm:px-6 py-4 text-center bg-subtle-5">
-                            <X className="w-5 h-5 text-text-muted mx-auto" />
-                          </td>
-                          <td className="px-4 sm:px-6 py-4 text-center">
-                            <X className="w-5 h-5 text-text-muted mx-auto" />
-                          </td>
-                          <td className="px-4 sm:px-6 py-4 text-center">
-                            <X className="w-5 h-5 text-text-muted mx-auto" />
-                          </td>
-                          <td className="px-4 sm:px-6 py-4 text-center">
-                            <Check className="w-5 h-5 text-success mx-auto" />
-                          </td>
-                        </tr>
-                        <tr>
-                          <td className="px-4 sm:px-6 py-4 text-sm text-text">Agente de Confirmação</td>
-                          <td className="px-4 sm:px-6 py-4 text-center">
-                            <X className="w-5 h-5 text-text-muted mx-auto" />
-                          </td>
-                          <td className="px-4 sm:px-6 py-4 text-center bg-subtle-5">
-                            <X className="w-5 h-5 text-text-muted mx-auto" />
-                          </td>
-                          <td className="px-4 sm:px-6 py-4 text-center">
-                            <X className="w-5 h-5 text-text-muted mx-auto" />
-                          </td>
-                          <td className="px-4 sm:px-6 py-4 text-center">
-                            <X className="w-5 h-5 text-text-muted mx-auto" />
-                          </td>
-                          <td className="px-4 sm:px-6 py-4 text-center">
-                            <Check className="w-5 h-5 text-success mx-auto" />
-                          </td>
-                        </tr>
-                        <tr>
-                          <td className="px-4 sm:px-6 py-4 text-sm text-text">Agente de Resumo de Grupos</td>
-                          <td className="px-4 sm:px-6 py-4 text-center">
-                            <X className="w-5 h-5 text-text-muted mx-auto" />
-                          </td>
-                          <td className="px-4 sm:px-6 py-4 text-center bg-subtle-5">
-                            <X className="w-5 h-5 text-text-muted mx-auto" />
-                          </td>
-                          <td className="px-4 sm:px-6 py-4 text-center">
-                            <X className="w-5 h-5 text-text-muted mx-auto" />
-                          </td>
-                          <td className="px-4 sm:px-6 py-4 text-center">
-                            <X className="w-5 h-5 text-text-muted mx-auto" />
-                          </td>
-                          <td className="px-4 sm:px-6 py-4 text-center">
-                            <Check className="w-5 h-5 text-success mx-auto" />
-                          </td>
-                        </tr>
-                        <tr>
-                          <td className="px-4 sm:px-6 py-4 text-sm text-text">Agente de Remarketing</td>
-                          <td className="px-4 sm:px-6 py-4 text-center">
-                            <X className="w-5 h-5 text-text-muted mx-auto" />
-                          </td>
-                          <td className="px-4 sm:px-6 py-4 text-center bg-subtle-5">
-                            <X className="w-5 h-5 text-text-muted mx-auto" />
-                          </td>
-                          <td className="px-4 sm:px-6 py-4 text-center">
-                            <X className="w-5 h-5 text-text-muted mx-auto" />
-                          </td>
-                          <td className="px-4 sm:px-6 py-4 text-center">
-                            <X className="w-5 h-5 text-text-muted mx-auto" />
-                          </td>
-                          <td className="px-4 sm:px-6 py-4 text-center">
-                            <Check className="w-5 h-5 text-success mx-auto" />
-                          </td>
-                        </tr>
-                        <tr>
-                          <td className="px-4 sm:px-6 py-4 text-sm text-text">Agente de Follow-up</td>
-                          <td className="px-4 sm:px-6 py-4 text-center">
-                            <X className="w-5 h-5 text-text-muted mx-auto" />
-                          </td>
-                          <td className="px-4 sm:px-6 py-4 text-center bg-subtle-5">
-                            <X className="w-5 h-5 text-text-muted mx-auto" />
-                          </td>
-                          <td className="px-4 sm:px-6 py-4 text-center">
-                            <X className="w-5 h-5 text-text-muted mx-auto" />
-                          </td>
-                          <td className="px-4 sm:px-6 py-4 text-center">
-                            <X className="w-5 h-5 text-text-muted mx-auto" />
-                          </td>
-                          <td className="px-4 sm:px-6 py-4 text-center">
-                            <Check className="w-5 h-5 text-success mx-auto" />
-                          </td>
-                        </tr>
-
-                        {/* Governança e maturidade de dados */}
-                        <tr>
-                          <td className="px-4 sm:px-6 py-4 text-sm text-text">
-                            Governança de dados / auditoria
-                          </td>
-                          <td className="px-4 sm:px-6 py-4 text-center">
-                            <X className="w-5 h-5 text-text-muted mx-auto" />
-                          </td>
-                          <td className="px-4 sm:px-6 py-4 text-center bg-subtle-5 text-xs">Básico</td>
-                          <td className="px-4 sm:px-6 py-4 text-center text-xs">Intermediário</td>
-                          <td className="px-4 sm:px-6 py-4 text-center text-xs">Intermediário</td>
-                          <td className="px-4 sm:px-6 py-4 text-center text-xs font-semibold text-success">
-                            Avançado
-                          </td>
+                        {plans[4].features.map((feature, idx) => ( // Use Premium features as master list
+                          <tr key={idx} className="hover:bg-surface/30 transition-colors">
+                            <td className="p-4 text-text font-medium">{feature.text}</td>
+                            {plans.map((plan) => {
+                              const planFeature = plan.features.find(f => f.text === feature.text);
+                              const isIncluded = planFeature?.included;
+                              
+                              return (
+                                <td key={plan.id} className="p-4 text-center">
+                                  {isIncluded ? (
+                                    <div className="flex justify-center">
+                                      <Check className="w-5 h-5 text-success" />
+                                    </div>
+                                  ) : (
+                                    <div className="flex justify-center">
+                                      <X className="w-5 h-5 text-text-muted/30" />
+                                    </div>
+                                  )}
+                                </td>
+                              );
+                            })}
+                          </tr>
+                        ))}
+                        <tr className="bg-surface/30">
+                          <td className="p-4 font-bold text-text">Preço Mensal</td>
+                          {plans.map((plan) => (
+                            <td key={plan.id} className="p-4 text-center font-bold text-text">
+                              {plan.priceMonthly === 0 ? "Grátis" : formatBRL(plan.priceMonthly)}
+                            </td>
+                          ))}
                         </tr>
                       </tbody>
                     </table>
                   </div>
-                </div>
+                </Card>
               </TabsContent>
             </Tabs>
-          </div>
-        </section>
 
-      {/* ROI Calculator */}
-      <section className="py-20 sm:py-24 bg-surface/30">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <Card className="p-8 md:p-10 bg-card-gradient border shadow-2xl-adaptive transition-all duration-300 hover:shadow-none">
-            <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-8">
-              <div className="flex items-center gap-3">
-                <div className="w-12 h-12 rounded-xl bg-surface-2 flex items-center justify-center">
-                  <Calculator className="w-6 h-6 text-text" />
-                </div>
-                <div>
-                  <h2 className="text-2xl font-bold text-text">Calculadora de ROI</h2>
-                  <p className="text-sm text-text-muted">
-                    Ajuste os valores e veja, em poucos segundos, quanto o Meu Agente pode economizar por mês.
-                  </p>
-                </div>
-              </div>
-              <div className="text-xs text-text-muted">
-                <p>Mudanças não afetam o preço do plano, apenas sua estimativa de retorno.</p>
-              </div>
-            </div>
-
-            <div className="grid gap-8 lg:grid-cols-[minmax(0,1.4fr),minmax(0,1fr)] items-start">
-              <div className="space-y-6">
-                <div>
-                  <Label className="block text-sm font-medium text-text mb-2">
-                    Horas/mês em tarefas operacionais
-                  </Label>
-                  <Slider
-                    value={[hoursPerMonth]}
-                    min={0}
-                    max={200}
-                    step={5}
-                    onValueChange={(value) => setHoursPerMonth(value[0])}
-                  />
-                  <div className="mt-3 flex items-center justify-between gap-4">
-                    <p className="text-xs text-text-muted">
-                      Inclua tarefas manuais como confirmação de presença, follow-ups e organização de leads.
-                    </p>
-                    <div className="w-24">
-                      <Input
-                        type="number"
-                        value={hoursPerMonth}
-                        onChange={(e) => setHoursPerMonth(Number(e.target.value))}
-                        className="h-9 text-sm"
-                      />
-                    </div>
+            {/* Calculadora ROI */}
+            <div className="mt-24 max-w-4xl mx-auto">
+              <Card className="p-8 border-border bg-surface/30 backdrop-blur-sm">
+                <div className="text-center mb-10">
+                  <div className="inline-flex items-center justify-center p-3 bg-primary/10 rounded-full mb-4">
+                    <Calculator className="w-8 h-8 text-primary" />
                   </div>
-                </div>
-
-                <div>
-                  <Label className="block text-sm font-medium text-text mb-2">
-                    Custo/hora da equipe (R$)
-                  </Label>
-                  <Slider
-                    value={[costPerHour]}
-                    min={10}
-                    max={500}
-                    step={10}
-                    onValueChange={(value) => setCostPerHour(value[0])}
-                  />
-                  <div className="mt-3 flex items-center justify-between gap-4">
-                    <p className="text-xs text-text-muted">
-                      Utilize o custo médio da hora de quem faz hoje esse trabalho manual.
-                    </p>
-                    <div className="w-24">
-                      <Input
-                        type="number"
-                        value={costPerHour}
-                        onChange={(e) => setCostPerHour(Number(e.target.value))}
-                        className="h-9 text-sm"
-                      />
-                    </div>
-                  </div>
-                </div>
-
-                <div>
-                  <Label className="block text-sm font-medium text-text mb-2">
-                    Leads perdidos/mês
-                  </Label>
-                  <Slider
-                    value={[leadsLost]}
-                    min={0}
-                    max={200}
-                    step={5}
-                    onValueChange={(value) => setLeadsLost(value[0])}
-                  />
-                  <div className="mt-3 flex items-center justify-between gap-4">
-                    <p className="text-xs text-text-muted">
-                      Quantos contatos deixam de ser atendidos ou respondidos hoje?
-                    </p>
-                    <div className="w-24">
-                      <Input
-                        type="number"
-                        value={leadsLost}
-                        onChange={(e) => setLeadsLost(Number(e.target.value))}
-                        className="h-9 text-sm"
-                      />
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div className="space-y-4">
-                <div className="p-6 rounded-xl bg-background/80 backdrop-blur border border-border/60">
-                  <p className="text-xs font-semibold tracking-[0.18em] uppercase text-text-muted mb-3">
-                    Resultado estimado
-                  </p>
-                  <div className="grid gap-4 sm:grid-cols-3">
-                    <div className="text-left sm:text-center">
-                      <p className="text-xs text-text-muted mb-1">Economia de tempo</p>
-                      <p className="text-2xl font-bold text-success">
-                        R$ {roi.timeSavings.toLocaleString("pt-BR")}
-                      </p>
-                    </div>
-                    <div className="text-left sm:text-center">
-                      <p className="text-xs text-text-muted mb-1 whitespace-nowrap">
-                        Recuperação de leads
-                      </p>
-                      <p className="text-2xl font-bold text-success">
-                        R$ {roi.leadRecovery.toLocaleString("pt-BR")}
-                      </p>
-                    </div>
-                    <div className="text-left sm:text-center">
-                      <p className="text-xs text-text-muted mb-1">Economia total/mês</p>
-                      <p className="text-2xl font-bold text-accent">
-                        R$ {roi.totalSavings.toLocaleString("pt-BR")}
-                      </p>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="p-5 rounded-xl bg-success/10 border border-success/25 space-y-3">
-                  <p className="text-sm text-text">
-                    <strong>ROI Plano Básico:</strong> +{roi.basicROI}% |{" "}
-                    <strong>ROI Plano Business:</strong> +{roi.businessROI}%
-                  </p>
-                  <p className="text-xs text-text-muted">
-                    Estimativa baseada em leads recuperados a R$ 200,00 por oportunidade. Os resultados reais podem
-                    variar conforme seu funil e ticket médio.
-                  </p>
-                </div>
-              </div>
-            </div>
-            <p className="mt-4 text-[11px] text-text-muted leading-relaxed">
-              * <strong>ROI (Retorno sobre Investimento)</strong> é a relação entre o que você ganha e o que investe,
-              expresso em porcentagem. Em termos simples: quanto maior o ROI, maior a economia ou o ganho financeiro em
-              comparação ao custo do plano.
-            </p>
-          </Card>
-        </div>
-      </section>
-
-      {/* FAQ Section Modernizada */}
-      <section className="py-24 bg-surface/30 relative overflow-hidden">
-        {/* Elementos decorativos de fundo */}
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-7xl h-full pointer-events-none opacity-40">
-            <div className="absolute top-20 right-0 w-96 h-96 bg-subtle-10 rounded-full blur-[100px]" />
-            <div className="absolute bottom-20 left-0 w-72 h-72 bg-blue-500/10 rounded-full blur-[100px]" />
-        </div>
-
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-            <div className="grid gap-12 lg:grid-cols-[1fr_1.5fr] lg:gap-24 items-stretch">
-              
-              {/* Coluna Esquerda: Cabeçalho + CTA Suporte */}
-              <div className="flex flex-col gap-6 h-full lg:justify-between">
-                <div className="space-y-4">
-                  <div className="inline-flex items-center gap-2 rounded-full border border-border/50 bg-background/70 px-3 py-1 text-xs font-medium text-text-muted">
-                    <Sparkles className="h-3 w-3 icon-accent" />
-                    <span>Tira-dúvidas</span>
-                  </div>
-                  <h2 className="text-3xl sm:text-4xl font-bold text-text leading-tight">
-                    Perguntas frequentes sobre nossos planos
-                  </h2>
-                  <p className="text-text-muted text-lg leading-relaxed">
-                    Separamos as respostas para as dúvidas mais comuns de quem está buscando escalar sua operação com Agentes de IA.
+                  <h3 className="text-2xl font-bold text-text mb-2">Calculadora de ROI</h3>
+                  <p className="text-text-muted">
+                    Estime quanto você pode economizar automatizando seu atendimento
                   </p>
                 </div>
 
-                {/* Card de Suporte - Flexível para alinhar o fundo */}
-                <div className="flex-1 flex flex-col justify-between p-6 rounded-2xl border border-subtle bg-gradient-subtle backdrop-blur-sm mt-2 shadow-adaptive hover:shadow-none transition-all duration-300 hover:-translate-y-1 hover:scale-[1.02]">
-                  <div>
-                    <div className="flex items-center gap-3 mb-3">
-                      <div className="h-10 w-10 rounded-full bg-surface-2 flex items-center justify-center text-text shadow-sm">
-                        <Sparkles className="h-5 w-5" />
+                <div className="grid md:grid-cols-2 gap-12">
+                  <div className="space-y-8">
+                    <div className="space-y-4">
+                      <div className="flex justify-between">
+                        <Label>Horas gastas no WhatsApp/mês</Label>
+                        <span className="font-mono text-primary font-bold">{hoursPerMonth}h</span>
                       </div>
-                      <p className="font-semibold text-text">Ainda com dúvidas?</p>
+                      <Slider
+                        value={[hoursPerMonth]}
+                        onValueChange={([v]) => setHoursPerMonth(v)}
+                        max={160}
+                        step={1}
+                        className="py-2"
+                      />
+                      <p className="text-xs text-text-muted">Tempo da equipe respondendo mensagens</p>
                     </div>
-                    <p className="text-sm text-text-muted mb-5 leading-relaxed">
-                      Nossa equipe de especialistas está pronta para te ajudar a escolher o plano ideal para o seu momento de negócio.
-                    </p>
+
+                    <div className="space-y-4">
+                      <div className="flex justify-between">
+                        <Label>Custo hora/funcionário</Label>
+                        <span className="font-mono text-primary font-bold">R$ {costPerHour}</span>
+                      </div>
+                      <Slider
+                        value={[costPerHour]}
+                        onValueChange={([v]) => setCostPerHour(v)}
+                        max={200}
+                        step={5}
+                        className="py-2"
+                      />
+                      <p className="text-xs text-text-muted">Salário + encargos dividido por horas</p>
+                    </div>
+
+                    <div className="space-y-4">
+                      <div className="flex justify-between">
+                        <Label>Leads perdidos por demora/mês</Label>
+                        <span className="font-mono text-primary font-bold">{leadsLost}</span>
+                      </div>
+                      <Slider
+                        value={[leadsLost]}
+                        onValueChange={([v]) => setLeadsLost(v)}
+                        max={50}
+                        step={1}
+                        className="py-2"
+                      />
+                      <p className="text-xs text-text-muted">Estimativa de oportunidades perdidas</p>
+                    </div>
                   </div>
-                  <Button 
-                    className="w-full mt-auto group relative overflow-hidden btn-primary-gradient shadow-xl-adaptive hover:shadow-2xl-adaptive"
-                    onClick={() => window.open("https://app.meuagente.api.br", "_blank")}
-                  >
-                    Falar com consultor
-                    <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform duration-200" />
-                  </Button>
+
+                  <div className="flex flex-col justify-center space-y-6 bg-background/50 p-6 rounded-xl border border-border/50">
+                    <div className="space-y-2">
+                      <p className="text-sm text-text-muted">Economia estimada mensal</p>
+                      <p className="text-4xl font-extrabold text-success">
+                        {formatBRL(roi.totalSavings)}
+                      </p>
+                    </div>
+
+                    <div className="space-y-4 pt-4 border-t border-border/50">
+                      <div>
+                        <div className="flex justify-between text-sm mb-1">
+                          <span>ROI no Plano Básico</span>
+                          <span className="font-bold text-success">+{roi.basicROI}%</span>
+                        </div>
+                        <div className="h-2 bg-surface rounded-full overflow-hidden">
+                          <div 
+                            className="h-full bg-success transition-all duration-500" 
+                            style={{ width: `${Math.min(Number(roi.basicROI), 100)}%` }} 
+                          />
+                        </div>
+                      </div>
+
+                      <div>
+                        <div className="flex justify-between text-sm mb-1">
+                          <span>ROI no Plano Business</span>
+                          <span className="font-bold text-success">+{roi.businessROI}%</span>
+                        </div>
+                        <div className="h-2 bg-surface rounded-full overflow-hidden">
+                          <div 
+                            className="h-full bg-success transition-all duration-500" 
+                            style={{ width: `${Math.min(Number(roi.businessROI), 100)}%` }} 
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
-              </div>
-
-            {/* Coluna Direita: Accordion Estilizado e Compacto */}
-            <div className="w-full">
-              {/* 
-                Usamos flex + h-full + justify-between para que o último item do Accordion 
-                alinhe a sua base com a base da coluna, garantindo o alinhamento horizontal 
-                com o card da esquerda quando todas as perguntas estão fechadas.
-              */}
-              <Accordion
-                type="single"
-                collapsible
-                className="flex h-full flex-col justify-between space-y-2"
-              >
-                <AccordionItem value="item-1" className="group border border-border/60 rounded-lg bg-background/60 px-1 hover:border-accent hover:bg-background/80 transition-all duration-300 shadow-sm data-[state=open]:border-accent data-[state=open]:bg-background/90 data-[state=open]:shadow-md">
-                  <AccordionTrigger className="px-3 text-left font-medium text-sm text-text group-hover-accent transition-colors py-3">
-                    Posso usar o Meu Agente sem número próprio?
-                  </AccordionTrigger>
-                  <AccordionContent className="px-3 pb-3 text-sm text-text-muted leading-relaxed">
-                    Sim. Nos planos <strong>Free</strong>, <strong>Lite</strong> e <strong>Básico</strong> o atendimento ocorre na infraestrutura do Meu Agente (no Lite já via WhatsApp em canal compartilhado). Nos planos Business e Premium você tem um número de WhatsApp próprio.
+              </Card>
+            </div>
+            
+            {/* FAQ */}
+            <div className="mt-24 max-w-3xl mx-auto">
+              <h3 className="text-2xl font-bold text-text text-center mb-8">Perguntas Frequentes</h3>
+              <Accordion type="single" collapsible className="w-full">
+                <AccordionItem value="item-1">
+                  <AccordionTrigger>Posso cancelar a qualquer momento?</AccordionTrigger>
+                  <AccordionContent>
+                    Sim! Nossos planos mensais não possuem fidelidade. Você pode cancelar ou alterar seu plano quando quiser. Nos planos anuais, o cancelamento encerra a renovação automática.
                   </AccordionContent>
                 </AccordionItem>
-
-                <AccordionItem value="item-2" className="group border border-border/60 rounded-lg bg-background/60 px-1 hover:border-accent hover:bg-background/80 transition-all duration-300 shadow-sm data-[state=open]:border-accent data-[state=open]:bg-background/90 data-[state=open]:shadow-md">
-                  <AccordionTrigger className="px-3 text-left font-medium text-sm text-text group-hover-accent transition-colors py-3">
-                    O que muda entre os planos Business e Premium?
-                  </AccordionTrigger>
-                  <AccordionContent className="px-3 pb-3 text-sm text-text-muted leading-relaxed">
-                    O Premium inclui 4 agentes exclusivos (Confirmação, Resumo de Grupos, Remarketing e Follow-up), pesquisa/extração avançada, backups diários off-site, cota maior de vídeo e governança ampliada de dados.
+                <AccordionItem value="item-2">
+                  <AccordionTrigger>O que acontece se eu ultrapassar os limites?</AccordionTrigger>
+                  <AccordionContent>
+                    Não cobramos multas automáticas. Se sua operação crescer muito, nossa equipe entrará em contato para sugerir o upgrade para um plano mais adequado ao seu volume.
                   </AccordionContent>
                 </AccordionItem>
-
-                <AccordionItem value="item-3" className="group border border-border/60 rounded-lg bg-background/60 px-1 hover:border-accent hover:bg-background/80 transition-all duration-300 shadow-sm data-[state=open]:border-accent data-[state=open]:bg-background/90 data-[state=open]:shadow-md">
-                  <AccordionTrigger className="px-3 text-left font-medium text-sm text-text group-hover-accent transition-colors py-3">
-                    Como funcionam as mensagens proativas?
-                  </AccordionTrigger>
-                  <AccordionContent className="px-3 pb-3 text-sm text-text-muted leading-relaxed">
-                    Fora da janela de 24h, somente com <strong>template aprovado</strong> e opt-in do contato. Dentro da janela de 24h, mensagens livres são permitidas seguindo as políticas do WhatsApp Business.
+                <AccordionItem value="item-3">
+                  <AccordionTrigger>Como funciona a implantação inclusa?</AccordionTrigger>
+                  <AccordionContent>
+                    Nos planos Business e Premium, um especialista do Meu Agente fará uma reunião de onboarding para configurar sua conta, treinar seus agentes iniciais e integrar com seu WhatsApp.
                   </AccordionContent>
                 </AccordionItem>
-
-                <AccordionItem value="item-4" className="group border border-border/60 rounded-lg bg-background/60 px-1 hover:border-accent hover:bg-background/80 transition-all duration-300 shadow-sm data-[state=open]:border-accent data-[state=open]:bg-background/90 data-[state=open]:shadow-md">
-                  <AccordionTrigger className="px-3 text-left font-medium text-sm text-text group-hover-accent transition-colors py-3">
-                    Há taxa de manutenção adicional?
-                  </AccordionTrigger>
-                  <AccordionContent className="px-3 pb-3 text-sm text-text-muted leading-relaxed">
-                    Sim, nos planos <strong>Business</strong> e <strong>Premium</strong> há uma taxa de <strong>Treinamento da IA e Manutenção R$ 149,00/hr, somente quando solicitado</strong> para ajustes de modelos, reconfigurações e treinamentos pontuais. Não é cobrada mensalmente, apenas sob demanda.
-                  </AccordionContent>
-                </AccordionItem>
-
-                <AccordionItem value="item-5" className="group border border-border/60 rounded-lg bg-background/60 px-1 hover:border-accent hover:bg-background/80 transition-all duration-300 shadow-sm data-[state=open]:border-accent data-[state=open]:bg-background/90 data-[state=open]:shadow-md">
-                  <AccordionTrigger className="px-3 text-left font-medium text-sm text-text group-hover-accent transition-colors py-3">
-                    Vocês fazem scraping de sites que proíbem?
-                  </AccordionTrigger>
-                  <AccordionContent className="px-3 pb-3 text-sm text-text-muted leading-relaxed">
-                    Não. Trabalhamos apenas com <strong>APIs oficiais</strong> e <strong>fontes permitidas</strong> que autorizam extração de dados. Respeitamos os termos de uso de todos os sites.
-                  </AccordionContent>
-                </AccordionItem>
-
-                <AccordionItem value="item-6" className="group border border-border/60 rounded-lg bg-background/60 px-1 hover:border-accent hover:bg-background/80 transition-all duration-300 shadow-sm data-[state=open]:border-accent data-[state=open]:bg-background/90 data-[state=open]:shadow-md">
-                  <AccordionTrigger className="px-3 text-left font-medium text-sm text-text group-hover-accent transition-colors py-3">
-                    Posso mudar de plano depois?
-                  </AccordionTrigger>
-                  <AccordionContent className="px-3 pb-3 text-sm text-text-muted leading-relaxed">
-                    Sim! Você pode fazer upgrade ou downgrade a qualquer momento. Upgrades são aplicados imediatamente, downgrades entram em vigor no próximo ciclo de cobrança. Entre em contato com nosso suporte para solicitar a mudança.
-                  </AccordionContent>
-                </AccordionItem>
-
-                <AccordionItem value="item-7" className="group border border-border/60 rounded-lg bg-background/60 px-1 hover:border-accent hover:bg-background/80 transition-all duration-300 shadow-sm data-[state=open]:border-accent data-[state=open]:bg-background/90 data-[state=open]:shadow-md">
-                  <AccordionTrigger className="px-3 text-left font-medium text-sm text-text group-hover-accent transition-colors py-3">
-                    O que está incluído na implantação?
-                  </AccordionTrigger>
-                  <AccordionContent className="px-3 pb-3 text-sm text-text-muted leading-relaxed">
-                    Nos planos <strong>Business</strong> e <strong>Premium</strong>, a implantação inclui configuração do número WhatsApp, setup inicial dos agentes, treinamento da equipe e customizações básicas. Integrações com Google Workspace são opcionais com custo adicional.
-                  </AccordionContent>
-                </AccordionItem>
-
-                <AccordionItem value="item-8" className="group border border-border/60 rounded-lg bg-background/60 px-1 hover:border-accent hover:bg-background/80 transition-all duration-300 shadow-sm data-[state=open]:border-accent data-[state=open]:bg-background/90 data-[state=open]:shadow-md">
-                  <AccordionTrigger className="px-3 text-left font-medium text-sm text-text group-hover-accent transition-colors py-3">
-                    Como funciona o suporte prioritário 24/7?
-                  </AccordionTrigger>
-                  <AccordionContent className="px-3 pb-3 text-sm text-text-muted leading-relaxed">
-                    Clientes <strong>Business</strong> e <strong>Premium</strong> têm acesso a suporte via WhatsApp, email e telefone 24 horas por dia, 7 dias por semana, com SLA de resposta de 2 horas. Premium tem prioridade máxima na fila.
+                <AccordionItem value="item-4">
+                  <AccordionTrigger>Preciso de um número novo de WhatsApp?</AccordionTrigger>
+                  <AccordionContent>
+                    Não necessariamente. Você pode usar seu número atual. Porém, para evitar banimentos e manter profissionalismo, recomendamos usar um número exclusivo para a automação (incluso nos planos Business e Premium).
                   </AccordionContent>
                 </AccordionItem>
               </Accordion>
             </div>
           </div>
-        </div>
-      </section>
-    </div>
+        </section>
+      </div>
     </>
   );
 };
 
 export default Planos;
+
