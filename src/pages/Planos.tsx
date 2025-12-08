@@ -278,7 +278,7 @@ const Planos = () => {
                       aria-label="Alternar faturamento anual"
                       className="data-[state=checked]:bg-primary"
                     />
-                    <div className="flex items-center gap-1">
+                    <div className="flex items-center gap-4">
                       <span className={cn("font-semibold", billingCycle === "annual" ? "text-text" : "text-text-muted")}>
                         Anual
                       </span>
@@ -301,7 +301,7 @@ const Planos = () => {
                             key={plan.id}
                             onClick={() => setHeroPlanId(plan.id)}
                             className={cn(
-                              "px-3 py-1.5 rounded-full text-xs font-medium transition-all duration-200",
+                              "px-4 py-1.5 rounded-full text-xs font-medium transition-all duration-200 min-w-[72px]",
                               heroPlanId === plan.id
                                 ? "btn-toggle-active"
                                 : "text-text-muted hover:text-text hover:bg-surface-2"
@@ -319,7 +319,10 @@ const Planos = () => {
                       <div className="flex flex-col gap-1 w-full">
                         {/* Label Recomendado - segue badge do plano */}
                         {heroPlan.badge && (
-                          <span className="absolute -top-6 left-0 text-[10px] font-bold uppercase tracking-wider badge-highlight px-2 py-0.5 rounded-sm backdrop-blur-sm border animate-in fade-in slide-in-from-bottom-2">
+                          <span 
+                            key={`badge-top-${heroPlan.id}`}
+                            className="absolute -top-6 left-0 text-[10px] font-bold uppercase tracking-wider badge-highlight px-2 py-0.5 rounded-sm backdrop-blur-sm border animate-in fade-in slide-in-from-bottom-2"
+                          >
                             {heroPlan.badge}
                           </span>
                         )}
@@ -331,7 +334,10 @@ const Planos = () => {
                           {/* Badge flutuante à direita */}
                           <div className="h-6 flex items-center">
                             {heroPlan.badge && (
-                              <Badge className="btn-primary-gradient px-4 py-1 font-bold shadow-sm animate-in zoom-in-95 whitespace-nowrap">
+                              <Badge 
+                                key={`badge-right-${heroPlan.id}`}
+                                className="btn-primary-gradient px-4 py-1 font-bold shadow-sm animate-in zoom-in-95 whitespace-nowrap"
+                              >
                                 {heroPlan.badge}
                               </Badge>
                             )}
