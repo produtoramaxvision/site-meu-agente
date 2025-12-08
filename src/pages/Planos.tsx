@@ -65,6 +65,17 @@ const Planos = () => {
 
   const roi = calculateROI();
 
+  const PlanFeature = ({ feature }: { feature: { text: string; included: boolean } }) => (
+    <li className="flex items-start gap-3">
+      {feature.included ? (
+        <Check className="w-5 h-5 text-success flex-shrink-0 mt-0.5" />
+      ) : (
+        <X className="w-5 h-5 text-text-muted flex-shrink-0 mt-0.5" />
+      )}
+      <span className={`text-sm ${feature.included ? "text-text" : "text-text-muted"}`}>{feature.text}</span>
+    </li>
+  );
+
   const plans = [
     {
       id: "free",
@@ -342,7 +353,9 @@ const Planos = () => {
                         </>
                       )}
                     </span>
-                    <span className="text-text-muted">{billingCycle === "monthly" ? "/mês" : "/ano"}</span>
+                {heroPlan.id !== "free" && (
+                  <span className="text-text-muted">{billingCycle === "monthly" ? "/mês" : "/ano"}</span>
+                )}
                   </div>
                   {heroPlan.id !== "free" && billingCycle === "monthly" && heroPlan.priceAnnual > 0 && (
                     <p className="text-xs text-text-muted">
@@ -449,21 +462,20 @@ const Planos = () => {
               </TabsList>
 
               <TabsContent value="plans">
-                <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 items-stretch">
-                  {plans.map((plan, index) => (
-                  <Card
+                {/* Linha 1: Free, Lite, Básico (3 colunas) */}
+                <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3 items-stretch mb-10">
+                  {plans.slice(0, 3).map((plan, index) => (
+                    <Card
                       key={index}
                       className={`relative flex flex-col h-full p-8 bg-background border-border/60 shadow-adaptive backdrop-blur-sm transition-all duration-300 ${
-                      plan.popular
-                          ? "ring-2 ring-text/20 dark:ring-text/30 shadow-xl-adaptive scale-105 hover:shadow-none hover:-translate-y-1 hover:scale-[1.08]"
+                        plan.popular
+                          ? "ring-2 ring-text/20 dark:ring-text/30 shadow-xl-adaptive scale-105 hover:shadow-none hover:-translate-y-1 hover:scale-[1.08] z-10"
                           : "hover:shadow-none hover:-translate-y-1 hover:scale-[1.02]"
                       }`}
                     >
                       {plan.badge && (
                         <div className="absolute -top-4 left-1/2 -translate-x-1/2">
-                          <Badge className="btn-primary-gradient px-4 py-1 font-bold">
-                            {plan.badge}
-                          </Badge>
+                          <Badge className="btn-primary-gradient px-4 py-1 font-bold">{plan.badge}</Badge>
                         </div>
                       )}
 
@@ -482,7 +494,9 @@ const Planos = () => {
                               />
                             </>
                           )}
-                          <span className="text-text-muted">{billingCycle === "monthly" ? "/mês" : "/ano"}</span>
+                      {plan.id !== "free" && (
+                        <span className="text-text-muted">{billingCycle === "monthly" ? "/mês" : "/ano"}</span>
+                      )}
                         </div>
                         {plan.id !== "free" && billingCycle === "monthly" && plan.priceAnnual > 0 && (
                           <p className="text-xs text-text-muted">Anual: {formatBRL(plan.priceAnnual)} (1 mês grátis)</p>
@@ -492,37 +506,93 @@ const Planos = () => {
 
                       <ul className="space-y-3 mb-8">
                         {plan.features.map((feature, featureIndex) => (
-                          <li key={featureIndex} className="flex items-start gap-3">
-                            {feature.included ? (
-                              <Check className="w-5 h-5 text-success flex-shrink-0 mt-0.5" />
-                            ) : (
-                              <X className="w-5 h-5 text-text-muted flex-shrink-0 mt-0.5" />
-                            )}
-                            <span className={`text-sm ${feature.included ? "text-text" : "text-text-muted"}`}>
-                              {feature.text}
-                            </span>
-                          </li>
+                          <PlanFeature key={featureIndex} feature={feature} />
                         ))}
                       </ul>
 
                       <Button
                         className={`mt-auto w-full group relative overflow-hidden ${
-                          plan.popular
-                            ? "btn-primary-gradient shadow-xl-adaptive hover:shadow-2xl-adaptive"
-                            : ""
+                          plan.popular ? "btn-primary-gradient shadow-xl-adaptive hover:shadow-2xl-adaptive" : "btn-secondary"
                         }`}
                         variant={plan.popular ? "default" : "outline"}
                         onClick={() => onPlanClick(plan.id)}
                         disabled={loading}
                       >
-                        {loading ? (
-                          <Loader2 className="w-4 h-4 animate-spin mr-2" />
-                        ) : null}
+                        {loading ? <Loader2 className="w-4 h-4 animate-spin mr-2" /> : null}
                         {plan.cta}
                         {!loading && (
-                        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
+                          <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
                         )}
                       </Button>
+                    </Card>
+                  ))}
+                </div>
+
+                {/* Linha 2: Business e Premium em cards horizontais */}
+                <div className="flex flex-col gap-8 mb-10">
+                  {plans.slice(3, 5).map((plan, index) => (
+                    <Card
+                      key={index}
+                      className={`relative flex flex-col lg:flex-row items-start lg:items-center justify-between gap-8 p-8 bg-background border-border/60 shadow-adaptive backdrop-blur-sm transition-all duration-300 ${
+                        plan.popular
+                          ? "ring-2 ring-text/20 dark:ring-text/30 shadow-xl-adaptive"
+                          : "hover:shadow-none hover:-translate-y-1 hover:scale-[1.01]"
+                      }`}
+                    >
+                      {plan.badge && (
+                        <div className="absolute -top-4 left-1/2 -translate-x-1/2 lg:left-8 lg:translate-x-0">
+                          <Badge className="btn-primary-gradient px-4 py-1 font-bold">{plan.badge}</Badge>
+                        </div>
+                      )}
+
+                      {/* Cabeçalho à esquerda */}
+                      <div className="flex-1 lg:max-w-xs">
+                        <h3 className="text-2xl font-bold text-text mb-2">{plan.name}</h3>
+                        <div className="flex items-baseline gap-1 mb-2">
+                          <span className="text-xl text-text">R$</span>
+                          <NumberFlow
+                            value={billingCycle === "monthly" ? plan.priceMonthly : plan.priceAnnual}
+                            format={{ minimumFractionDigits: 2, maximumFractionDigits: 2 }}
+                            className="text-4xl font-extrabold text-text"
+                          />
+                          {plan.id !== "free" && (
+                            <span className="text-text-muted">{billingCycle === "monthly" ? "/mês" : "/ano"}</span>
+                          )}
+                        </div>
+                        {billingCycle === "monthly" && plan.priceAnnual > 0 && (
+                          <p className="text-xs text-text-muted mb-2">Anual: {formatBRL(plan.priceAnnual)} (1 mês grátis)</p>
+                        )}
+                        <p className="text-sm text-text-muted">{plan.description}</p>
+                      </div>
+
+                      {/* Features em grade */}
+                      <div className="flex-1 w-full lg:w-auto lg:border-l lg:border-border/50 lg:pl-8">
+                        <h4 className="font-semibold text-sm mb-4 text-text-muted lg:hidden">Recursos inclusos:</h4>
+                        <ul className="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-3">
+                          {plan.features.map((feature, featureIndex) => (
+                            <PlanFeature key={featureIndex} feature={feature} />
+                          ))}
+                        </ul>
+                      </div>
+
+                      {/* CTA à direita */}
+                      <div className="w-full lg:w-auto lg:min-w-[200px] flex flex-col gap-4">
+                        <Button
+                          className={`w-full group relative overflow-hidden ${
+                            plan.popular ? "btn-primary-gradient shadow-xl-adaptive hover:shadow-2xl-adaptive" : "btn-secondary"
+                          }`}
+                          variant={plan.popular ? "default" : "outline"}
+                          onClick={() => onPlanClick(plan.id)}
+                          disabled={loading}
+                          size="lg"
+                        >
+                          {loading ? <Loader2 className="w-4 h-4 animate-spin mr-2" /> : null}
+                          {plan.cta}
+                          {!loading && (
+                            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
+                          )}
+                        </Button>
+                      </div>
                     </Card>
                   ))}
                 </div>

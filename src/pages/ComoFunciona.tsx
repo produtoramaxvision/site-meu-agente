@@ -20,7 +20,8 @@ import {
   ListChecks,
   Bell,
   Settings,
-  Sparkles
+  Sparkles,
+  Bot,
 } from "lucide-react";
 
 const ComoFunciona = () => {
@@ -339,6 +340,12 @@ No plano Premium, você tem cota maior de minutos de geração, permitindo escal
       icon: ListChecks,
       name: "Tarefas e rotinas",
       description: "Organize tarefas recorrentes, priorize o que importa e delegue para os agentes.",
+    },
+    {
+      icon: Bot,
+      name: "Chat IA de Agendamentos",
+      description:
+        "O assistente sugere horários, confirma pelo WhatsApp e cria eventos automaticamente no app.",
     },
     {
       icon: Bell,
