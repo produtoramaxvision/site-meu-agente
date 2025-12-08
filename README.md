@@ -1,8 +1,44 @@
-# Meu Agente - Landing Page & Blog
+# 🤖 Meu Agente - Site Institucional & Blog
 
-Site de vendas completo para o **Meu Agente**, um micro SaaS que disponibiliza uma equipe de Agentes de IA operando diretamente no WhatsApp para executar tarefas de atendimento, operações e automação empresarial.
+<p align="center">
+  <strong>Transforme Seu WhatsApp em Uma Equipe de Agentes de IA Trabalhando 24 horas</strong>
+</p>
+
+<p align="center">
+  <a href="https://site.meuagente.api.br">Site</a> •
+  <a href="https://app.meuagente.api.br">App</a> •
+  <a href="#documentação">Docs</a> •
+  <a href="#contato">Contato</a>
+</p>
+
+---
+
+## 📋 Sobre o Projeto
+
+Este repositório contém o **site institucional e blog** do **Meu Agente**, um micro SaaS que disponibiliza uma equipe de Agentes de IA operando diretamente no WhatsApp para executar tarefas de atendimento, operações e automação empresarial.
+
+### 🎯 O que é o Meu Agente?
+
+- **12 Agentes de IA** especializados (Financeiro, SDR, Marketing, Dev, Vídeo, etc.)
+- **Automação 24/7** via WhatsApp Business
+- **Economia de até 40h/mês** em tarefas operacionais
+- **Aumento de até 35%** nas conversões com SDR virtual
+- **Conformidade LGPD** e criptografia de ponta a ponta
+
+### 📦 Planos Disponíveis
+
+| Plano | Valor | Principais Recursos |
+|-------|-------|---------------------|
+| **Free** | R$ 0 | App em nuvem, agentes básicos manuais |
+| **Básico** | R$ 497/mês | Exportação, Agente de Agendamento |
+| **Business** | R$ 997/mês | Número dedicado, SDR, Marketing, Dev, Vídeo |
+| **Premium** | R$ 1.497/mês | Confirmação, Remarketing, Follow-up, Backups |
+
+---
 
 ## 🚀 Tecnologias
+
+### Frontend
 
 - **React 18** com TypeScript
 - **Vite** para build otimizado
@@ -10,86 +46,124 @@ Site de vendas completo para o **Meu Agente**, um micro SaaS que disponibiliza u
 - **shadcn/ui** para componentes UI
 - **Lucide React** para ícones
 - **React Router DOM** para navegação
-- **React Hook Form + Zod** para validação de formulários
-- **React Markdown** para renderização de posts do blog
-- **React Helmet Async** para SEO e meta tags
+- **Framer Motion** para animações
+
+### Formulários e Validação
+
+- **React Hook Form** para gestão de formulários
+- **Zod** para validação de schemas
+
+### Blog e Conteúdo
+
+- **React Markdown** para renderização de posts
 - **Gray Matter** para processamento de frontmatter
-- **Framer Motion** (via tailwindcss-animate) para animações
+- **React Helmet Async** para SEO e meta tags
+
+### Backend e Infraestrutura
+
+- **Supabase** - Database, Auth, Edge Functions
+- **Stripe** - Processamento de pagamentos
+- **Vercel** - Hospedagem e deployment
+
+---
 
 ## 📁 Estrutura do Projeto
 
 ```
-site_meuagente/
+site-meu-agente/
 ├── content/
 │   └── blog/                    # Posts do blog em Markdown
 │       ├── agentes-ia-economizar-tempo.md
 │       ├── automatize-atendimento-ia-5-passos.md
 │       ├── sdr-virtual-qualificar-leads.md
 │       └── ...
+├── docs/                        # Documentação
+│   ├── guia_meu_agente.md      # Guia completo do usuário
+│   ├── meu_agente_prd.md       # Product Requirements Document
+│   ├── GUIA_AGENTES.md         # Referência rápida de agentes
+│   ├── ONBOARDING_BUSINESS.md  # Guia de implantação Business/Premium
+│   ├── CHANGELOG.md            # Histórico de mudanças
+│   ├── politica-de-privacidade.md
+│   ├── termos-de-uso.md
+│   └── dev/                    # Documentação técnica
+│       ├── ARQUITETURA.md
+│       ├── FLUXO_CHECKOUT.md
+│       ├── INTEGRACAO_STRIPE.md
+│       └── OTIMIZACOES.md
 ├── public/
-│   ├── sitemap.xml              # Sitemap para SEO
-│   ├── robots.txt               # Configuração de crawlers
-│   └── placeholder.svg
+│   ├── sitemap.xml
+│   ├── robots.txt
+│   ├── _headers
+│   └── fonts/
 ├── src/
 │   ├── components/
-│   │   ├── layout/
-│   │   │   ├── Header.tsx       # Cabeçalho com navegação
-│   │   │   └── Footer.tsx       # Rodapé com newsletter
-│   │   ├── sections/            # Seções da home
-│   │   │   ├── HeroSection.tsx
-│   │   │   ├── AgentsSection.tsx
-│   │   │   ├── ExamplesSection.tsx
-│   │   │   ├── PricingSection.tsx
-│   │   │   ├── IntegrationsSection.tsx
-│   │   │   └── ...
-│   │   ├── ui/                  # Componentes shadcn/ui
-│   │   ├── ChatWidget.tsx       # Widget de chat flutuante
-│   │   ├── NewsletterSignup.tsx # Componente de newsletter
-│   │   ├── SEO.tsx              # Componente de SEO
-│   │   └── GTM.tsx              # Google Tag Manager
-│   ├── lib/
-│   │   ├── blog.ts              # Utilitários para blog
-│   │   ├── seo.ts               # Schemas JSON-LD
-│   │   └── utils.ts             # Utilitários gerais
-│   ├── pages/
-│   │   ├── Index.tsx            # Landing page principal
-│   │   ├── Planos.tsx           # Planos com ROI calculator
-│   │   ├── ComoFunciona.tsx     # Página de produto
-│   │   ├── Blog.tsx             # Listagem de posts
-│   │   ├── BlogPost.tsx         # Template de post individual
-│   │   ├── FAQ.tsx              # Perguntas frequentes
-│   │   ├── Contato.tsx          # Formulário de contato
-│   │   └── NotFound.tsx
-│   ├── index.css                # Design system (tokens CSS)
-│   ├── App.tsx                  # App principal com rotas
-│   └── main.tsx                 # Entry point
-├── tailwind.config.ts           # Configuração Tailwind
-├── components.json              # Configuração shadcn/ui
-└── package.json
+│   │   ├── layout/             # Header, Footer
+│   │   ├── sections/           # Seções da home
+│   │   ├── about/              # Componentes da página Sobre
+│   │   └── ui/                 # Componentes shadcn/ui
+│   ├── pages/                  # Páginas da aplicação
+│   ├── hooks/                  # Custom hooks
+│   ├── lib/                    # Utilitários
+│   ├── integrations/           # Integrações (Supabase)
+│   ├── App.tsx
+│   ├── main.tsx
+│   └── index.css
+├── supabase/                   # Configuração Supabase
+├── package.json
+├── tailwind.config.ts
+├── vite.config.ts
+└── tsconfig.json
 ```
 
-## 🎨 Design System
+---
 
-O projeto utiliza um design system monocromático baseado em HSL com:
-- **Paleta**: Preto/Cinza com gradientes brand-900 → brand-700
-- **Fonte**: Inter via Google Fonts
-- **Animações**: Fade-in, scale, glassmorphism, hover effects
-- **Componentes**: Customizados do shadcn/ui
+## 🌐 Páginas
 
-## 🚀 Como Executar
+### Páginas Principais
+
+| Rota | Página | Descrição |
+|------|--------|-----------|
+| `/` | Index | Landing page com todas as seções |
+| `/como-funciona` | ComoFunciona | Deep dive nos agentes e recursos |
+| `/planos` | Planos | Planos, preços e calculadora ROI |
+| `/sobre-nos` | SobreNos | Empresa, timeline, valores, equipe |
+| `/contato` | Contato | Formulário e informações de contato |
+| `/faq` | FAQ | Perguntas frequentes categorizadas |
+| `/blog` | Blog | Listagem de posts com filtros |
+| `/blog/:slug` | BlogPost | Post individual com TOC |
+| `/guia-do-usuario` | GuiaDoUsuario | Guia do usuário (Markdown) |
+| `/trabalhe-conosco` | TrabalheConosco | Vagas e cultura |
+| `/status-do-sistema` | StatusDoSistema | Status dos serviços |
+| `/termos-de-uso` | TermosDeUso | Termos de serviço |
+| `/politica-de-privacidade` | PoliticaDePrivacidade | Política de privacidade |
+
+### Posts do Blog
+
+1. "Como Agentes de IA no WhatsApp Podem Economizar 40 Horas por Mês"
+2. "Guia Completo: Automatize Seu Atendimento com IA em 5 Passos"
+3. "SDR Virtual: Como Qualificar Leads Automaticamente pelo WhatsApp"
+4. "Gestão Financeira pelo WhatsApp: Vale a Pena?"
+5. "7 Exemplos Reais de Empresas que Dobraram Conversões com Agentes de IA"
+6. "WhatsApp Business e IA: O Guia Definitivo para 2025"
+7. "Como Otimizar Google Ads com IA: Análise Automática de Campanhas"
+
+---
+
+## 🛠️ Desenvolvimento
 
 ### Pré-requisitos
 
-- Node.js 18+ e npm
+- Node.js 18+
+- npm ou yarn
 
 ### Instalação
 
 ```bash
 # Clone o repositório
-git clone <YOUR_GIT_URL>
+git clone https://github.com/produtoramaxvision/site-meu-agente.git
 
 # Navegue até o diretório
-cd <YOUR_PROJECT_NAME>
+cd site-meu-agente
 
 # Instale as dependências
 npm install
@@ -100,7 +174,40 @@ npm run dev
 
 O projeto estará disponível em `http://localhost:8080`
 
-## 📦 Build para Produção
+### Scripts Disponíveis
+
+```bash
+npm run dev          # Servidor de desenvolvimento
+npm run build        # Build para produção
+npm run preview      # Preview do build
+npm run lint         # Linting com ESLint
+npm run type-check   # Verificação de tipos TypeScript
+```
+
+### Variáveis de Ambiente
+
+Crie um arquivo `.env` na raiz do projeto:
+
+```bash
+# Google Tag Manager
+VITE_GTM_ID=GTM-XXXXXXX
+
+# Site URL (para SEO e Open Graph)
+VITE_SITE_URL=https://site.meuagente.api.br
+
+# Supabase
+VITE_SUPABASE_URL=https://xxx.supabase.co
+VITE_SUPABASE_ANON_KEY=xxx
+
+# Stripe
+VITE_STRIPE_PUBLIC_KEY=pk_xxx
+```
+
+---
+
+## 📦 Build e Deploy
+
+### Build para Produção
 
 ```bash
 npm run build
@@ -108,97 +215,137 @@ npm run build
 
 Os arquivos otimizados serão gerados na pasta `dist/`
 
-## 🌐 Deploy
+### Deploy via Vercel
 
-Para fazer deploy via Lovable:
-1. Acesse https://lovable.dev/projects/46c8cc9d-0870-4e8b-a870-4ab9f66839d3
-2. Clique em "Publish" no canto superior direito
-3. Clique em "Update" para publicar as alterações
+O projeto está configurado para deploy automático via Vercel:
 
-## 📄 Páginas
+1. Push para a branch `main`
+2. Vercel detecta e faz o build automaticamente
+3. Deploy em produção
 
-### Páginas Principais
+### Deploy Manual
 
-- **/** - Landing page completa com todas as seções de vendas
-- **/planos** - Planos detalhados, matriz de recursos, calculadora de ROI e FAQ de planos
-- **/como-funciona** - Deep dive em cada agente de IA, fluxo do SDR e recursos do app
-- **/blog** - Listagem de posts com filtros por categoria, busca e sidebar
-- **/blog/:slug** - Post individual com TOC, sidebar sticky, CTAs e posts relacionados
-- **/faq** - Perguntas frequentes categorizadas (Geral, Planos, Uso, Segurança, Técnico)
-- **/contato** - Formulário validado, informações de contato e redes sociais
+```bash
+# Build
+npm run build
 
-### Posts do Blog (5+ completos)
+# Preview local
+npm run preview
+```
 
-1. "Como Agentes de IA no WhatsApp Podem Economizar 40 Horas por Mês"
-2. "Guia Completo: Automatize Seu Atendimento com IA em 5 Passos"
-3. "SDR Virtual: Como Qualificar Leads Automaticamente pelo WhatsApp"
-4. "Gestão Financeira pelo WhatsApp: Vale a Pena?"
-5. "7 Exemplos Reais de Empresas que Dobraram Conversões com Agentes de IA"
-6. "WhatsApp Business e IA: O Guia Definitivo para 2025"
-7. "Como Otimizar Google Ads com IA: Análise Automática de Campanhas"
+---
 
-## 🎯 SEO
+## 📚 Documentação
 
-O projeto inclui implementação completa de SEO:
+### Para Usuários
 
-### Meta Tags e Open Graph
-- Componente `<SEO>` reutilizável com meta tags completas
-- Open Graph tags para compartilhamento em redes sociais
-- Twitter Card tags para previews no Twitter
-- Imagens OG personalizadas por página
+| Documento | Descrição |
+|-----------|-----------|
+| [Guia do Usuário](docs/guia_meu_agente.md) | Manual completo de uso |
+| [Guia de Agentes](docs/GUIA_AGENTES.md) | Referência rápida de comandos |
+| [Onboarding Business](docs/ONBOARDING_BUSINESS.md) | Guia de implantação |
+| [FAQ](docs/faq.md) | Perguntas frequentes |
 
-### Structured Data (JSON-LD)
-- **Home e Planos:** Schema SoftwareApplication com ofertas dos 4 planos
-- **FAQ:** Schema FAQPage com todas as perguntas/respostas
-- **Blog Posts:** Schema Article com autor, data e organização
-- **Organização:** Schema Organization com contatos e redes sociais
+### Para Desenvolvedores
 
-### Sitemap e Robots
-- `sitemap.xml` com todas as rotas estáticas e posts do blog
-- `robots.txt` otimizado para crawlers
-- URLs amigáveis e hierárquicas
+| Documento | Descrição |
+|-----------|-----------|
+| [PRD](docs/meu_agente_prd.md) | Product Requirements Document |
+| [Arquitetura](docs/dev/ARQUITETURA.md) | Arquitetura do sistema |
+| [Fluxo Checkout](docs/dev/FLUXO_CHECKOUT.md) | Integração site ↔ app |
+| [Integração Stripe](docs/dev/INTEGRACAO_STRIPE.md) | Setup de pagamentos |
+| [Otimizações](docs/dev/OTIMIZACOES.md) | Performance e PageSpeed |
+| [Changelog](docs/CHANGELOG.md) | Histórico de mudanças |
 
-### Google Tag Manager
-- Componente `<GTM>` preparado para integração
-- Configure `VITE_GTM_ID` nas variáveis de ambiente
+### Legal
 
-## ✨ Recursos e Funcionalidades
+| Documento | Descrição |
+|-----------|-----------|
+| [Termos de Uso](docs/termos-de-uso.md) | Termos de serviço |
+| [Política de Privacidade](docs/politica-de-privacidade.md) | LGPD e privacidade |
 
-### Chat Widget Flutuante
-- Botão fixo no canto inferior direito em todas as páginas
-- Card interativo com opções rápidas de contato
-- Redirecionamento direto para WhatsApp
-- Animações suaves de entrada/saída
+---
 
-### Newsletter Signup
-- Componente reutilizável em 3 variantes: `default`, `compact`, `card`
-- Validação de email com feedback visual
-- Integrado ao footer e páginas do blog
-- Toast de confirmação de inscrição
+## 🎨 Design System
 
-### Calculadora de ROI (Planos)
-- Cálculo interativo de economia de tempo e recuperação de leads
-- Comparação de ROI entre planos Básico e Business
-- Atualização em tempo real conforme usuário digita
+### Paleta de Cores
 
-### Formulário de Contato Validado
-- React Hook Form + Zod para validação robusta
-- Feedback visual com animação `shake` em erros
-- Estados de loading e sucesso com toasts
-- Integração com redes sociais
+O projeto utiliza um design system monocromático baseado em HSL:
 
-### Blog com Markdown
-- Posts em Markdown com frontmatter (YAML)
-- Renderização com React Markdown + syntax highlighting
-- TOC (Table of Contents) automático
-- Sidebar sticky com CTA e newsletter
-- Filtros por categoria e busca por palavras-chave
-- Posts relacionados automaticamente
+- **Brand**: Preto/Cinza com gradientes `brand-900` → `brand-700`
+- **Accent**: Verde para CTAs e elementos de destaque
+- **Semantic**: Verde (sucesso), Amarelo (aviso), Vermelho (erro)
+
+### Tipografia
+
+- **Fonte**: Inter (Google Fonts)
+- **Headings**: 600-700 weight
+- **Body**: 400-500 weight
+
+### Componentes
+
+- Customizados do shadcn/ui
+- Animações com Framer Motion
+- Glassmorphism com `backdrop-filter`
+
+---
+
+## 🔍 SEO
+
+### Implementação
+
+- ✅ Componente `<SEO>` reutilizável
+- ✅ Open Graph tags para redes sociais
+- ✅ Twitter Card tags
+- ✅ Structured Data (JSON-LD)
+- ✅ Sitemap.xml dinâmico
+- ✅ Robots.txt otimizado
+
+### Schemas JSON-LD
+
+- **Home/Planos**: `SoftwareApplication` com ofertas
+- **FAQ**: `FAQPage` com perguntas/respostas
+- **Blog**: `Article` com autor e data
+- **Organização**: `Organization` com contatos
+
+---
+
+## ♿ Acessibilidade
+
+- ✅ Contraste WCAG AA
+- ✅ Foco visível em controles
+- ✅ `aria-labels` em botões icon-only
+- ✅ Navegação por teclado
+- ✅ Suporte a `prefers-reduced-motion`
+- ✅ Textos alternativos em imagens
+
+---
+
+## 📊 Performance
+
+### Otimizações
+
+- ✅ Lazy loading de imagens
+- ✅ Code splitting automático
+- ✅ Compressão de assets
+- ✅ Fontes otimizadas
+- ✅ Animações CSS preferidas
+
+### Metas Lighthouse
+
+| Métrica | Meta |
+|---------|------|
+| Performance | 90+ |
+| Accessibility | 95+ |
+| Best Practices | 95+ |
+| SEO | 100 |
+
+---
 
 ## 📝 Como Adicionar Posts ao Blog
 
-1. Crie um novo arquivo `.md` em `content/blog/`
-2. Adicione o frontmatter com metadados:
+1. **Crie** um arquivo `.md` em `content/blog/`
+2. **Adicione** o frontmatter:
 
 ```markdown
 ---
@@ -208,7 +355,7 @@ description: "Descrição para SEO"
 category: "Automação"
 tags: ["IA", "WhatsApp"]
 author: "Equipe Meu Agente"
-date: "2025-01-16"
+date: "2025-12-07"
 coverImage: "/placeholder.svg"
 readTime: "8 min"
 featured: true
@@ -219,56 +366,51 @@ featured: true
 Conteúdo em Markdown...
 ```
 
-3. Adicione os metadados ao array `postsData` em `src/lib/blog.ts`
-4. Adicione a URL ao `public/sitemap.xml`
+3. **Adicione** os metadados em `src/lib/blog.ts`
+4. **Atualize** o `public/sitemap.xml`
 
-## 🔧 Variáveis de Ambiente
+---
 
-Crie um arquivo `.env` na raiz do projeto:
+## 🤝 Contribuindo
 
-```bash
-# Google Tag Manager
-VITE_GTM_ID=GTM-XXXXXXX
+1. Fork o repositório
+2. Crie uma branch (`git checkout -b feature/nova-feature`)
+3. Commit suas mudanças (`git commit -m 'Adiciona nova feature'`)
+4. Push para a branch (`git push origin feature/nova-feature`)
+5. Abra um Pull Request
 
-# Site URL (para SEO e Open Graph)
-VITE_SITE_URL=https://site.meuagente.api.br
-```
+---
 
-## ♿ Acessibilidade
+## 📞 Contato
 
-O site implementa boas práticas de acessibilidade:
+**Meu Agente**  
+São Paulo, Brasil
 
-- Contraste mínimo WCAG AA em todos os elementos
-- Foco visível em controles interativos
-- `aria-labels` em botões icon-only
-- Navegação completa por teclado
-- Suporte a `prefers-reduced-motion` (desativa animações)
-- Textos alternativos em imagens
+| Canal | Contato |
+|-------|---------|
+| 📧 Email | contato@meuagente.api.br |
+| 📧 Comercial | comercial@meuagente.api.br |
+| 📞 WhatsApp | (11) 95118-2561 |
+| 🌐 Site | https://site.meuagente.api.br |
+| 📱 App | https://app.meuagente.api.br |
 
-## 📊 Performance
+### Redes Sociais
 
-### Otimizações Implementadas
+- [Facebook](https://facebook.com/meuagente)
+- [Instagram](https://instagram.com/meu_agente)
+- [LinkedIn](https://linkedin.com/company/meuagente)
+- [YouTube](https://youtube.com/@meuagente)
 
-- Lazy loading de imagens com componente otimizado
-- Code splitting automático via Vite
-- Compressão de assets na build
-- Fontes otimizadas via Google Fonts
-- Animações CSS em vez de JavaScript quando possível
-- Glassmorphism com `backdrop-filter` otimizado
+---
 
-### Objetivo Lighthouse
-
-- Performance: 90+
-- Accessibility: 95+
-- Best Practices: 95+
-- SEO: 100
-
-## 📝 Licença
+## 📄 Licença
 
 © 2025 Meu Agente. Todos os direitos reservados.
 
-## 🤝 Suporte
+Este é um projeto proprietário. Não é permitida a reprodução, distribuição ou modificação sem autorização prévia.
 
-Para dúvidas ou suporte:
-- Email: contato@meuagente.api.br
-- WhatsApp: (11) 99999-9999
+---
+
+<p align="center">
+  Feito com ❤️ pela equipe <strong>Meu Agente</strong>
+</p>

@@ -1,6 +1,6 @@
 # Política de Privacidade – Meu Agente
 
-**Data de vigência:** 19/11/2025  
+**Data de vigência:** 07/12/2025  
 
 Esta Política de Privacidade descreve como o **Meu Agente** coleta, utiliza, armazena, compartilha e protege os dados pessoais dos usuários que acessam e utilizam nosso site, nossas páginas de captura e nossos serviços de agentes de IA para automação de atendimento, qualificação de leads e demais funcionalidades oferecidas pela plataforma (**“Plataforma Meu Agente”**).
 

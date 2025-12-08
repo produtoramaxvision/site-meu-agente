@@ -1,6 +1,6 @@
 # Termos de Uso – Meu Agente
 
-**Data de vigência:** 19/11/2025  
+**Data de vigência:** 07/12/2025  
 
 Estes Termos de Uso regulam o acesso e a utilização da plataforma **Meu Agente** e de todos os serviços relacionados, incluindo, mas não se limitando a, agentes de inteligência artificial, automações de atendimento, integrações com WhatsApp e outras ferramentas, páginas de captura, recursos de gestão e relatórios (**“Plataforma Meu Agente”**).
 
@@ -77,7 +77,7 @@ O Meu Agente poderá, a seu critério, recusar ou cancelar cadastros que:
 
 O Meu Agente oferece diferentes **Planos** (por exemplo, Free, Básico, Business, Premium), com recursos, limites e condições que podem incluir:
 
-- Uso de agentes de IA específicos (Financeiro, SDR, Marketing, Dev, Vídeo, etc.);  
+- Uso de agentes de IA específicos (Financeiro, Agendamento, SDR, Marketing, Dev, Vídeo, Confirmação, Resumo de Grupos, Remarketing, Follow-up, entre outros);  
 - Conexão ou não de número WhatsApp dedicado;  
 - Limites de uso, armazenamento, volume de contatos/mensagens e integrações;  
 - Níveis de suporte (padrão, prioritário, 24/7);  
