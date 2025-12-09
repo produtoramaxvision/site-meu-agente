@@ -17,7 +17,6 @@ const WhatsappExamples = lazy(() => import("@/components/about/WhatsappExamples"
 const FeaturesSection = lazy(() => import("@/components/sections/FeaturesSection"));
 const ResponsibleAI = lazy(() => import("@/components/about/ResponsibleAI").then((m) => ({ default: m.ResponsibleAI })));
 const TestimonialsSection = lazy(() => import("@/components/sections/TestimonialsSection"));
-const PricingSection = lazy(() => import("@/components/sections/PricingSection"));
 const FaqSection = lazy(() => import("@/components/sections/FaqSection"));
 const FinalCTASection = lazy(() => import("@/components/sections/FinalCTASection"));
 
@@ -26,7 +25,6 @@ const SECTION_LINKS = [
   { id: "agentes-ia", label: "Agentes de IA" },
   { id: "casos-uso", label: "Casos de uso" },
   { id: "plataforma", label: "Plataforma" },
-  { id: "planos", label: "Planos" },
   { id: "seguranca", label: "Segurança" },
   { id: "duvidas", label: "Dúvidas" },
 ] as const;
@@ -144,12 +142,7 @@ const Index = () => {
           </Suspense>
         </div>
 
-        {/* Capítulo 5 – Planos, FAQ e CTA final */}
-        <div id="planos" className="relative z-10">
-          <Suspense fallback={<div className="h-32" aria-label="Carregando planos" />}> 
-            <PricingSection />
-          </Suspense>
-        </div>
+        {/* Capítulo 5 – FAQ e CTA final */}
         <div id="duvidas" className="relative z-10">
           <Suspense fallback={<div className="h-32" aria-label="Carregando dúvidas" />}> 
             <FaqSection />
