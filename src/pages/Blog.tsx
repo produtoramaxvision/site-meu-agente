@@ -32,9 +32,41 @@ const Blog = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const categories = getCategories();
+  const CATEGORY_BADGE_BASE =
+    "inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-[11px] font-medium border backdrop-blur-sm shadow-[0_0_0_1px_rgba(255,255,255,0.04)]";
+
+  const CATEGORY_STYLES: Record<string, string> = {
+    "Automação":
+      "border-emerald-500/40 bg-emerald-500/5 text-emerald-500 shadow-[0_0_0_1px_rgba(16,185,129,0.20),0_0_0_4px_rgba(16,185,129,0.08)]",
+    "IA":
+      "border-indigo-500/40 bg-indigo-500/5 text-indigo-500 shadow-[0_0_0_1px_rgba(99,102,241,0.20),0_0_0_4px_rgba(99,102,241,0.08)]",
+    "Vendas":
+      "border-rose-500/40 bg-rose-500/5 text-rose-500 shadow-[0_0_0_1px_rgba(244,63,94,0.20),0_0_0_4px_rgba(244,63,94,0.08)]",
+    "Finanças":
+      "border-teal-500/40 bg-teal-500/5 text-teal-500 shadow-[0_0_0_1px_rgba(20,184,166,0.20),0_0_0_4px_rgba(20,184,166,0.08)]",
+    "WhatsApp":
+      "border-emerald-500/40 bg-emerald-500/5 text-emerald-500 shadow-[0_0_0_1px_rgba(16,185,129,0.20),0_0_0_4px_rgba(16,185,129,0.08)]",
+    "Marketing":
+      "border-amber-500/40 bg-amber-500/5 text-amber-500 shadow-[0_0_0_1px_rgba(245,158,11,0.20),0_0_0_4px_rgba(245,158,11,0.08)]",
+    "Casos de Uso":
+      "border-sky-500/40 bg-sky-500/5 text-sky-500 shadow-[0_0_0_1px_rgba(14,165,233,0.20),0_0_0_4px_rgba(14,165,233,0.08)]",
+    "Produtividade":
+      "border-lime-500/40 bg-lime-500/5 text-lime-600 shadow-[0_0_0_1px_rgba(132,204,22,0.20),0_0_0_4px_rgba(132,204,22,0.08)]",
+    "Pesquisa":
+      "border-purple-500/40 bg-purple-500/5 text-purple-500 shadow-[0_0_0_1px_rgba(168,85,247,0.20),0_0_0_4px_rgba(168,85,247,0.08)]",
+    "Desenvolvimento":
+      "border-blue-500/40 bg-blue-500/5 text-blue-500 shadow-[0_0_0_1px_rgba(59,130,246,0.20),0_0_0_4px_rgba(59,130,246,0.08)]",
+    "Conteúdo":
+      "border-fuchsia-500/40 bg-fuchsia-500/5 text-fuchsia-500 shadow-[0_0_0_1px_rgba(217,70,239,0.20),0_0_0_4px_rgba(217,70,239,0.08)]",
+  };
+  const getCategoryBadgeClass = (category: string) =>
+    `${CATEGORY_BADGE_BASE} ${
+      CATEGORY_STYLES[category] ??
+      "border-border/40 bg-muted/10 text-text shadow-[0_0_0_1px_rgba(255,255,255,0.04)]"
+    }`;
   
-  // Configuração de paginação - 9 artigos por página (melhor prática para blogs)
-  const POSTS_PER_PAGE = 9;
+  // Configuração de paginação - 8 artigos por página
+  const POSTS_PER_PAGE = 8;
 
   useEffect(() => {
     const loadPosts = async () => {
@@ -72,24 +104,14 @@ const Blog = () => {
   const endIndex = startIndex + POSTS_PER_PAGE;
   const currentPosts = gridPosts.slice(startIndex, endIndex);
 
-  // Resetar para página 1 quando filtros mudarem
+  // Resetar para página 1 quando filtros mudarem (sem scroll automático)
   useEffect(() => {
     setCurrentPage(1);
-    // Scroll suave para o topo da seção de artigos
-    const articlesSection = document.getElementById('articles-section');
-    if (articlesSection) {
-      articlesSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
   }, [selectedCategory, searchQuery]);
 
   // Função para mudar de página
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
-    // Scroll para o topo da seção de artigos
-    const articlesSection = document.getElementById('articles-section');
-    if (articlesSection) {
-      articlesSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
   };
 
   return (
@@ -151,16 +173,10 @@ const Blog = () => {
                 <Link
                   key={post.slug}
                   to={`/blog/${post.slug}`}
-                  className={`group relative flex flex-col overflow-hidden rounded-2xl border border-border/60 bg-surface/70 p-4 shadow-adaptive backdrop-blur-sm transition-all hover:-translate-y-1 hover:border-accent hover:shadow-xl-adaptive md:p-5 ${
-                    index === 0 ? "md:col-span-2" : ""
-                  }`}
+                  className="group relative flex flex-col overflow-hidden rounded-2xl border border-border/60 bg-surface/70 p-4 shadow-adaptive backdrop-blur-sm transition-all hover:-translate-y-1 hover:border-accent hover:shadow-xl-adaptive md:p-5"
                 >
                   <div
-                    className={`relative mb-4 overflow-hidden rounded-xl ${
-                      index === 0
-                        ? "aspect-[16/6] sm:aspect-[16/5]"
-                        : "aspect-video"
-                    } bg-gradient-subtle`}
+                    className="relative mb-4 overflow-hidden rounded-xl bg-gradient-subtle aspect-[16/9] sm:aspect-[4/3]"
                   >
                     <img
                       src={post.coverImage}
@@ -194,7 +210,10 @@ const Blog = () => {
 
                   <div className="space-y-3">
                     <div className="flex flex-wrap items-center gap-2">
-                      <Badge variant="secondary" className="text-[11px]">
+                      <Badge
+                        variant="secondary"
+                        className={getCategoryBadgeClass(post.category)}
+                      >
                         {post.category}
                       </Badge>
                       {post.featured && (
@@ -203,22 +222,10 @@ const Blog = () => {
                         </Badge>
                       )}
                     </div>
-                    <h2
-                      className={`text-balance font-semibold text-text transition-colors group-hover-accent ${
-                        index === 0
-                          ? "text-xl sm:text-2xl lg:text-3xl"
-                          : "text-lg sm:text-xl"
-                      }`}
-                    >
+                    <h2 className="text-balance text-lg sm:text-xl font-semibold text-text transition-colors group-hover-accent">
                       {post.title}
                     </h2>
-                    <p
-                      className={`text-text-muted ${
-                        index === 0
-                          ? "line-clamp-3 text-sm sm:text-base"
-                          : "line-clamp-2 text-sm"
-                      }`}
-                    >
+                    <p className="text-text-muted line-clamp-2 text-sm sm:text-base">
                       {post.description}
                     </p>
                   </div>
@@ -255,20 +262,20 @@ const Blog = () => {
       {/* Conteúdo principal */}
       <section id="articles-section" className="py-14 sm:py-16">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="mb-6 flex items-center justify-between gap-3">
+            <div>
+              <h2 className="text-lg font-semibold text-text sm:text-xl">
+                Todos os artigos
+              </h2>
+              <p className="text-xs text-text-muted sm:text-sm">
+                Mostrando {startIndex + 1}-{Math.min(endIndex, gridPosts.length)} de {gridPosts.length} artigos
+              </p>
+            </div>
+          </div>
+
           <div className="grid gap-10 lg:grid-cols-[minmax(0,2fr)_minmax(260px,1fr)]">
             {/* Grid de posts */}
             <div>
-              <div className="mb-6 flex items-center justify-between gap-3">
-                <div>
-                  <h2 className="text-lg font-semibold text-text sm:text-xl">
-                    Todos os artigos
-                  </h2>
-                  <p className="text-xs text-text-muted sm:text-sm">
-                    Mostrando {startIndex + 1}-{Math.min(endIndex, gridPosts.length)} de {gridPosts.length} artigos
-                  </p>
-                </div>
-              </div>
-
               <div className="grid gap-7 md:grid-cols-2">
                 {currentPosts.map((post, index) => (
                   <Link to={`/blog/${post.slug}`} key={post.slug}>
@@ -291,7 +298,7 @@ const Blog = () => {
                         <div className="absolute left-4 top-4 flex flex-wrap items-center gap-2 text-[11px] text-white/90">
                           <Badge
                             variant="secondary"
-                            className="bg-black/70 text-[11px] text-white backdrop-blur"
+                            className={getCategoryBadgeClass(post.category)}
                           >
                             {post.category}
                           </Badge>
@@ -313,7 +320,7 @@ const Blog = () => {
                       </CardHeader>
 
                       <CardContent className="mt-auto border-t border-border/50 bg-background/40 py-3 text-xs text-text-muted sm:text-[13px]">
-                        <div className="flex flex-wrap items-center gap-4">
+                        <div className="flex min-w-0 items-center gap-4 whitespace-nowrap overflow-hidden">
                           <div className="flex items-center gap-1.5">
                             <Calendar className="h-3 w-3" />
                             {new Date(post.date).toLocaleDateString("pt-BR")}
@@ -426,7 +433,7 @@ const Blog = () => {
             </div>
 
             {/* Sidebar refinada */}
-            <div className="space-y-8">
+            <div className="space-y-8 lg:self-start">
               {/* Posts em destaque / mais lidos */}
               <Card className="border-border/60 bg-surface shadow-adaptive">
                 <CardHeader>
@@ -528,7 +535,9 @@ const Blog = () => {
                               ? "default"
                               : "outline"
                           }
-                          className="cursor-pointer rounded-full px-3 py-1 text-[11px] hover:scale-105 hover:border-accent"
+                          className={`cursor-pointer hover:scale-105 hover:border-accent ${getCategoryBadgeClass(
+                            category
+                          )}`}
                           onClick={() => setSelectedCategory(category)}
                         >
                           {category} ({count})
