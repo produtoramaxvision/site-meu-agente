@@ -69,27 +69,11 @@ const SalesPageHeader = ({ onNavigate }: SalesPageHeaderProps) => {
 
           {/* CTA buttons */}
           <div className="hidden md:flex items-center gap-4">
-            <AnimatedThemeToggler className="h-9 w-9" />
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={() => window.open("https://app.meuagente.api.br", "_blank")}
-            >
-              Entrar
-            </Button>
-            <Button
-              size="sm"
-              className="group relative overflow-hidden btn-primary-gradient shadow-xl-adaptive hover:shadow-2xl-adaptive"
-              onClick={() => window.open("https://app.meuagente.api.br", "_blank")}
-            >
-              <span>Começar Grátis</span>
-              <span className="pointer-events-none absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/20 to-transparent group-hover:translate-x-full transition-transform duration-700" />
-            </Button>
+            {/* Removed Theme Toggler, Login and Start Free buttons as requested */}
           </div>
 
           {/* Mobile header actions */}
           <div className="flex items-center gap-2 md:hidden">
-            <AnimatedThemeToggler className="h-9 w-9" />
             <button
               type="button"
               aria-label={mobileMenuOpen ? "Fechar menu" : "Abrir menu"}
@@ -118,24 +102,7 @@ const SalesPageHeader = ({ onNavigate }: SalesPageHeaderProps) => {
                 {item.name}
               </button>
             ))}
-            <div className="px-4 pt-4 space-y-2">
-              <Button
-                variant="outline"
-                size="sm"
-                className="w-full"
-                onClick={() => window.open("https://app.meuagente.api.br", "_blank")}
-              >
-                Entrar
-              </Button>
-              <Button
-                size="sm"
-                className="group relative w-full overflow-hidden btn-primary-gradient shadow-xl-adaptive hover:shadow-2xl-adaptive"
-                onClick={() => window.open("https://app.meuagente.api.br", "_blank")}
-              >
-                <span>Começar Grátis</span>
-                <span className="pointer-events-none absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/20 to-transparent group-hover:translate-x-full transition-transform duration-700" />
-              </Button>
-            </div>
+            {/* Removed mobile menu buttons as requested */}
           </div>
         )}
       </nav>
